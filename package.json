@@ -1,6 +1,6 @@
 {
   "name": "caniuse-lite",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "main": "dist/index.js",
   "scripts": {
