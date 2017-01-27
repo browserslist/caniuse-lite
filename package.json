@@ -1,0 +1,60 @@
+{
+  "name": "caniuse-lite",
+  "version": "0.0.0",
+  "description": "A smaller version of caniuse-db, with only the essentials!",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebundle": "webpack consumer.js bundle/index.js",
+    "bundle": "gzip -9 -f bundle/index.js",
+    "postbundle": "\\ls -lh bundle/*.gz | awk '{print \"Size:\", $5\"B\"}'",
+    "prepublish": "del-cli dist && rollup -c rollup.config.js src/index.js -o dist/index.js",
+    "prepack": "rollup -c rollup.config.js src/packer/index.js -o dist/pack.js",
+    "pack": "node dist/pack",
+    "test": "nyc ava"
+  },
+  "files": [
+    "data",
+    "dist"
+  ],
+  "keywords": [
+    "support",
+    "css",
+    "js",
+    "html5",
+    "svg"
+  ],
+  "author": {
+    "name": "Ben Briggs",
+    "email": "beneb.info@gmail.com",
+    "url": "http://beneb.info"
+  },
+  "repository": "ben-eb/caniuse-lite",
+  "license": "CC-BY-4.0",
+  "devDependencies": {
+    "all-contributors-cli": "^3.0.7",
+    "alphanum-sort": "^1.0.2",
+    "ava": "^0.17.0",
+    "babel-generator": "^6.21.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-register": "^6.18.0",
+    "babel-types": "^6.21.0",
+    "caniuse-db": "^1.0.30000605",
+    "del-cli": "^0.2.1",
+    "json-loader": "^0.5.4",
+    "nyc": "^10.1.2",
+    "rollup": "^0.41.4",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-cleanup": "^1.0.0",
+    "timsort": "^0.3.0",
+    "webpack": "^1.14.0",
+    "webpack-bundle-analyzer": "^2.2.1"
+  },
+  "ava": {
+    "require": "babel-register"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}
