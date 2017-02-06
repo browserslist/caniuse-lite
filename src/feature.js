@@ -53,7 +53,7 @@ export function feature (data) {
             }, {});
         }
         if (key === '2') {
-            list.status = statuses[key];
+            list.status = statuses[data[key]];
         }
         return list;
     }, {});
