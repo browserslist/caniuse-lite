@@ -45,11 +45,8 @@ fs.readdir(features, function (err, files) {
     let keysArray = Object.keys(keys);
     timsort.sort(keysArray, (a, b) => b.length - a.length);
     timsort.sort(keysArray, (a, b) => keys[b] - keys[a]);
-    const data = keysArray.reduce((list, key) => {
-        return list.concat(key);
-    }, []);
-    write('browsers.js', generateBrowsersMap(data));
-    const map2 = data.reduce((list, version, index) => {
+    write('browsers.js', generateBrowsersMap(keysArray));
+    const map2 = keysArray.reduce((list, version, index) => {
         list[version] = index + 1;
         return list;
     }, {});
