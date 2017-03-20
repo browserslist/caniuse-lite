@@ -38,7 +38,7 @@
     "babel-preset-env": "^1.1.8",
     "babel-register": "^6.18.0",
     "babel-types": "^6.21.0",
-    "caniuse-db": "^1.0.30000621",
+    "caniuse-db": "^1.0.30000637",
     "del-cli": "^0.2.1",
     "json-loader": "^0.5.4",
     "nyc": "^10.1.2",

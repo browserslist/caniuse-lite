@@ -15,4 +15,5 @@ export default {
     14: "ie_mob",
     15: "and_uc",
     16: "samsung",
+    17: "and_qq",
 };
