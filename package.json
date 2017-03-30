@@ -34,6 +34,7 @@
     "all-contributors-cli": "^3.0.7",
     "alphanum-sort": "^1.0.2",
     "ava": "^0.18.0",
+    "babel-cli": "^6.24.0",
     "babel-generator": "^6.21.0",
     "babel-preset-env": "^1.1.8",
     "babel-register": "^6.18.0",
