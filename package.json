@@ -41,18 +41,11 @@
     "jest": "^19.0.2",
     "listr": "^0.11.0",
     "mz": "^2.6.0",
-    "nyc": "^10.1.2",
     "rollup": "^0.41.4",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-cleanup": "^1.0.0",
     "webpack": "^2.0.0",
     "webpack-bundle-analyzer": "^2.0.0"
-  },
-  "ava": {
-    "files": [
-      "**/*.test.js"
-    ],
-    "require": "babel-register"
   },
   "babel": {
     "presets": [
