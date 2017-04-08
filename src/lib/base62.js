@@ -1,9 +1,6 @@
-const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 export function encode (integer) {
-    if (integer === 0) {
-        return '0';
-    }
     let remainder = integer;
     let result = '';
     do {

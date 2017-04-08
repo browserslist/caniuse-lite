@@ -1,7 +1,7 @@
 const features = require('./data/features');
-const dist = require('./dist');
+const lite = require('./dist/unpacker');
 
 Object.keys(features).forEach(function (key) {
     const feat = features[key];
-    console.log(key, dist.feature(feat));
+    console.log(key, lite.feature(feat));
 });

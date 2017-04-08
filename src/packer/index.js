@@ -1,76 +1,21 @@
-import fs from 'fs';
-import path from 'path';
-import timsort from 'timsort';
-import packAgents from './packAgents';
-import packFeature from './packFeature';
-import packRegion from './packRegion';
-import generateBrowsersMap from './generateBrowsersMap';
-import generateIndex from './generateIndex';
+import Listr from 'listr';
+import packAgents from './agents';
+import packBrowsers from './browsers';
+import packFeature from './feature';
+import packRegion from './region';
 
-const base = path.join(__dirname, '../node_modules/caniuse-db/');
-const features = `${base}features-json`;
+const tasks = new Listr([{
+    title: 'Browsers - Mangle application name',
+    task: packBrowsers,
+}, {
+    title: 'Browsers - Mangle version naming & agents usage',
+    task: packAgents,
+}, {
+    title: 'Features - Mangle support data',
+    task: packFeature,
+}, {
+    title: 'Regional - Mangle browser usage data',
+    task: packRegion,
+}]);
 
-function write (fpath, contents) {
-    return fs.writeFile(path.join(__dirname, `../data/${fpath}`), contents);
-}
-
-const keys = {};
-
-function compressFeatures (invertedMap, data) {
-    return {
-        "1": Object.keys(data[1]).reduce((browsers, browser) => {
-            browsers[browser] = Object.keys(data[1][browser]).reduce((versions, version) => {
-                versions[invertedMap[version]] = data[1][browser][version];
-                return versions;
-            }, {});
-            return browsers;
-        }, {}),
-        "2": data[2],
-    };
-}
-
-fs.readdir(features, function (err, files) {
-    const map = {};
-    files.forEach(file => {
-        map[path.basename(file, '.json')] = `./features-json/${file}`;
-        const data = packFeature(require(`${features}/${file}`))[1];
-        Object.keys(data).forEach(d => {
-            Object.keys(data[d]).forEach(key => {
-                if (!keys[key]) keys[key] = 0;
-                keys[key] += 1;
-            });
-        });
-    });
-    write('features.js', generateIndex(map));
-    let keysArray = Object.keys(keys);
-    timsort.sort(keysArray, (a, b) => b.length - a.length);
-    timsort.sort(keysArray, (a, b) => keys[b] - keys[a]);
-    write('browsers.js', generateBrowsersMap(keysArray));
-    const map2 = keysArray.reduce((list, version, index) => {
-        list[version] = index + 1;
-        return list;
-    }, {});
-    files.forEach(file => {
-        const data = packFeature(require(`${features}/${file}`));
-        write(
-            `features-json/${file}`,
-            JSON.stringify(compressFeatures(map2, data))
-        );
-    });
-});
-
-const region = `${base}region-usage-json`;
-
-fs.readdir(region, function (err, files) {
-    files.forEach(file => {
-        write(
-            `region-usage-json/${file}`,
-            JSON.stringify(packRegion(require(`${region}/${file}`)))
-        );
-    });
-});
-
-write(
-    `agents.json`,
-    JSON.stringify(packAgents(require(`${base}data.json`)))
-);
+tasks.run().catch(err => console.error(err));
