@@ -10,11 +10,17 @@ to the user. However in automated tools, [many of these fields go unused][2];
 it's not a problem for server side consumption but client side, the less
 JavaScript that we send to the end user the better.
 
-caniuse-lite then, is a smaller dataset that keeps the essential parts of the
-original, and then packs those parts down on disk. So for example, the original
-database stores support for a feature as a string, e.g. `"y"`, whereas
-caniuse-lite uses integers. These integers are then converted back to strings
-by using the appropriate conversion methods exposed by this module.
+caniuse-lite then, is a smaller dataset that keeps essential parts of the data
+in a compact format. It does this in multiple ways, such as converting `null`
+array entries into empty strings, representing support data as an integer rather
+than a string, and using base62 references instead of longer human-readable
+keys.
+
+This packed data is then reassembled (via functions exposed by this module) into
+a larger format which is mostly compatible with caniuse-db, and so it can be
+used as an almost drop-in replacement for caniuse-db for contexts where size on
+disk is important; for example, usage in web browsers. The API differences are
+very small and are detailed in the section below.
 
 
 ## API
@@ -25,30 +31,28 @@ import * as lite from 'caniuse-lite';
 
 ### `lite.agents`
 
-caniuse-db provides the `agents` key in the full `data.json`, which includes
-all of the data. caniuse-lite provides this data instead, which has the
-`usage_global`, `prefix` and `prefix_exceptions` keys from the original. Note
-that the `versions` key is also included, but unlike caniuse-db, there are no
-`null` values included with this data.
+caniuse-db provides a full `data.json` file which contains all of the features
+data. Instead of this large file, caniuse-lite provides this data subset
+instead, which has the `prefix`, `prefix_exceptions`, `usage_global` and
+`versions` keys from the original.
 
-### `lite.feature(json)`
+### `lite.feature(js)`
 
-The `feature` method takes a file from `data/features-json` and converts it
-into something that more closely represents the `caniuse-db` format. Note that
-only the `stats` and `status` keys are kept from the original data.
+The `feature` method takes a file from `data/features` and converts it into
+something that more closely represents the `caniuse-db` format. Note that only
+the `stats` and `status` keys are kept from the original data.
 
 ### `lite.features`
 
 The `features` index is provided as a way to query all of the features that
-are listed in the `caniuse-db` dataset. You should probably pair this index
-with the `feature` method to get something more human-readable.
+are listed in the `caniuse-db` dataset. Note that you will need to use the
+`feature` method on values from this index to get a human-readable format.
 
-### `lite.region(json)`
+### `lite.region(js)`
 
-The `region` method takes a file from `data/region-usage-json` and converts it
-into something that more closely represents the `caniuse-db` format. Note that
-*only* the usage data is exposed here (the `data` key in the original files),
-with any `null` values removed.
+The `region` method takes a file from `data/regions` and converts it into
+something that more closely represents the `caniuse-db` format. Note that *only*
+the usage data is exposed here (the `data` key in the original files).
 
 
 ## Contributors
