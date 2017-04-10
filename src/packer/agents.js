@@ -1,4 +1,5 @@
 import fs from 'mz/fs';
+import writeFile from 'write-file-promise';
 import path from 'path';
 import invertObject from '../lib/invertObject';
 import stringifyObject from '../lib/stringifyObject';
@@ -57,7 +58,7 @@ function packBrowserVersions (agents) {
     }, {});
     
     
-    return fs.writeFile(
+    return writeFile(
         path.join(__dirname, `../../data/browserVersions.js`),
         stringifyObject(browserVersions)
     ).then(() => [agents, browserVersions]);
@@ -69,7 +70,7 @@ export default function packAgents () {
         .then(data => JSON.parse(data).agents)
         .then(packBrowserVersions)
         .then(([agents, versions]) => {
-            return fs.writeFile(
+            return writeFile(
                 path.join(__dirname, `../../data/agents.js`),
                 stringifyObject(relevantKeys(versions, agents))
             );

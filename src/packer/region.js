@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'mz/fs';
+import writeFile from 'write-file-promise';
 import * as t from 'babel-types';
 import {encode} from '../lib/base62';
 import getContentsFactory from '../lib/getContents';
@@ -43,7 +44,7 @@ export default function packRegion () {
                     return list;
                 }, {});
                 
-                return fs.writeFile(
+                return writeFile(
                     path.join(__dirname, `../../data/regions/${region.name}.js`),
                     stringifyObject(packed)
                 );

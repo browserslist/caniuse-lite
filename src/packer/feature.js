@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'mz/fs';
+import writeFile from 'write-file-promise';
 import * as t from 'babel-types';
 import {encode} from '../lib/base62';
 import generateCode from '../lib/generateCode';
@@ -72,7 +73,7 @@ export default function packFeature () {
                 map[name] = `./features/${name}`;
                 return map;
             }, {});
-            return fs.writeFile(
+            return writeFile(
                 path.join(__dirname, '../../data/features.js'),
                 featureIndex(index)
             ).then(() => features);
@@ -101,7 +102,7 @@ export default function packFeature () {
                     return browserStats;
                 }, {});
                 packed.B = parseInt(statusesInverted[contents.status], 10);
-                return fs.writeFile(
+                return writeFile(
                     path.join(__dirname, `../../data/features/${name}.js`),
                     stringifyObject(packed)
                 );

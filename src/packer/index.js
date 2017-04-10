@@ -1,21 +1,21 @@
 import Listr from 'listr';
-import packAgents from './agents';
 import packBrowsers from './browsers';
-import packFeature from './feature';
-import packRegion from './region';
+
+/* Subsequent tasks need to be lazily loaded as the generator order matters,
+   and the files are destroyed/re-created on each packing step. */
 
 const tasks = new Listr([{
     title: 'Browsers - Mangle application name',
     task: packBrowsers,
 }, {
     title: 'Browsers - Mangle version naming & agents usage',
-    task: packAgents,
+    task: () => require('./agents').default(),
 }, {
     title: 'Features - Mangle support data',
-    task: packFeature,
+    task: () => require('./feature').default(),
 }, {
     title: 'Regional - Mangle browser usage data',
-    task: packRegion,
+    task: () => require('./region').default(),
 }]);
 
 tasks.run().catch(err => console.error(err));
