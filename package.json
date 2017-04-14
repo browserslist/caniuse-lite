@@ -1,6 +1,6 @@
 {
   "name": "caniuse-lite",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "main": "dist/unpacker/index.js",
   "scripts": {
