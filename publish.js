@@ -129,21 +129,7 @@ const tasks = new Listr([{
     enabled,
 }, {
     title: 'Publishing to npm',
-    // task: (ctx) => exec('./node_modules/.bin/np', [ctx.version]),
-    task: (ctx) => exec('./node_modules/.bin/np', ['0.3.0']),
-    enabled,
-}, {
-    title: 'Sync with GitHub',
-    task: () => {
-        return new Promise((resolve, reject) => {
-            repo.remote_push((err) => {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve();
-            });
-        });
-    },
+    task: (ctx) => exec('./node_modules/.bin/np', [ctx.version])
     enabled,
 }]);
 
