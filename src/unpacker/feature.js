@@ -23,7 +23,7 @@ function unpackSupport (cipher) {
 }
 
 export default function unpackFeature (packed) {
-    const unpacked = {status: statuses[packed.B]};
+    const unpacked = {status: statuses[packed.B], title: packed.C};
     unpacked.stats = Object.keys(packed.A).reduce((browserStats, key) => {
         const browser = packed.A[key];
         browserStats[browsers[key]] = Object.keys(browser).reduce((stats, support) => {

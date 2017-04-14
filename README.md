@@ -40,7 +40,7 @@ instead, which has the `prefix`, `prefix_exceptions`, `usage_global` and
 
 The `feature` method takes a file from `data/features` and converts it into
 something that more closely represents the `caniuse-db` format. Note that only
-the `stats` and `status` keys are kept from the original data.
+the `title`, `stats` and `status` keys are kept from the original data.
 
 ### `lite.features`
 

@@ -102,6 +102,7 @@ export default function packFeature () {
                     return browserStats;
                 }, {});
                 packed.B = parseInt(statusesInverted[contents.status], 10);
+                packed.C = contents.title;
                 return writeFile(
                     path.join(__dirname, `../../data/features/${name}.js`),
                     stringifyObject(packed)

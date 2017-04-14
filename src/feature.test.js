@@ -29,5 +29,6 @@ it('should be 1:1', () => {
         const unpacked = features(packed);
         expect(unpacked.stats).toEqual(data.stats);
         expect(unpacked.status).toEqual(data.status);
+        expect(unpacked.title).toEqual(data.title);
     });
 });
