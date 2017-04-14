@@ -1,3 +1,9 @@
+# 0.3.0
+
+-   Add the `title` key to each feature.
+-   Update `caniuse-db` to `1.0.30000653`.
+-   Test automated publish script.
+
 # 0.2.0
 
 -   Rewrite of the module. Now tries to be less clever with version merging,
