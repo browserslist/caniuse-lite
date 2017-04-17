@@ -1,3 +1,4 @@
+const bunyan = require('bunyan');
 const git = require('gift');
 const got = require('got');
 const execa = require('execa');
@@ -13,6 +14,14 @@ require('any-observable/register/rxjs-all');
 const Observable = require('any-observable');
 const streamToObservable = require('stream-to-observable');
 const pkg = require('./package.json');
+
+const log = bunyan.createLogger({
+    name: 'caniuseLite',
+    serializers: {err: bunyan.stdSerializers.err},
+    streams: [{
+        path: __dirname + '/error.log',
+    }]
+});
 
 // Cache this so we don't exit early.
 const currentVersion = pkg.devDependencies['caniuse-db'];
@@ -132,4 +141,4 @@ const tasks = new Listr([{
     enabled,
 }]);
 
-tasks.run().catch(err => console.error(err));
+tasks.run().catch(err => log.error({err}, `Publish failed.`));
