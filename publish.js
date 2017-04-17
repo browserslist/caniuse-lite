@@ -128,7 +128,7 @@ const tasks = new Listr([{
     enabled,
 }, {
     title: 'Publishing to npm',
-    task: (ctx) => exec('./node_modules/.bin/np', [ctx.version])
+    task: (ctx) => exec('./node_modules/.bin/np', [ctx.version]),
     enabled,
 }]);
 
