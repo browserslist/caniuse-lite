@@ -1,3 +1,8 @@
+# 1.x releases
+
+The contents of this section have been generated automatically; each version
+tracks the `caniuse-db` package at the same version.
+
 # 0.3.0
 
 -   Add the `title` key to each feature.

@@ -99,8 +99,7 @@ const tasks = new Listr([{
                 return writeFile(log, String(contents));
             });
     },
-    // enabled,
-    enabled: () => false
+    enabled,
 }, {
     title: 'Staging files for commit',
     task: () => {
