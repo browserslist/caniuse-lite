@@ -82,7 +82,7 @@ const tasks = new Listr([{
     title: 'Updating local caniuse-db version',
     task: (ctx) => {
         pkg.devDependencies['caniuse-db'] = ctx.version;
-        return writeFile('./package.json', JSON.stringify(pkg, null, 2));
+        return writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`);
     },
     enabled,
 }, {
