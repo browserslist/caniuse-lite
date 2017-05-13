@@ -27,6 +27,7 @@ function relevantKeys (versions, agents) {
                 }
                 return list;
             }, []),
+            E: agent.browser,
         };
         if (agent.prefix_exceptions) {
             map[browsers[key]].D = agent.prefix_exceptions;

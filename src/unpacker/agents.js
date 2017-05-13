@@ -26,6 +26,8 @@ export const agents = Object.keys(agentsData).reduce((map, key) => {
             }, []);
         } else if (entry === 'D') {
             data.prefix_exceptions = unpackBrowserVersions(versionsData[entry]);
+        } else if (entry === 'E') {
+            data.browser = versionsData[entry];
         } else { // entry is B
             data.prefix = versionsData[entry];
         }

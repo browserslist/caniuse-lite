@@ -33,8 +33,8 @@ import * as lite from 'caniuse-lite';
 
 caniuse-db provides a full `data.json` file which contains all of the features
 data. Instead of this large file, caniuse-lite provides this data subset
-instead, which has the `prefix`, `prefix_exceptions`, `usage_global` and
-`versions` keys from the original.
+instead, which has the `browser`, `prefix`, `prefix_exceptions`, `usage_global`
+and `versions` keys from the original.
 
 ### `lite.feature(js)`
 

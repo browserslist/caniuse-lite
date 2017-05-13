@@ -8,5 +8,6 @@ it('should be 1:1', () => {
         expect(data.prefix).toEqual(fulldata[key].prefix);
         expect(data.versions).toEqual(fulldata[key].versions);
         expect(data.prefix_exceptions).toEqual(fulldata[key].prefix_exceptions);
+        expect(data.browser).toEqual(fulldata[key].browser);
     });
 });
