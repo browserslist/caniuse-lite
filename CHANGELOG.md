@@ -3,6 +3,7 @@
 The contents of this section have been generated automatically; each version
 tracks the `caniuse-db` package at the same version.
 
+-   **1.0.30000701** was released on July 14th, 2017 at 06:01.
 -   **1.0.30000700** was released on July 12th, 2017 at 07:01.
 -   **1.0.30000699** was released on July 11th, 2017 at 06:02.
 -   **1.0.30000698** was released on July 10th, 2017 at 06:01.
