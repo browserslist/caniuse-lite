@@ -1,5 +1,4 @@
 .nyc_output
-bundle
 coverage
 dist
 node_modules
