@@ -149,8 +149,16 @@ const tasks = new Listr([{
     },
     enabled,
 }, {
+    title: 'Updating version',
+    task: (ctx) => exec('npm', ['version', ctx.version]),
+    enabled,
+}, {
     title: 'Publishing to npm',
-    task: (ctx) => exec('./node_modules/.bin/np', [ctx.version]),
+    task: (ctx) => exec('npm', ['publish']),
+    enabled,
+}, {
+    title: 'Syncing repo & tags to GitHub',
+    task: (ctx) => exec('git', ['push', '--follow-tags']),
     enabled,
 }]);
 
