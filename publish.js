@@ -79,6 +79,19 @@ const tasks = new Listr([{
             });
     },
 }, {
+    title: 'Syncing local repository',
+    task: (ctx) => {
+        return new Promise((resolve, reject) => {
+            repo.pull(err => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve();
+            });
+        });
+    },
+    enabled,
+}, {
     title: 'Updating local caniuse-db version',
     task: (ctx) => {
         pkg.devDependencies['caniuse-db'] = ctx.version;
