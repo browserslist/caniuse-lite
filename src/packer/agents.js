@@ -8,7 +8,7 @@ import {encode} from '../lib/base62';
 const browsersData = require('../../data/browsers');
 const browsers = invertObject(browsersData);
 
-function relevantKeys (versions, agents) {
+function relevantKeys (versions, agents, fullAgents) {
     const versionsInverted = invertObject(versions);
     return Object.keys(agents).reduce((map, key) => {
         const agent = agents[key];
@@ -28,6 +28,10 @@ function relevantKeys (versions, agents) {
                 return list;
             }, []),
             E: agent.browser,
+            F: fullAgents[key].version_list.reduce((map, item) => {
+                map[versionsInverted[item.version]] = item.release_date;
+                return map;
+            }, {}),
         };
         if (agent.prefix_exceptions) {
             map[browsers[key]].D = agent.prefix_exceptions;
@@ -70,10 +74,14 @@ export default function packAgents () {
     return fs.readFile(require.resolve('caniuse-db/data.json'), 'utf8')
         .then(data => JSON.parse(data).agents)
         .then(packBrowserVersions)
-        .then(([agents, versions]) => {
+        .then((data) => {
+            return fs.readFile(require.resolve('caniuse-db/fulldata-json/data-2.0.json'), 'utf8')
+                .then(fullData => [data, JSON.parse(fullData).agents]);
+        })
+        .then(([[agents, versions], fullAgents]) => {
             return writeFile(
                 path.join(__dirname, `../../data/agents.js`),
-                stringifyObject(relevantKeys(versions, agents))
+                stringifyObject(relevantKeys(versions, agents, fullAgents))
             );
         });
 }

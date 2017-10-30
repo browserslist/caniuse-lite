@@ -36,6 +36,21 @@ data. Instead of this large file, caniuse-lite provides this data subset
 instead, which has the `browser`, `prefix`, `prefix_exceptions`, `usage_global`
 and `versions` keys from the original.
 
+In addition, the subset contains the `release_date` key with release dates (as timestamps) for each version:
+```json
+{
+  "release_date": {
+    "6": 998870400,
+    "7": 1161129600,
+    "8": 1237420800,
+    "9": 1300060800,
+    "10": 1346716800,
+    "11": 1381968000,
+    "5.5": 962323200
+  }
+}
+```
+
 ### `lite.feature(js)`
 
 The `feature` method takes a file from `data/features` and converts it into
