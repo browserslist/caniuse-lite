@@ -1,6 +1,7 @@
-const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-export function encode (integer) {
+export function encode(integer) {
     let remainder = integer;
     let result = '';
     do {
@@ -10,8 +11,11 @@ export function encode (integer) {
     return result;
 }
 
-export function decode (string) {
-    return string.split('').reduce((memo, character, index) => {
-        return memo + characters.indexOf(character) * Math.pow(62, index);
-    }, 0);
-}
+export const decode = string =>
+    string
+        .split('')
+        .reduce(
+            (memo, character, index) =>
+                memo + characters.indexOf(character) * Math.pow(62, index),
+            0
+        );

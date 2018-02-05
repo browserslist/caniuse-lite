@@ -46,6 +46,7 @@
     "listr": "^0.11.0",
     "mdast-util-heading-range": "^2.0.1",
     "mz": "^2.6.0",
+    "ramda": "^0.25.0",
     "remark": "^7.0.0",
     "size-limit": "^0.7.1",
     "split": "^1.0.0",
