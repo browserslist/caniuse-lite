@@ -27,7 +27,18 @@ it('should be 1:1', () => {
         const data = fulldata[key];
         const packed = require(path.join(__dirname, `../data/features/${key}.js`));
         const unpacked = features(packed);
-        expect(unpacked.stats).toEqual(data.stats);
+        expect(Object.keys(unpacked.stats)).toEqual(Object.keys(data.stats));
+        Object.keys(unpacked.stats).forEach(browser => {
+            Object.keys(unpacked.stats[browser]).forEach(version => {
+                const unpackedSupport = unpacked.stats[browser][version].split(' ');
+                const originalSupport = data.stats[browser][version].split(' ');
+                const hasAllData = unpackedSupport.every(value =>
+                    originalSupport.includes(value)
+                );
+
+                expect(hasAllData).toEqual(true);
+            });
+        });
         expect(unpacked.status).toEqual(data.status);
         expect(unpacked.title).toEqual(data.title);
     });
