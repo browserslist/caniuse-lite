@@ -17,10 +17,12 @@ const pkg = require('./package.json');
 
 const log = bunyan.createLogger({
     name: 'caniuseLite',
-    serializers: {err: bunyan.stdSerializers.err},
-    streams: [{
-        path: __dirname + '/error.log',
-    }]
+    serializers: { err: bunyan.stdSerializers.err },
+    streams: [
+        {
+            path: __dirname + '/error.log'
+        }
+    ]
 });
 
 // Cache this so we don't exit early.
@@ -30,32 +32,36 @@ const repo = git(__dirname);
 
 // With thanks: https://github.com/sindresorhus/np
 const exec = (cmd, args) => {
-	const cp = execa(cmd, args);
+    const cp = execa(cmd, args);
 
-	return Observable.merge(
-		streamToObservable(cp.stdout.pipe(split()), {await: cp}),
-		streamToObservable(cp.stderr.pipe(split()), {await: cp})
-	).filter(Boolean);
+    return Observable.merge(
+        streamToObservable(cp.stdout.pipe(split()), { await: cp }),
+        streamToObservable(cp.stderr.pipe(split()), { await: cp })
+    ).filter(Boolean);
 };
 
-function enabled (ctx) {
+function enabled(ctx) {
     return ctx.version !== currentVersion;
 }
 
-function changelog (ctx) {
-    return function transformer (tree) {
+function changelog(ctx) {
+    return function transformer(tree) {
         heading(tree, /^1.x release/i, (start, nodes, end) => {
-            const addition = u('listItem', {loose: false, checked: null}, [
+            const addition = u('listItem', { loose: false, checked: null }, [
                 u('paragraph', [
-                    u('strong', [
-                        u('text', ctx.version),
-                    ]),
-                    u('text', ` was released on ${fecha.format(new Date(), 'MMMM Do, YYYY [at] HH:mm')}.`),
-                ]),
+                    u('strong', [u('text', ctx.version)]),
+                    u(
+                        'text',
+                        ` was released on ${fecha.format(
+                            new Date(),
+                            'MMMM Do, YYYY [at] HH:mm'
+                        )}.`
+                    )
+                ])
             ]);
             let list = nodes.find(node => node.type === 'list');
             if (!list) {
-                list = u('list', {loose: false, ordered: false}, [addition]);
+                list = u('list', { loose: false, ordered: false }, [addition]);
                 nodes.push(list);
             } else {
                 list.children.unshift(addition);
@@ -63,103 +69,131 @@ function changelog (ctx) {
             return [start, ...nodes, end];
         });
     };
-};
+}
 
-const tasks = new Listr([{
-    title: 'Querying for a new caniuse-db version',
-    task: (ctx, task) => {
-        return got('https://registry.npmjs.org/caniuse-db', {json: true})
-            .then(response => {
-                const version = ctx.version = response.body['dist-tags'].latest;
+const tasks = new Listr([
+    {
+        title: 'Querying for a new caniuse-db version',
+        task: (ctx, task) => {
+            return got('https://registry.npmjs.org/caniuse-db', {
+                json: true
+            }).then(response => {
+                const version = (ctx.version =
+                    response.body['dist-tags'].latest);
                 if (enabled(ctx)) {
                     task.title = `Upgrading ${currentVersion} => ${version}`;
                 } else {
                     task.title = `Already up to date! (v${version})`;
                 }
             });
+        }
     },
-}, {
-    title: 'Syncing local repository',
-    task: (ctx) => {
-        return new Promise((resolve, reject) => {
-            repo.pull(err => {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve();
+    {
+        title: 'Syncing local repository',
+        task: ctx => {
+            return new Promise((resolve, reject) => {
+                repo.pull(err => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve();
+                });
             });
-        });
+        },
+        enabled
     },
-    enabled,
-}, {
-    title: 'Updating local caniuse-db version',
-    task: (ctx) => {
-        pkg.devDependencies['caniuse-db'] = ctx.version;
-        return writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`);
+    {
+        title: 'Updating local caniuse-db version',
+        task: ctx => {
+            pkg.devDependencies['caniuse-db'] = ctx.version;
+            return writeFile(
+                './package.json',
+                `${JSON.stringify(pkg, null, 2)}\n`
+            );
+        },
+        enabled
     },
-    enabled,
-}, {
-    title: 'Retrieving dependencies from npm',
-    task: () => exec('npm', ['install']),
-    enabled,
-}, {
-    title: 'Packing caniuse data',
-    task: () => exec('babel-node', ['src/packer/index.js']),
-    enabled,
-}, {
-    title: 'Running tests',
-    task: () => exec('npm', ['test']),
-    enabled,
-}, {
-    title: 'Updating changelog',
-    task: (ctx) => {
-        const log = './CHANGELOG.md';
-        return fs.readFile(log, 'utf8')
-            .then(contents => {
-                return remark().use(changelog, ctx).process(contents);
-            }).then(contents => {
-                return writeFile(log, String(contents));
+    {
+        title: 'Retrieving dependencies from npm',
+        task: () => exec('npm', ['install']),
+        enabled
+    },
+    {
+        title: 'Packing caniuse data',
+        task: () => exec('babel-node', ['src/packer/index.js']),
+        enabled
+    },
+    {
+        title: 'Running tests',
+        task: () => exec('npm', ['test']),
+        enabled
+    },
+    {
+        title: 'Updating changelog',
+        task: ctx => {
+            const log = './CHANGELOG.md';
+            return fs
+                .readFile(log, 'utf8')
+                .then(contents =>
+                    remark()
+                        .use(changelog, ctx)
+                        .process(contents)
+                )
+                .then(contents => writeFile(log, String(contents)));
+        },
+        enabled
+    },
+    {
+        title: 'Staging files for commit',
+        task: () => {
+            return new Promise((resolve, reject) => {
+                repo.add(
+                    [
+                        './data',
+                        './CHANGELOG.md',
+                        './package.json',
+                        './package-lock.json'
+                    ],
+                    err => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        return resolve();
+                    }
+                );
             });
+        },
+        enabled
     },
-    enabled,
-}, {
-    title: 'Staging files for commit',
-    task: () => {
-        return new Promise((resolve, reject) => {
-            repo.add(['./data', './CHANGELOG.md', './package.json'], err => {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve();
+    {
+        title: 'Committing changes',
+        task: ctx => {
+            return new Promise((resolve, reject) => {
+                repo.commit(`Update caniuse-db to ${ctx.version}`, err => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve();
+                });
             });
-        });
+        },
+        enabled
     },
-    enabled,
-}, {
-    title: 'Committing changes',
-    task: (ctx) => {
-        return new Promise((resolve, reject) => {
-            repo.commit(`Update caniuse-db to ${ctx.version}`, err => {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve();
-            });
-        });
+    {
+        title: 'Updating version',
+        task: ctx => exec('npm', ['version', ctx.version]),
+        enabled
     },
-    enabled,
-}, {
-    title: 'Updating version',
-    task: (ctx) => exec('npm', ['version', ctx.version]),
-    enabled,
-}, {
-    title: 'Publishing to npm',
-    task: (ctx) => exec('npm', ['publish']),
-    enabled,
-}, {
-    title: 'Syncing repo & tags to GitHub',
-    task: (ctx) => exec('git', ['push', '--follow-tags']),
-    enabled,
-}]);
+    {
+        title: 'Publishing to npm',
+        task: ctx => exec('npm', ['publish']),
+        enabled
+    },
+    {
+        title: 'Syncing repo & tags to GitHub',
+        task: ctx => exec('git', ['push', '--follow-tags']),
+        enabled
+    }
+]);
 
-tasks.run().catch(err => log.error({err}, `Publish failed.`));
+tasks.run().catch(err => log.error({ err }, `Publish failed.`));
