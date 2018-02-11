@@ -20,9 +20,9 @@ const log = bunyan.createLogger({
     serializers: { err: bunyan.stdSerializers.err },
     streams: [
         {
-            path: __dirname + '/error.log'
-        }
-    ]
+            path: __dirname + '/error.log',
+        },
+    ],
 });
 
 // Cache this so we don't exit early.
@@ -40,43 +40,38 @@ const exec = (cmd, args) => {
     ).filter(Boolean);
 };
 
-function enabled(ctx) {
-    return ctx.version !== currentVersion;
-}
+const enabled = ctx => ctx.version !== currentVersion;
 
-function changelog(ctx) {
-    return function transformer(tree) {
-        heading(tree, /^1.x release/i, (start, nodes, end) => {
-            const addition = u('listItem', { loose: false, checked: null }, [
-                u('paragraph', [
-                    u('strong', [u('text', ctx.version)]),
-                    u(
-                        'text',
-                        ` was released on ${fecha.format(
-                            new Date(),
-                            'MMMM Do, YYYY [at] HH:mm'
-                        )}.`
-                    )
-                ])
-            ]);
-            let list = nodes.find(node => node.type === 'list');
-            if (!list) {
-                list = u('list', { loose: false, ordered: false }, [addition]);
-                nodes.push(list);
-            } else {
-                list.children.unshift(addition);
-            }
-            return [start, ...nodes, end];
-        });
-    };
-}
+const changelog = ctx => tree =>
+    heading(tree, /^1.x release/i, (start, nodes, end) => {
+        const addition = u('listItem', { loose: false, checked: null }, [
+            u('paragraph', [
+                u('strong', [u('text', ctx.version)]),
+                u(
+                    'text',
+                    ` was released on ${fecha.format(
+                        new Date(),
+                        'MMMM Do, YYYY [at] HH:mm'
+                    )}.`
+                ),
+            ]),
+        ]);
+        let list = nodes.find(node => node.type === 'list');
+        if (!list) {
+            list = u('list', { loose: false, ordered: false }, [addition]);
+            nodes.push(list);
+        } else {
+            list.children.unshift(addition);
+        }
+        return [start, ...nodes, end];
+    });
 
 const tasks = new Listr([
     {
         title: 'Querying for a new caniuse-db version',
-        task: (ctx, task) => {
-            return got('https://registry.npmjs.org/caniuse-db', {
-                json: true
+        task: (ctx, task) =>
+            got('https://registry.npmjs.org/caniuse-db', {
+                json: true,
             }).then(response => {
                 const version = (ctx.version =
                     response.body['dist-tags'].latest);
@@ -85,22 +80,20 @@ const tasks = new Listr([
                 } else {
                     task.title = `Already up to date! (v${version})`;
                 }
-            });
-        }
+            }),
     },
     {
         title: 'Syncing local repository',
-        task: ctx => {
-            return new Promise((resolve, reject) => {
+        task: ctx =>
+            new Promise((resolve, reject) => {
                 repo.pull(err => {
                     if (err) {
                         return reject(err);
                     }
                     return resolve();
                 });
-            });
-        },
-        enabled
+            }),
+        enabled,
     },
     {
         title: 'Updating local caniuse-db version',
@@ -111,22 +104,22 @@ const tasks = new Listr([
                 `${JSON.stringify(pkg, null, 2)}\n`
             );
         },
-        enabled
+        enabled,
     },
     {
         title: 'Retrieving dependencies from npm',
         task: () => exec('npm', ['install']),
-        enabled
+        enabled,
     },
     {
         title: 'Packing caniuse data',
         task: () => exec('babel-node', ['src/packer/index.js']),
-        enabled
+        enabled,
     },
     {
         title: 'Running tests',
         task: () => exec('npm', ['test']),
-        enabled
+        enabled,
     },
     {
         title: 'Updating changelog',
@@ -141,18 +134,18 @@ const tasks = new Listr([
                 )
                 .then(contents => writeFile(log, String(contents)));
         },
-        enabled
+        enabled,
     },
     {
         title: 'Staging files for commit',
-        task: () => {
-            return new Promise((resolve, reject) => {
+        task: () =>
+            new Promise((resolve, reject) => {
                 repo.add(
                     [
                         './data',
                         './CHANGELOG.md',
                         './package.json',
-                        './package-lock.json'
+                        './package-lock.json',
                     ],
                     err => {
                         if (err) {
@@ -161,39 +154,37 @@ const tasks = new Listr([
                         return resolve();
                     }
                 );
-            });
-        },
-        enabled
+            }),
+        enabled,
     },
     {
         title: 'Committing changes',
-        task: ctx => {
-            return new Promise((resolve, reject) => {
+        task: ctx =>
+            new Promise((resolve, reject) => {
                 repo.commit(`Update caniuse-db to ${ctx.version}`, err => {
                     if (err) {
                         return reject(err);
                     }
                     return resolve();
                 });
-            });
-        },
-        enabled
+            }),
+        enabled,
     },
     {
         title: 'Updating version',
         task: ctx => exec('npm', ['version', ctx.version]),
-        enabled
+        enabled,
     },
     {
         title: 'Publishing to npm',
         task: ctx => exec('npm', ['publish']),
-        enabled
+        enabled,
     },
     {
         title: 'Syncing repo & tags to GitHub',
         task: ctx => exec('git', ['push', '--follow-tags']),
-        enabled
-    }
+        enabled,
+    },
 ]);
 
 tasks.run().catch(err => log.error({ err }, `Publish failed.`));

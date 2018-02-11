@@ -29,7 +29,7 @@ function relevantKeys(versions, agents, fullAgents) {
             F: fullAgents[key].version_list.reduce((map, item) => {
                 map[versionsInverted[item.version]] = item.release_date;
                 return map;
-            }, {})
+            }, {}),
         };
         if (agent.prefix_exceptions) {
             map[browsers[key]].D = agent.prefix_exceptions;
@@ -79,18 +79,18 @@ export default function packAgents() {
         .then(JSON.parse)
         .then(prop('agents'))
         .then(packBrowserVersions)
-        .then(data => {
-            return fs
+        .then(data =>
+            fs
                 .readFile(
                     require.resolve('caniuse-db/fulldata-json/data-2.0.json'),
                     'utf8'
                 )
-                .then(fullData => [data, JSON.parse(fullData).agents]);
-        })
-        .then(([[agents, versions], fullAgents]) => {
-            return writeFile(
+                .then(fullData => [data, JSON.parse(fullData).agents])
+        )
+        .then(([[agents, versions], fullAgents]) =>
+            writeFile(
                 path.join(__dirname, `../../data/agents.js`),
                 stringifyObject(relevantKeys(versions, agents, fullAgents))
-            );
-        });
+            )
+        );
 }
