@@ -1,3 +1,4 @@
+const path = require('path');
 const bunyan = require('bunyan');
 const git = require('gift');
 const got = require('got');
@@ -20,7 +21,7 @@ const log = bunyan.createLogger({
     serializers: { err: bunyan.stdSerializers.err },
     streams: [
         {
-            path: __dirname + '/error.log',
+            path: path.join(__dirname, 'error.log'),
         },
     ],
 });
