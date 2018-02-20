@@ -1,4 +1,5 @@
 import * as t from 'babel-types';
+import * as R from 'ramda';
 import generateCode from './generateCode';
 import moduleExports from './moduleExports';
 
@@ -9,8 +10,8 @@ function getKey(encoded) {
     return t.identifier(encoded);
 }
 
-function stringify(list) {
-    return Object.keys(list).reduce((ast, key) => {
+const stringify = (list) =>
+    Object.keys(list).reduce((ast, key) => {
         const data = list[key];
         let value;
         if (data === null) {
@@ -46,10 +47,14 @@ function stringify(list) {
         }
         return ast.concat(t.objectProperty(getKey(key), value));
     }, []);
-}
 
-export default function stringifyObject(object) {
-    return generateCode(
-        t.program([moduleExports(t.objectExpression(stringify(object)))])
-    );
-}
+const stringifyObject = R.compose(
+    generateCode,
+    t.program,
+    R.of,
+    moduleExports,
+    t.objectExpression,
+    stringify
+);
+
+export default stringifyObject;

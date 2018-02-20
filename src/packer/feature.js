@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'mz/fs';
 import writeFile from 'write-file-promise';
 import * as t from 'babel-types';
-import { invertObj } from 'ramda';
+import * as R from 'ramda';
 import { encode } from '../lib/base62';
 import generateCode from '../lib/generateCode';
 import getContentsFactory from '../lib/getContents';
@@ -14,9 +14,16 @@ import supported from '../lib/supported';
 const browsers = require('../../data/browsers');
 const versions = require('../../data/browserVersions');
 
-const browsersInverted = invertObj(browsers);
-const statusesInverted = invertObj(statuses);
-const versionsInverted = invertObj(versions);
+const browsersInverted = R.invertObj(browsers);
+const statusesInverted = R.invertObj(statuses);
+const versionsInverted = R.invertObj(versions);
+
+const objFromKeys = R.curry((fn, keys) => R.zipObj(keys, R.map(fn, keys)));
+
+const featuresToIndex = R.compose(
+    objFromKeys(R.concat('./features/')),
+    R.map(R.prop('name'))
+);
 
 const base = path.join(
     path.dirname(require.resolve(`caniuse-db/data.json`)),
@@ -40,39 +47,31 @@ const featureIndex = data =>
                         )
                     )
                 )
-            )
+            ),
         ])
     );
 
-function packSupport(support) {
-    const parts = support.split(' ');
-
-    return parts.reduce((bitmask, part) => {
+const packSupport = support =>
+    support.split(' ').reduce((bitmask, part) => {
         if (supported[part]) {
             return bitmask + supported[part];
         }
         // Handle notes - #1 = 128, #2 = 256, #3 = 512, etc
         return bitmask + Math.pow(2, parseInt(part.slice(1), 10) + 6);
     }, 0);
-}
 
 export default function packFeature() {
     return fs
         .readdir(base)
         .then(getContents)
-        .then(features => {
-            const index = features.reduce((map, feature) => {
-                const { name } = feature;
-                map[name] = `./features/${name}`;
-                return map;
-            }, {});
-            return writeFile(
+        .then(features =>
+            writeFile(
                 path.join(__dirname, '../../data/features.js'),
-                featureIndex(index)
-            ).then(() => features);
-        })
-        .then(features => {
-            return Promise.all(
+                featureIndex(featuresToIndex(features))
+            ).then(R.always(features))
+        )
+        .then(features =>
+            Promise.all(
                 features.map(feature => {
                     const { name, contents } = feature;
                     const packed = {};
@@ -113,6 +112,6 @@ export default function packFeature() {
                         stringifyObject(packed)
                     );
                 })
-            );
-        });
+            )
+        );
 }

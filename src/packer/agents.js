@@ -1,15 +1,15 @@
 import fs from 'mz/fs';
 import writeFile from 'write-file-promise';
 import path from 'path';
-import { invertObj, prop } from 'ramda';
+import * as R from 'ramda';
 import stringifyObject from '../lib/stringifyObject';
 import { encode } from '../lib/base62';
 
 const browsersData = require('../../data/browsers');
-const browsers = invertObj(browsersData);
+const browsers = R.invertObj(browsersData);
 
 function relevantKeys(versions, agents, fullAgents) {
-    const versionsInverted = invertObj(versions);
+    const versionsInverted = R.invertObj(versions);
     return Object.keys(agents).reduce((map, key) => {
         const agent = agents[key];
         map[browsers[key]] = {
@@ -72,12 +72,13 @@ function packBrowserVersions(agents) {
     ).then(() => [agents, browserVersions]);
 }
 
+const getAgents = R.compose(R.prop('agents'), JSON.parse);
+
 export default function packAgents() {
     // We're not requiring the JSON because it nukes the null values
     return fs
         .readFile(require.resolve('caniuse-db/data.json'), 'utf8')
-        .then(JSON.parse)
-        .then(prop('agents'))
+        .then(getAgents)
         .then(packBrowserVersions)
         .then(data =>
             fs
@@ -85,7 +86,7 @@ export default function packAgents() {
                     require.resolve('caniuse-db/fulldata-json/data-2.0.json'),
                     'utf8'
                 )
-                .then(fullData => [data, JSON.parse(fullData).agents])
+                .then(fullData => [data, getAgents(fullData)])
         )
         .then(([[agents, versions], fullAgents]) =>
             writeFile(

@@ -1,5 +1,12 @@
+import * as R from 'ramda';
 import generate from 'babel-generator';
 
-export default function generateCode (ast) {
-    return generate(ast, {minified: true}).code + '\n';
-}
+const appendString = R.flip(R.concat);
+
+const generator = R.compose(
+    appendString('\n'),
+    R.prop('code'),
+    R.flip(R.binary(generate))({ minified: true })
+);
+
+export default generator;

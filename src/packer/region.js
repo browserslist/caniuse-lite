@@ -24,8 +24,8 @@ export default function packRegion() {
     return fs
         .readdir(base)
         .then(getContents)
-        .then(regions => {
-            return Promise.all(
+        .then(regions =>
+            Promise.all(
                 regions.map(region => {
                     const { data } = region.contents;
                     const packed = Object.keys(data).reduce((list, key) => {
@@ -57,6 +57,6 @@ export default function packRegion() {
                         stringifyObject(packed)
                     );
                 })
-            );
-        });
+            )
+        );
 }
