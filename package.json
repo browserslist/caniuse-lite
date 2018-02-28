@@ -46,6 +46,7 @@
     "listr": "^0.11.0",
     "mdast-util-heading-range": "^2.0.1",
     "mz": "^2.6.0",
+    "prettier": "^1.10.2",
     "ramda": "^0.25.0",
     "remark": "^7.0.0",
     "size-limit": "^0.14.1",
@@ -58,5 +59,10 @@
     "presets": [
       "env"
     ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "es5"
   }
 }
