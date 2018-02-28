@@ -1,3 +1,6 @@
+import * as R from 'ramda';
+import pow from '../util/pow';
+
 const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -11,11 +14,10 @@ export function encode(integer) {
     return result;
 }
 
-export const decode = string =>
-    string
-        .split('')
-        .reduce(
-            (memo, character, index) =>
-                memo + characters.indexOf(character) * Math.pow(62, index),
-            0
-        );
+export const decode = R.compose(
+    R.sum,
+    R.addIndex(R.map)((character, index) =>
+        R.multiply(characters.indexOf(character), pow(62, index))
+    ),
+    R.split('')
+);

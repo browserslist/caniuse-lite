@@ -10,6 +10,8 @@ import moduleExports from '../lib/moduleExports';
 import stringifyObject from '../lib/stringifyObject';
 import statuses from '../lib/statuses';
 import supported from '../lib/supported';
+import parseDecimal from '../util/parseDecimal';
+import pow from '../util/pow';
 
 const browsers = require('../../data/browsers');
 const versions = require('../../data/browserVersions');
@@ -20,11 +22,6 @@ const versionsInverted = R.invertObj(versions);
 
 const objFromKeys = R.curry((fn, keys) => R.zipObj(keys, R.map(fn, keys)));
 
-const featuresToIndex = R.compose(
-    objFromKeys(R.concat('./features/')),
-    R.map(R.prop('name'))
-);
-
 const base = path.join(
     path.dirname(require.resolve(`caniuse-db/data.json`)),
     `features-json`
@@ -32,86 +29,99 @@ const base = path.join(
 
 const getContents = getContentsFactory(base);
 
-const requireCall = path =>
-    t.callExpression(t.identifier('require'), [t.stringLiteral(path)]);
+const callExpression = R.curryN(2, t.callExpression);
 
-const featureIndex = data =>
-    generateCode(
-        t.program([
-            moduleExports(
-                t.objectExpression(
-                    Object.keys(data).map(key =>
-                        t.objectProperty(
-                            t.stringLiteral(key),
-                            requireCall(data[key])
-                        )
-                    )
-                )
-            ),
-        ])
-    );
+const requireCall = R.compose(
+    callExpression(t.identifier('require')),
+    R.of,
+    t.stringLiteral
+);
 
-const packSupport = support =>
-    support.split(' ').reduce((bitmask, part) => {
-        if (supported[part]) {
-            return bitmask + supported[part];
-        }
-        // Handle notes - #1 = 128, #2 = 256, #3 = 512, etc
-        return bitmask + Math.pow(2, parseInt(part.slice(1), 10) + 6);
-    }, 0);
+const featureIndex = R.compose(
+    generateCode,
+    t.program,
+    R.of,
+    moduleExports,
+    t.objectExpression,
+    R.values,
+    R.mapObjIndexed((value, key) =>
+        t.objectProperty(t.stringLiteral(key), requireCall(value))
+    ),
+    objFromKeys(R.concat('./features/')),
+    R.map(R.prop('name'))
+);
+
+const packSupport = R.compose(
+    R.sum,
+    R.map(
+        R.ifElse(
+            R.flip(R.has)(supported),
+            R.flip(R.prop)(supported),
+            R.compose(pow(2), R.add(6), parseDecimal, R.slice(1, Infinity))
+        )
+    ),
+    R.split(' ')
+);
 
 export default function packFeature() {
     return fs
         .readdir(base)
         .then(getContents)
+        .then(
+            R.tap(features =>
+                Promise.all(
+                    features.map(feature => {
+                        const { name, contents } = feature;
+                        const packed = {};
+                        packed.A = Object.keys(contents.stats).reduce(
+                            (browserStats, key) => {
+                                const browser = contents.stats[key];
+                                const supportData = Object.keys(browser).reduce(
+                                    (stats, version) => {
+                                        const support = browser[version];
+                                        stats[
+                                            versionsInverted[version]
+                                        ] = packSupport(support);
+                                        return stats;
+                                    },
+                                    {}
+                                );
+                                let compacted = Object.keys(supportData).reduce(
+                                    (min, k) => {
+                                        const value = supportData[k];
+                                        if (!min[value]) {
+                                            min[value] = k;
+                                        } else {
+                                            min[value] += ` ${k}`;
+                                        }
+                                        return min;
+                                    },
+                                    {}
+                                );
+                                browserStats[browsersInverted[key]] = compacted;
+                                return browserStats;
+                            },
+                            {}
+                        );
+                        packed.B = parseDecimal(
+                            statusesInverted[contents.status]
+                        );
+                        packed.C = contents.title;
+                        return writeFile(
+                            path.join(
+                                __dirname,
+                                `../../data/features/${name}.js`
+                            ),
+                            stringifyObject(packed)
+                        );
+                    })
+                )
+            )
+        )
         .then(features =>
             writeFile(
                 path.join(__dirname, '../../data/features.js'),
-                featureIndex(featuresToIndex(features))
-            ).then(R.always(features))
-        )
-        .then(features =>
-            Promise.all(
-                features.map(feature => {
-                    const { name, contents } = feature;
-                    const packed = {};
-                    packed.A = Object.keys(contents.stats).reduce(
-                        (browserStats, key) => {
-                            const browser = contents.stats[key];
-                            const supportData = Object.keys(browser).reduce(
-                                (stats, version) => {
-                                    const support = browser[version];
-                                    stats[
-                                        versionsInverted[version]
-                                    ] = packSupport(support);
-                                    return stats;
-                                },
-                                {}
-                            );
-                            let compacted = Object.keys(supportData).reduce(
-                                (min, k) => {
-                                    const value = supportData[k];
-                                    if (!min[value]) {
-                                        min[value] = k;
-                                    } else {
-                                        min[value] += ` ${k}`;
-                                    }
-                                    return min;
-                                },
-                                {}
-                            );
-                            browserStats[browsersInverted[key]] = compacted;
-                            return browserStats;
-                        },
-                        {}
-                    );
-                    packed.B = parseInt(statusesInverted[contents.status], 10);
-                    packed.C = contents.title;
-                    return writeFile(
-                        path.join(__dirname, `../../data/features/${name}.js`),
-                        stringifyObject(packed)
-                    );
-                })
+                featureIndex(features)
             )
         );
 }
