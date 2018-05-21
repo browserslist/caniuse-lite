@@ -81,6 +81,10 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/DigitalOcean_logo.svg" alt="Digital Ocean logo" width="40" align="left">
+
+Big thanks to [DigitalOcean](https://www.digitalocean.com/) for supporting this project by providing their great infrastructure for us.
+
 ## License
 
 The data in this repo is available for use under a CC BY 4.0 license
