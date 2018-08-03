@@ -14,7 +14,7 @@ function unpackSupport (cipher) {
     let notes = cipher >> 7;
     let notesArray = [];
     while (notes) {
-        let note = Math.floor(Math.log2(notes)) + 1;
+        let note = Math.floor(Math.log(notes) * Math.LOG2E) + 1;
         notesArray.unshift(`#${note}`);
         notes -= Math.pow(2, note - 1);
     }
