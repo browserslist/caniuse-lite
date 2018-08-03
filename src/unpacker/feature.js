@@ -3,6 +3,8 @@ import supported from '../lib/supported';
 import {browsers} from './browsers';
 import {browserVersions as versions} from './browserVersions';
 
+const MATH2LOG = Math.log(2)
+
 function unpackSupport (cipher) {
     // bit flags
     const stats = Object.keys(supported).reduce((list, support) => {
@@ -14,7 +16,7 @@ function unpackSupport (cipher) {
     let notes = cipher >> 7;
     let notesArray = [];
     while (notes) {
-        let note = Math.floor(Math.log(notes) * Math.LOG2E) + 1;
+        let note = Math.floor(Math.log(notes) / MATH2LOG) + 1;
         notesArray.unshift(`#${note}`);
         notes -= Math.pow(2, note - 1);
     }
