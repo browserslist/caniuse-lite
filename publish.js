@@ -178,7 +178,7 @@ const tasks = new Listr([
     },
     {
         title: 'Publishing to npm',
-        task: ctx => exec('npm', ['publish']),
+        task: ctx => exec('npx', ['clean-publish']),
         enabled,
     },
     {
