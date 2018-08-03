@@ -173,7 +173,7 @@ const tasks = new Listr([
     },
     {
         title: 'Updating version',
-        task: ctx => exec('npm', ['version', ctx.version]),
+        task: ctx => exec('yarn', ['version', ctx.version]),
         enabled,
     },
     {
