@@ -48,7 +48,7 @@
     "mz": "^2.6.0",
     "ramda": "^0.25.0",
     "remark": "^7.0.0",
-    "size-limit": "^0.14.1",
+    "size-limit": "^0.19.0",
     "split": "^1.0.0",
     "stream-to-observable": "^0.2.0",
     "unist-builder": "^1.0.2",
