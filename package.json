@@ -53,10 +53,5 @@
     "stream-to-observable": "^0.2.0",
     "unist-builder": "^1.0.2",
     "write-file-promise": "^1.0.0"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
   }
 }
