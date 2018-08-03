@@ -109,7 +109,7 @@ const tasks = new Listr([
     },
     {
         title: 'Retrieving dependencies from npm',
-        task: () => exec('npm', ['install']),
+        task: () => exec('yarn', ['install']),
         enabled,
     },
     {
@@ -119,7 +119,7 @@ const tasks = new Listr([
     },
     {
         title: 'Running tests',
-        task: () => exec('npm', ['test']),
+        task: () => exec('yarn', ['test']),
         enabled,
     },
     {
