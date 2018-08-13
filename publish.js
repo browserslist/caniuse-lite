@@ -146,7 +146,7 @@ const tasks = new Listr([
                         './data',
                         './CHANGELOG.md',
                         './package.json',
-                        './package-lock.json',
+                        './yarn.lock',
                     ],
                     err => {
                         if (err) {
