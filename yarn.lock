@@ -1252,9 +1252,9 @@ camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
-caniuse-db@1.0.30000900:
-  version "1.0.30000900"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000900.tgz#e123ad2cef981f234afd5572507e0c4ff2b439b0"
+caniuse-db@1.0.30000901:
+  version "1.0.30000901"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000901.tgz#5e765abe1060a152ffc308a1d39069e4f8a3d5f0"
 
 caniuse-lite@^1.0.30000844:
   version "1.0.30000874"
