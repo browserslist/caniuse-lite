@@ -28,7 +28,7 @@
   "repository": "ben-eb/caniuse-lite",
   "license": "CC-BY-4.0",
   "devDependencies": {
-    "all-contributors-cli": "^3.0.7",
+    "all-contributors-cli": "^5.4.1",
     "any-observable": "^0.2.0",
     "babel-cli": "^6.24.0",
     "babel-generator": "^6.21.0",
