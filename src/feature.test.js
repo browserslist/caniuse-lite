@@ -32,11 +32,9 @@ it('should be 1:1', () => {
             Object.keys(unpacked.stats[browser]).forEach(version => {
                 const unpackedSupport = unpacked.stats[browser][version].split(' ');
                 const originalSupport = data.stats[browser][version].split(' ');
-                const hasAllData = unpackedSupport.every(value =>
-                    originalSupport.includes(value)
-                );
-
-                expect(hasAllData).toEqual(true);
+                unpackedSupport.forEach(value => {
+                  expect(originalSupport).toContain(value);
+                })
             });
         });
         expect(unpacked.status).toEqual(data.status);
