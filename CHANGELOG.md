@@ -3,6 +3,7 @@
 The contents of this section have been generated automatically; each version
 tracks the `caniuse-db` package at the same version.
 
+-   **1.0.30000942** was released on March 7th, 2019 at 04:32.
 -   **1.0.30000941** was released on March 5th, 2019 at 04:32.
 -   **1.0.30000940** was released on March 3rd, 2019 at 20:32.
 -   **1.0.30000939** was released on February 23rd, 2019 at 04:32.
