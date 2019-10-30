@@ -1241,10 +1241,10 @@ camelcase@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.0.0.tgz#03295527d58bd3cd4aa75363f35b2e8d97be2f42"
 
-caniuse-db@1.0.30001005:
-  version "1.0.30001005"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001005.tgz#a61131ed16f519fbef25612e36dced8e69635455"
-  integrity sha512-MSRfm2N6FRDSpAJ00ipCuFe0CNink5JJOFzl4S7fLSBJdowhGq3uMxzkWGTjvvReo1PuWfK5YYJydJJ+9mJebw==
+caniuse-db@1.0.30001006:
+  version "1.0.30001006"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001006.tgz#f14cae94deee01f98636869aa2b1ab7198b157f6"
+  integrity sha512-Xn25grc0GXATFnnEX+KP3IwEv6ZdHs4CALyLKvK8pBeeBe+hSpqy3/GyKBgEp4hn6o+bI+GNeNeQBf9PBOK0EQ==
 
 caniuse-lite@^1.0.30000844:
   version "1.0.30000912"
@@ -3796,8 +3796,9 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
 
 lodash@^4.11.2, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.3.0:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 log-symbols@^1.0.2:
   version "1.0.2"
