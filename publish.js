@@ -12,8 +12,8 @@ const remark = require('remark');
 const u = require('unist-builder');
 const fs = require('mz/fs');
 const fecha = require('fecha');
-const {merge, throwError} = require('rxjs');
-const {catchError, filter, finalize} = require('rxjs/operators');
+const {merge} = require('rxjs');
+const {filter} = require('rxjs/operators');
 const streamToObservable = require('@samverschueren/stream-to-observable');
 const pkg = require('./package.json');
 
