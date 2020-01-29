@@ -1,4 +1,3 @@
-require('any-observable/register/rxjs-all');
 const path = require('path');
 const bunyan = require('bunyan');
 const git = require('gift');
@@ -12,6 +11,7 @@ const remark = require('remark');
 const u = require('unist-builder');
 const fs = require('mz/fs');
 const fecha = require('fecha');
+require('any-observable/register/rxjs-all');
 const {merge} = require('rxjs');
 const {filter} = require('rxjs/operators');
 const streamToObservable = require('@samverschueren/stream-to-observable');
