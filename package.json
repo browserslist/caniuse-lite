@@ -37,7 +37,7 @@
     "babel-register": "^6.18.0",
     "babel-types": "^6.21.0",
     "bunyan": "^1.8.10",
-    "caniuse-db": "1.0.30001023",
+    "caniuse-db": "1.0.30001024",
     "clean-publish": "^1.1.0",
     "del-cli": "^0.2.1",
     "execa": "^4.0.0",
