@@ -116,7 +116,7 @@ const tasks = new Listr([
     },
     {
         title: 'Packing caniuse data',
-        task: () => exec('babel-node', ['src/packer/index.js']),
+        task: () => exec('npx', ['babel-node', 'src/packer/index.js']),
         enabled,
     },
     {
