@@ -3,6 +3,7 @@
 The contents of this section have been generated automatically; each version
 tracks the `caniuse-db` package at the same version.
 
+-   **1.0.30001118** was released on August 26th, 2020 at 05:32.
 -   **1.0.30001117** was released on August 21st, 2020 at 04:32.
 -   **1.0.30001116** was released on August 18th, 2020 at 20:32.
 -   **1.0.30001115** was released on August 18th, 2020 at 02:32.
