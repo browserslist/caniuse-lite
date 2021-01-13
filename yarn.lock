@@ -1268,10 +1268,10 @@ camelcase@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.0.0.tgz#03295527d58bd3cd4aa75363f35b2e8d97be2f42"
 
-caniuse-db@1.0.30001174:
-  version "1.0.30001174"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001174.tgz#215ca43f6a915455bee54fa1cec4a8c681c6199d"
-  integrity sha512-9p67tC5x62efwIXQu3vbkNfXTPQdoWbSeWD1tKJHVZ7bCInOupDe///gpX3tNGRh9Auf4bQ1nQJ8UKG2y0lU4A==
+caniuse-db@1.0.30001176:
+  version "1.0.30001176"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001176.tgz#7b975497677faca74fb601d8abbcde3d3c0fb812"
+  integrity sha512-9zEzzqbFxSr4S1oEcYUMgVxuKHat/n+gjn3XuUbYYW+15m+XOX0KS4bVbDl/97Qt9f0gOyExazeAV0v6BNKhxg==
 
 caniuse-lite@^1.0.30000844:
   version "1.0.30000912"
