@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'mz/fs';
 import writeFile from 'write-file-promise';
-import * as t from 'babel-types';
+import * as t from '@babel/types';
 import { invertObj } from 'ramda';
 import { encode } from '../lib/base62';
 import getContentsFactory from '../lib/getContents';

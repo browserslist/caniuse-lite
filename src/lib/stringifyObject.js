@@ -1,4 +1,4 @@
-import * as t from 'babel-types';
+import * as t from '@babel/types';
 import * as R from 'ramda';
 import generateCode from './generateCode';
 import moduleExports from './moduleExports';

@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import generate from 'babel-generator';
+import generate from '@babel/generator';
 
 const appendString = R.flip(R.concat);
 
