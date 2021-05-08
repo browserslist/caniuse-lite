@@ -1,6 +1,5 @@
 import path from 'path'
-import fs from 'mz/fs'
-import writeFile from 'write-file-promise'
+import { promises as fs } from 'fs'
 import { invertObj } from 'ramda'
 
 import getContentsFactory from '../lib/getContents'
@@ -43,7 +42,7 @@ export default function packRegion() {
             return list
           }, {})
 
-          return writeFile(
+          return fs.writeFile(
             path.join(__dirname, `../../data/regions/${region.name}.js`),
             stringifyObject(packed)
           )

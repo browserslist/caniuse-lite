@@ -1,5 +1,5 @@
 import path from 'path'
-import fs from 'mz/fs'
+import { promises as fs } from 'fs'
 
 const getContentsFactory = base => files =>
   Promise.all(

@@ -1,7 +1,7 @@
 /* Create a mapping from browser version strings to shorter identifiers. */
 
+import { promises as fs } from 'fs'
 import * as R from 'ramda'
-import writeFile from 'write-file-promise'
 import path from 'path'
 
 import stringifyObject from '../lib/stringifyObject'
@@ -18,7 +18,7 @@ function getBrowsers(data) {
 }
 
 const packBrowsers = () =>
-  writeFile(
+  fs.writeFile(
     path.join(__dirname, '..', '..', 'data', 'browsers.js'),
     R.compose(
       stringifyObject,

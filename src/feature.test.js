@@ -1,5 +1,5 @@
 import path from 'path'
-import fs from 'mz/fs'
+import { promises as fs } from 'fs'
 
 import getContentsFactory from './lib/getContents'
 import features from './unpacker/feature'

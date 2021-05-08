@@ -5,11 +5,10 @@ const got = require('got')
 const execa = require('execa')
 const Listr = require('listr')
 const split = require('split')
-const writeFile = require('write-file-promise')
 const heading = require('mdast-util-heading-range')
 const remark = require('remark')
 const u = require('unist-builder')
-const fs = require('mz/fs')
+const fs = require('fs').promises
 const fecha = require('fecha')
 require('any-observable/register/rxjs-all')
 const { merge } = require('rxjs')
@@ -102,7 +101,7 @@ const tasks = new Listr([
     title: 'Updating local caniuse-db version',
     task: ctx => {
       pkg.devDependencies['caniuse-db'] = ctx.version
-      return writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`)
+      return fs.writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`)
     },
     enabled
   },
@@ -128,7 +127,7 @@ const tasks = new Listr([
       return fs
         .readFile(log2, 'utf8')
         .then(contents => remark().use(changelog, ctx).process(contents))
-        .then(contents => writeFile(log2, String(contents)))
+        .then(contents => fs.writeFile(log2, String(contents)))
     },
     enabled
   },

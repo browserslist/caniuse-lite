@@ -62,7 +62,6 @@
     "lint-staged": "^11.0.0",
     "listr": "^0.14.3",
     "mdast-util-heading-range": "^2.1.2",
-    "mz": "^2.6.0",
     "prettier": "^2.2.1",
     "ramda": "^0.25.0",
     "remark": "^7.0.0",
@@ -70,12 +69,12 @@
     "simple-git-hooks": "^2.4.1",
     "size-limit": "^4.10.2",
     "split": "^1.0.0",
-    "unist-builder": "^1.0.3",
-    "write-file-promise": "^1.0.0"
+    "unist-builder": "^1.0.3"
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config",
     "rules": {
+      "node/no-unsupported-features/node-builtins": "off",
       "security/detect-non-literal-require": "off",
       "node/global-require": "off",
       "no-console": "off",

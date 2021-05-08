@@ -1,6 +1,5 @@
 import path from 'path'
-import fs from 'mz/fs'
-import writeFile from 'write-file-promise'
+import { promises as fs } from 'fs'
 import * as t from 'babel-types'
 import * as R from 'ramda'
 
@@ -100,7 +99,7 @@ export default function packFeature() {
             )
             packed.B = parseDecimal(statusesInverted[contents.status])
             packed.C = contents.title
-            return writeFile(
+            return fs.writeFile(
               path.join(__dirname, `../../data/features/${name}.js`),
               stringifyObject(packed)
             )
@@ -109,7 +108,7 @@ export default function packFeature() {
       )
     )
     .then(features =>
-      writeFile(
+      fs.writeFile(
         path.join(__dirname, '../../data/features.js'),
         featureIndex(features)
       )

@@ -1,5 +1,4 @@
-import fs from 'mz/fs'
-import writeFile from 'write-file-promise'
+import { promises as fs } from 'fs'
 import path from 'path'
 import * as R from 'ramda'
 
@@ -71,10 +70,12 @@ function packBrowserVersions(agents) {
       return map
     }, {})
 
-  return writeFile(
-    path.join(__dirname, '..', '..', 'data', 'browserVersions.js'),
-    stringifyObject(browserVersions)
-  ).then(() => [agents, browserVersions])
+  return fs
+    .writeFile(
+      path.join(__dirname, '..', '..', 'data', 'browserVersions.js'),
+      stringifyObject(browserVersions)
+    )
+    .then(() => [agents, browserVersions])
 }
 
 const getAgents = R.compose(R.prop('agents'), JSON.parse)
@@ -96,10 +97,7 @@ export default function packAgents() {
     .then(R.flatten)
     .then(R.apply(relevantKeys))
     .then(stringifyObject)
-    .then(
-      writeFile.bind(
-        null,
-        path.join(__dirname, '..', '..', 'data', 'agents.js')
-      )
+    .then(s =>
+      fs.writeFile(path.join(__dirname, '..', '..', 'data', 'agents.js'), s)
     )
 }
