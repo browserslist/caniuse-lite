@@ -35,7 +35,6 @@
     "@samverschueren/stream-to-observable": "^0.3.1",
     "@size-limit/file": "^4.10.2",
     "@size-limit/webpack": "^4.10.2",
-    "all-contributors-cli": "^5.4.1",
     "any-observable": "^0.2.0",
     "babel-cli": "^6.24.0",
     "babel-generator": "^6.21.0",
