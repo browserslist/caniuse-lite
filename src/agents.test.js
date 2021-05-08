@@ -1,4 +1,4 @@
-const { agents } = require('./unpacker/agents')
+const { agents } = require('../dist/unpacker/agents')
 
 it('should be 1:1', () => {
   let fulldata = require('caniuse-db/data.json').agents

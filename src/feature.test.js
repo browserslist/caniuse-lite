@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs').promises
 
 const getContentsFactory = require('./lib/getContents')
-const features = require('./unpacker/feature')
+const features = require('../dist/unpacker/feature')
 
 let fulldata = {}
 

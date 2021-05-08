@@ -1,4 +1,4 @@
-const lite = require('./unpacker/index')
+const lite = require('../dist/unpacker/index')
 
 it('should have the appropriate keys', () => {
   expect(lite.agents).toBeDefined()

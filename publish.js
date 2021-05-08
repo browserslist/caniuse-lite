@@ -72,7 +72,7 @@ runTasks([
   },
   {
     title: 'Packing caniuse data',
-    task: () => exec('npx', ['babel-node', 'src/packer/index.js']),
+    task: () => exec('node', ['src/packer/index.js']),
     enabled
   },
   {

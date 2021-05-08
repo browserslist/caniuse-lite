@@ -4,8 +4,8 @@
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "main": "dist/unpacker/index.js",
   "scripts": {
-    "prepublish": "rm -Rf dist && babel src/unpacker -d dist/unpacker && mkdir dist/lib && babel src/lib/statuses.js -o dist/lib/statuses.js && babel src/lib/supported.js -o dist/lib/supported.js",
-    "pack": "rm -Rf data && babel-node src/packer/index.js",
+    "prepublish": "rm -Rf dist && mkdir -p dist/unpacker && mkdir -p dist/lib && cp -R src/unpacker/* dist/unpacker/ && cp src/lib/statuses.js dist/lib/statuses.js && cp src/lib/supported.js dist/lib/supported.js",
+    "pack": "rm -Rf data && node src/packer/index.js",
     "test": "yarn run prepublish && yarn run pack && eslint . && jest src && size-limit"
   },
   "files": [
@@ -36,10 +36,7 @@
     "@size-limit/file": "^4.10.2",
     "@size-limit/webpack": "^4.10.2",
     "any-observable": "^0.5.1",
-    "babel-cli": "^6.24.0",
     "babel-generator": "^6.21.0",
-    "babel-preset-env": "^1.1.8",
-    "babel-register": "^6.18.0",
     "babel-types": "^6.21.0",
     "caniuse-db": "1.0.30001223",
     "clean-publish": "^2.2.0",
