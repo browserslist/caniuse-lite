@@ -1,27 +1,38 @@
-import Listr from 'listr'
+const path = require('path')
+const fs = require('fs').promises
 
-import packBrowsers from './browsers'
+const packBrowsers = require('./browsers')
+const runTasks = require('../lib/runTasks')
 
 /* Subsequent tasks need to be lazily loaded as the generator order matters,
    and the files are destroyed/re-created on each packing step. */
 
-const tasks = new Listr([
+runTasks([
+  {
+    title: 'Create folders',
+    async task() {
+      await fs.mkdir(path.join(__dirname, '..', '..', 'data', 'features'), {
+        recursive: true
+      })
+      await fs.mkdir(path.join(__dirname, '..', '..', 'data', 'regions'), {
+        recursive: true
+      })
+    }
+  },
   {
     title: 'Browsers - Mangle application name',
     task: packBrowsers
   },
   {
     title: 'Browsers - Mangle version naming & agents usage',
-    task: () => require('./agents').default()
+    task: () => require('./agents')()
   },
   {
     title: 'Features - Mangle support data',
-    task: () => require('./feature').default()
+    task: () => require('./feature')()
   },
   {
     title: 'Regional - Mangle browser usage data',
-    task: () => require('./region').default()
+    task: () => require('./region')()
   }
 ])
-
-tasks.run().catch(err => console.error(err))

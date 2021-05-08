@@ -1,7 +1,7 @@
-import * as t from 'babel-types'
-import * as R from 'ramda'
+const t = require('babel-types')
+const R = require('ramda')
 
-const moduleExports = R.compose(
+module.exports = R.compose(
   t.expressionStatement,
   R.apply(t.assignmentExpression),
   R.concat([
@@ -10,5 +10,3 @@ const moduleExports = R.compose(
   ]),
   R.of
 )
-
-export default moduleExports

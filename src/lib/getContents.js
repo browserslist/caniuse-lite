@@ -1,7 +1,7 @@
-import path from 'path'
-import { promises as fs } from 'fs'
+const path = require('path')
+const fs = require('fs').promises
 
-const getContentsFactory = base => files =>
+module.exports = base => files =>
   Promise.all(
     files.map(file =>
       fs.readFile(path.join(base, file), 'utf8').then(data => ({
@@ -10,5 +10,3 @@ const getContentsFactory = base => files =>
       }))
     )
   )
-
-export default getContentsFactory

@@ -1,11 +1,11 @@
 /* Create a mapping from browser version strings to shorter identifiers. */
 
-import { promises as fs } from 'fs'
-import * as R from 'ramda'
-import path from 'path'
+const path = require('path')
+const fs = require('fs').promises
+const R = require('ramda')
 
-import stringifyObject from '../lib/stringifyObject'
-import { encode } from '../lib/base62'
+const stringifyObject = require('../lib/stringifyObject')
+const { encode } = require('../lib/base62')
 
 function getBrowsers(data) {
   let feature = Object.keys(data)[0]
@@ -17,7 +17,7 @@ function getBrowsers(data) {
   }, {})
 }
 
-const packBrowsers = () =>
+module.exports = () =>
   fs.writeFile(
     path.join(__dirname, '..', '..', 'data', 'browsers.js'),
     R.compose(
@@ -26,5 +26,3 @@ const packBrowsers = () =>
       R.prop('data')
     )(require('caniuse-db/data.json'))
   )
-
-export default packBrowsers

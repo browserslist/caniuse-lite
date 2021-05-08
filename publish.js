@@ -1,7 +1,6 @@
 const git = require('gift')
 const fetch = require('node-fetch')
 const execa = require('execa')
-const { red, green, gray } = require('colorette')
 const split = require('split')
 const fs = require('fs').promises
 require('any-observable/register/rxjs-all')
@@ -9,6 +8,7 @@ const { merge } = require('rxjs')
 const { filter } = require('rxjs/operators')
 const streamToObservable = require('@samverschueren/stream-to-observable')
 
+const runTasks = require('./src/lib/runTasks')
 const pkg = require('./package.json')
 
 // Cache this so we don't exit early.
@@ -29,7 +29,7 @@ const exec = (cmd, args) => {
 
 const enabled = ctx => ctx.version !== currentVersion
 
-const tasks = [
+runTasks([
   {
     title: 'Querying for a new caniuse-db version',
     task: (ctx, task) =>
@@ -121,23 +121,4 @@ const tasks = [
     task: () => exec('git', ['push', '--follow-tags']),
     enabled
   }
-]
-
-async function run() {
-  let ctx = {}
-  for (let task of tasks) {
-    if (!task.enabled || task.enabled(ctx)) {
-      process.stdout.write(gray('- ') + task.title + '\n')
-      await task.task(ctx, task)
-      process.stdout.write(green('✔ ') + task.title + '\n')
-    }
-  }
-}
-
-run().catch(err => {
-  if (typeof err === 'string') {
-    process.stderr.write(red(err) + '\n')
-  } else {
-    process.stderr.write(red(err.stack) + '\n')
-  }
-})
+])

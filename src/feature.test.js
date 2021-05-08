@@ -1,8 +1,8 @@
-import path from 'path'
-import { promises as fs } from 'fs'
+const path = require('path')
+const fs = require('fs').promises
 
-import getContentsFactory from './lib/getContents'
-import features from './unpacker/feature'
+const getContentsFactory = require('./lib/getContents')
+const features = require('./unpacker/feature')
 
 let fulldata = {}
 

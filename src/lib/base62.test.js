@@ -1,4 +1,4 @@
-import { encode, decode } from './base62'
+const { encode, decode } = require('./base62')
 
 function testEquality(num) {
   let encoded = encode(num)

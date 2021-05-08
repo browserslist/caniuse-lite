@@ -1,6 +1,6 @@
-import { browsers } from './browsers'
+const { browsers } = require('./browsers')
 
-export default function unpackRegion(packed) {
+module.exports = function unpackRegion(packed) {
   return Object.keys(packed).reduce((list, browser) => {
     let data = packed[browser]
     list[browsers[browser]] = Object.keys(data).reduce((memo, key) => {

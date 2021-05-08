@@ -1,6 +1,4 @@
-import * as R from 'ramda'
+const R = require('ramda')
 
 const parseInteger = R.curryN(2, R.flip(parseInt))
-const parseDecimal = parseInteger(10)
-
-export default parseDecimal
+module.exports = parseInteger(10)

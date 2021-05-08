@@ -1,11 +1,11 @@
-import * as R from 'ramda'
+const R = require('ramda')
 
-import pow from '../util/pow'
+const pow = require('../util/pow')
 
 const characters =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-export function encode(integer) {
+module.exports.encode = function encode(integer) {
   let remainder = integer
   let result = ''
   do {
@@ -15,7 +15,7 @@ export function encode(integer) {
   return result
 }
 
-export const decode = R.compose(
+module.exports.decode = R.compose(
   R.sum,
   R.addIndex(R.map)((character, index) =>
     R.multiply(characters.indexOf(character), pow(62, index))

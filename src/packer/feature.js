@@ -1,17 +1,16 @@
-import path from 'path'
-import { promises as fs } from 'fs'
-import * as t from 'babel-types'
-import * as R from 'ramda'
+const path = require('path')
+const fs = require('fs').promises
+const t = require('babel-types')
+const R = require('ramda')
 
-import generateCode from '../lib/generateCode'
-import getContentsFactory from '../lib/getContents'
-import moduleExports from '../lib/moduleExports'
-import stringifyObject from '../lib/stringifyObject'
-import statuses from '../lib/statuses'
-import supported from '../lib/supported'
-import parseDecimal from '../util/parseDecimal'
-import pow from '../util/pow'
-
+const generateCode = require('../lib/generateCode')
+const getContentsFactory = require('../lib/getContents')
+const moduleExports = require('../lib/moduleExports')
+const stringifyObject = require('../lib/stringifyObject')
+const statuses = require('../lib/statuses')
+const supported = require('../lib/supported')
+const parseDecimal = require('../util/parseDecimal')
+const pow = require('../util/pow')
 const browsers = require('../../data/browsers')
 const versions = require('../../data/browserVersions')
 
@@ -62,7 +61,7 @@ const packSupport = R.compose(
   R.split(' ')
 )
 
-export default function packFeature() {
+module.exports = function packFeature() {
   return fs
     .readdir(base)
     .then(getContents)

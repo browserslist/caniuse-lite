@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   1: 'ls', // WHATWG Living Standard
   2: 'rec', // W3C Recommendation
   3: 'pr', // W3C Proposed Recommendation

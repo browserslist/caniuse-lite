@@ -1,11 +1,10 @@
-import { promises as fs } from 'fs'
-import path from 'path'
-import * as R from 'ramda'
+const path = require('path')
+const fs = require('fs').promises
+const R = require('ramda')
 
-import stringifyObject from '../lib/stringifyObject'
-import { encode } from '../lib/base62'
-
+const stringifyObject = require('../lib/stringifyObject')
 const browsersData = require('../../data/browsers')
+const { encode } = require('../lib/base62')
 
 const browsers = R.invertObj(browsersData)
 
@@ -80,7 +79,7 @@ function packBrowserVersions(agents) {
 
 const getAgents = R.compose(R.prop('agents'), JSON.parse)
 
-export default function packAgents() {
+module.exports = function packAgents() {
   // We're not requiring the JSON because it nukes the null values
   return Promise.all([
     fs

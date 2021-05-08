@@ -1,4 +1,4 @@
-import * as lite from './unpacker/index'
+const lite = require('./unpacker/index')
 
 it('should have the appropriate keys', () => {
   expect(lite.agents).toBeDefined()

@@ -1,5 +1,3 @@
-import * as R from 'ramda'
+const R = require('ramda')
 
-const pow = R.curry(Math.pow, 2)
-
-export default pow
+module.exports = R.curry(Math.pow, 2)

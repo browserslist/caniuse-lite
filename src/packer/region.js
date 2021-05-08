@@ -1,10 +1,9 @@
-import path from 'path'
-import { promises as fs } from 'fs'
-import { invertObj } from 'ramda'
+const path = require('path')
+const fs = require('fs').promises
+const { invertObj } = require('ramda')
 
-import getContentsFactory from '../lib/getContents'
-import stringifyObject from '../lib/stringifyObject'
-
+const getContentsFactory = require('../lib/getContents')
+const stringifyObject = require('../lib/stringifyObject')
 const browsers = require('../../data/browsers')
 
 const browsersInverted = invertObj(browsers)
@@ -16,7 +15,7 @@ const base = path.join(
 
 const getContents = getContentsFactory(base)
 
-export default function packRegion() {
+module.exports = function packRegion() {
   return fs
     .readdir(base)
     .then(getContents)

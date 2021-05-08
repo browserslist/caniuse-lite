@@ -1,7 +1,7 @@
-import statuses from '../lib/statuses'
-import supported from '../lib/supported'
-import { browsers } from './browsers'
-import { browserVersions as versions } from './browserVersions'
+const statuses = require('../lib/statuses')
+const supported = require('../lib/supported')
+const { browsers } = require('./browsers')
+const versions = require('./browserVersions').browserVersions
 
 const MATH2LOG = Math.log(2)
 
@@ -24,7 +24,7 @@ function unpackSupport(cipher) {
   return stats.concat(notesArray).join(' ')
 }
 
-export default function unpackFeature(packed) {
+module.exports = function unpackFeature(packed) {
   let unpacked = { status: statuses[packed.B], title: packed.C }
   unpacked.stats = Object.keys(packed.A).reduce((browserStats, key) => {
     let browser = packed.A[key]

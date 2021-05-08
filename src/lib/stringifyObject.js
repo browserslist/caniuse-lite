@@ -1,8 +1,8 @@
-import * as t from 'babel-types'
-import * as R from 'ramda'
+const t = require('babel-types')
+const R = require('ramda')
 
-import generateCode from './generateCode'
-import moduleExports from './moduleExports'
+const generateCode = require('./generateCode')
+const moduleExports = require('./moduleExports')
 
 function getKey(encoded) {
   if (/\d/.test(encoded[0])) {
@@ -11,8 +11,8 @@ function getKey(encoded) {
   return t.identifier(encoded)
 }
 
-const stringify = list =>
-  Object.keys(list).reduce((ast, key) => {
+function stringify(list) {
+  return Object.keys(list).reduce((ast, key) => {
     let data = list[key]
     let value
     if (data === null) {
@@ -49,8 +49,9 @@ const stringify = list =>
     }
     return ast.concat(t.objectProperty(getKey(key), value))
   }, [])
+}
 
-const stringifyObject = R.compose(
+module.exports = R.compose(
   generateCode,
   t.program,
   R.of,
@@ -58,5 +59,3 @@ const stringifyObject = R.compose(
   t.objectExpression,
   stringify
 )
-
-export default stringifyObject

@@ -1,6 +1,5 @@
-import { browsers } from './browsers'
-import { browserVersions as versions } from './browserVersions'
-
+const { browsers } = require('./browsers')
+const versions = require('./browserVersions').browserVersions
 const agentsData = require('../../data/agents')
 
 function unpackBrowserVersions(versionsData) {
@@ -10,7 +9,7 @@ function unpackBrowserVersions(versionsData) {
   }, {})
 }
 
-export const agents = Object.keys(agentsData).reduce((map, key) => {
+module.exports.agents = Object.keys(agentsData).reduce((map, key) => {
   let versionsData = agentsData[key]
   map[browsers[key]] = Object.keys(versionsData).reduce((data, entry) => {
     if (entry === 'A') {
