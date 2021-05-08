@@ -1,7 +1,7 @@
 const path = require('path')
 const bunyan = require('bunyan')
 const git = require('gift')
-const got = require('got')
+const fetch = require('node-fetch')
 const execa = require('execa')
 const Listr = require('listr')
 const split = require('split')
@@ -73,16 +73,16 @@ const tasks = new Listr([
   {
     title: 'Querying for a new caniuse-db version',
     task: (ctx, task) =>
-      got('https://registry.npmjs.org/caniuse-db', {
-        json: true
-      }).then(response => {
-        let version = (ctx.version = response.body['dist-tags'].latest)
-        if (enabled(ctx)) {
-          task.title = `Upgrading ${currentVersion} => ${version}`
-        } else {
-          task.title = `Already up to date! (v${version})`
-        }
-      })
+      fetch('https://registry.npmjs.org/caniuse-db')
+        .then(response => response.json())
+        .then(body => {
+          let version = (ctx.version = body['dist-tags'].latest)
+          if (enabled(ctx)) {
+            task.title = `Upgrading ${currentVersion} => ${version}`
+          } else {
+            task.title = `Already up to date! (v${version})`
+          }
+        })
   },
   {
     title: 'Syncing local repository',
