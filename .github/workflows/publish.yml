@@ -1,0 +1,23 @@
+name: Publish
+on:
+  schedule:
+    - cron: "0 * * * *"
+env:
+  FORCE_COLOR: 2
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Run script
+        run: node ./publish.js
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
