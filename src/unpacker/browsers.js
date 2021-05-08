@@ -1,1 +1,1 @@
-export const browsers = require('../../data/browsers');
+export const browsers = require('../../data/browsers')

@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from 'ramda'
 
-const parseInteger = R.curryN(2, R.flip(parseInt));
-const parseDecimal = parseInteger(10);
+const parseInteger = R.curryN(2, R.flip(parseInt))
+const parseDecimal = parseInteger(10)
 
-export default parseDecimal;
+export default parseDecimal

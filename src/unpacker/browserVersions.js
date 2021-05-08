@@ -1,1 +1,1 @@
-export const browserVersions = require('../../data/browserVersions');
+export const browserVersions = require('../../data/browserVersions')

@@ -1,8 +1,8 @@
-import * as lite from './unpacker/index';
+import * as lite from './unpacker/index'
 
 it('should have the appropriate keys', () => {
-    expect(lite.agents).toBeTruthy();
-    expect(lite.feature).toBeTruthy();
-    expect(lite.features).toBeTruthy();
-    expect(lite.region).toBeTruthy();
-});
+  expect(lite.agents).toBeDefined()
+  expect(lite.feature).toBeDefined()
+  expect(lite.features).toBeDefined()
+  expect(lite.region).toBeDefined()
+})

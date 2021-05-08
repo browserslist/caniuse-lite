@@ -7,7 +7,7 @@
     "prepublish": "del-cli dist && babel src/unpacker -d dist/unpacker && mkdir dist/lib && babel src/lib/statuses.js -o dist/lib/statuses.js && babel src/lib/supported.js -o dist/lib/supported.js",
     "size": "size-limit consumer.js",
     "pack": "del-cli data && babel-node src/packer/index.js",
-    "test": "jest src"
+    "test": "eslint . && jest src"
   },
   "files": [
     "data",
@@ -32,6 +32,7 @@
   },
   "license": "CC-BY-4.0",
   "devDependencies": {
+    "@logux/eslint-config": "^45.4.1",
     "@samverschueren/stream-to-observable": "^0.3.0",
     "all-contributors-cli": "^5.4.1",
     "any-observable": "^0.2.0",
@@ -44,20 +45,62 @@
     "caniuse-db": "1.0.30001223",
     "clean-publish": "^1.1.0",
     "del-cli": "^0.2.1",
+    "eslint": "^7.26.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prefer-let": "^1.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-unicorn": "^31.0.0",
     "execa": "^4.0.0",
     "fecha": "^2.3.0",
     "gift": "^0.10.0",
     "got": "^6.7.1",
     "jest": "^23.6.0",
+    "lint-staged": "^11.0.0",
     "listr": "^0.14.3",
     "mdast-util-heading-range": "^2.1.2",
     "mz": "^2.6.0",
+    "prettier": "^2.2.1",
     "ramda": "^0.25.0",
     "remark": "^7.0.0",
     "rxjs": "^6.5.4",
+    "simple-git-hooks": "^2.4.1",
     "size-limit": "^0.21.0",
     "split": "^1.0.0",
     "unist-builder": "^1.0.3",
     "write-file-promise": "^1.0.0"
+  },
+  "eslintConfig": {
+    "extends": "@logux/eslint-config",
+    "rules": {
+      "security/detect-non-literal-require": "off",
+      "node/global-require": "off",
+      "no-console": "off",
+      "camelcase": "off"
+    }
+  },
+  "eslintIgnore": [
+    "data/",
+    "dist/"
+  ],
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "jsxSingleQuote": false,
+    "quoteProps": "consistent",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
   }
 }

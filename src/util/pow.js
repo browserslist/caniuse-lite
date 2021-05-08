@@ -1,5 +1,5 @@
-import * as R from 'ramda';
+import * as R from 'ramda'
 
-const pow = R.curry(Math.pow, 2);
+const pow = R.curry(Math.pow, 2)
 
-export default pow;
+export default pow
