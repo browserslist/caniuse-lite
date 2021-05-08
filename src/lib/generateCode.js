@@ -1,5 +1,5 @@
 const R = require('ramda')
-const generate = require('babel-generator').default
+const generate = require('@babel/generator').default
 
 const appendString = R.flip(R.concat)
 

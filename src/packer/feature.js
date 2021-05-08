@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs').promises
-const t = require('babel-types')
+const t = require('@babel/types')
 const R = require('ramda')
 
 const generateCode = require('../lib/generateCode')
