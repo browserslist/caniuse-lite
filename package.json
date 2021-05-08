@@ -32,7 +32,7 @@
   "license": "CC-BY-4.0",
   "devDependencies": {
     "@logux/eslint-config": "^45.4.1",
-    "@samverschueren/stream-to-observable": "^0.3.0",
+    "@samverschueren/stream-to-observable": "^0.3.1",
     "@size-limit/file": "^4.10.2",
     "@size-limit/webpack": "^4.10.2",
     "all-contributors-cli": "^5.4.1",
@@ -42,7 +42,7 @@
     "babel-preset-env": "^1.1.8",
     "babel-register": "^6.18.0",
     "babel-types": "^6.21.0",
-    "bunyan": "^1.8.10",
+    "bunyan": "^1.8.15",
     "caniuse-db": "1.0.30001223",
     "clean-publish": "^2.2.0",
     "del-cli": "^0.2.1",
