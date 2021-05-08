@@ -5,9 +5,8 @@
   "main": "dist/unpacker/index.js",
   "scripts": {
     "prepublish": "del-cli dist && babel src/unpacker -d dist/unpacker && mkdir dist/lib && babel src/lib/statuses.js -o dist/lib/statuses.js && babel src/lib/supported.js -o dist/lib/supported.js",
-    "size": "size-limit consumer.js",
     "pack": "del-cli data && babel-node src/packer/index.js",
-    "test": "eslint . && jest src"
+    "test": "yarn run prepublish && eslint . && jest src && size-limit"
   },
   "files": [
     "data",
@@ -34,6 +33,8 @@
   "devDependencies": {
     "@logux/eslint-config": "^45.4.1",
     "@samverschueren/stream-to-observable": "^0.3.0",
+    "@size-limit/file": "^4.10.2",
+    "@size-limit/webpack": "^4.10.2",
     "all-contributors-cli": "^5.4.1",
     "any-observable": "^0.2.0",
     "babel-cli": "^6.24.0",
@@ -43,7 +44,7 @@
     "babel-types": "^6.21.0",
     "bunyan": "^1.8.10",
     "caniuse-db": "1.0.30001223",
-    "clean-publish": "^1.1.0",
+    "clean-publish": "^2.2.0",
     "del-cli": "^0.2.1",
     "eslint": "^7.26.0",
     "eslint-config-standard": "^16.0.2",
@@ -68,7 +69,7 @@
     "remark": "^7.0.0",
     "rxjs": "^6.5.4",
     "simple-git-hooks": "^2.4.1",
-    "size-limit": "^0.21.0",
+    "size-limit": "^4.10.2",
     "split": "^1.0.0",
     "unist-builder": "^1.0.3",
     "write-file-promise": "^1.0.0"
@@ -102,5 +103,10 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "none"
-  }
+  },
+  "size-limit": [
+    {
+      "path": "./consumer.js"
+    }
+  ]
 }
