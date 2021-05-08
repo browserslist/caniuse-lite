@@ -5,11 +5,7 @@ const fetch = require('node-fetch')
 const execa = require('execa')
 const Listr = require('listr')
 const split = require('split')
-const heading = require('mdast-util-heading-range')
-const remark = require('remark')
-const u = require('unist-builder')
 const fs = require('fs').promises
-const fecha = require('fecha')
 require('any-observable/register/rxjs-all')
 const { merge } = require('rxjs')
 const { filter } = require('rxjs/operators')
@@ -44,30 +40,6 @@ const exec = (cmd, args) => {
 }
 
 const enabled = ctx => ctx.version !== currentVersion
-
-const changelog = ctx => tree =>
-  heading(tree, /^1.x release/i, (start, nodes, end) => {
-    let addition = u('listItem', { loose: false, checked: null }, [
-      u('paragraph', [
-        u('strong', [u('text', ctx.version)]),
-        u(
-          'text',
-          ` was released on ${fecha.format(
-            new Date(),
-            'MMMM Do, YYYY [at] HH:mm'
-          )}.`
-        )
-      ])
-    ])
-    let list = nodes.find(node => node.type === 'list')
-    if (!list) {
-      list = u('list', { loose: false, ordered: false }, [addition])
-      nodes.push(list)
-    } else {
-      list.children.unshift(addition)
-    }
-    return [start, ...nodes, end]
-  })
 
 const tasks = new Listr([
   {
@@ -121,29 +93,15 @@ const tasks = new Listr([
     enabled
   },
   {
-    title: 'Updating changelog',
-    task: ctx => {
-      let log2 = './CHANGELOG.md'
-      return fs
-        .readFile(log2, 'utf8')
-        .then(contents => remark().use(changelog, ctx).process(contents))
-        .then(contents => fs.writeFile(log2, String(contents)))
-    },
-    enabled
-  },
-  {
     title: 'Staging files for commit',
     task: () =>
       new Promise((resolve, reject) => {
-        repo.add(
-          ['./data', './CHANGELOG.md', './package.json', './yarn.lock'],
-          err => {
-            if (err) {
-              return reject(err)
-            }
-            return resolve()
+        repo.add(['./data', './package.json', './yarn.lock'], err => {
+          if (err) {
+            return reject(err)
           }
-        )
+          return resolve()
+        })
       }),
     enabled
   },

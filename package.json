@@ -54,21 +54,17 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-unicorn": "^31.0.0",
     "execa": "^4.0.0",
-    "fecha": "^2.3.0",
     "gift": "^0.10.0",
     "jest": "^23.6.0",
     "lint-staged": "^11.0.0",
     "listr": "^0.14.3",
-    "mdast-util-heading-range": "^2.1.2",
     "node-fetch": "^2.6.1",
     "prettier": "^2.2.1",
     "ramda": "^0.25.0",
-    "remark": "^7.0.0",
     "rxjs": "^6.5.4",
     "simple-git-hooks": "^2.4.1",
     "size-limit": "^4.10.2",
-    "split": "^1.0.0",
-    "unist-builder": "^1.0.3"
+    "split": "^1.0.0"
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config",
