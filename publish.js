@@ -1,7 +1,7 @@
 const git = require('gift')
 const fetch = require('node-fetch')
 const execa = require('execa')
-const Listr = require('listr')
+const { red, green, gray } = require('colorette')
 const split = require('split')
 const fs = require('fs').promises
 require('any-observable/register/rxjs-all')
@@ -29,7 +29,7 @@ const exec = (cmd, args) => {
 
 const enabled = ctx => ctx.version !== currentVersion
 
-const tasks = new Listr([
+const tasks = [
   {
     title: 'Querying for a new caniuse-db version',
     task: (ctx, task) =>
@@ -121,8 +121,23 @@ const tasks = new Listr([
     task: () => exec('git', ['push', '--follow-tags']),
     enabled
   }
-])
+]
 
-tasks.run().catch(err => {
-  console.error(err.stack)
+async function run() {
+  let ctx = {}
+  for (let task of tasks) {
+    if (!task.enabled || task.enabled(ctx)) {
+      process.stdout.write(gray('- ') + task.title + '\n')
+      await task.task(ctx, task)
+      process.stdout.write(green('✔ ') + task.title + '\n')
+    }
+  }
+}
+
+run().catch(err => {
+  if (typeof err === 'string') {
+    process.stderr.write(red(err) + '\n')
+  } else {
+    process.stderr.write(red(err.stack) + '\n')
+  }
 })
