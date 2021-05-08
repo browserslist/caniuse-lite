@@ -25,7 +25,11 @@
     "email": "beneb.info@gmail.com",
     "url": "http://beneb.info"
   },
-  "repository": "ben-eb/caniuse-lite",
+  "repository": "browserslist/caniuse-lite",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/browserslist"
+  },
   "license": "CC-BY-4.0",
   "devDependencies": {
     "@samverschueren/stream-to-observable": "^0.3.0",
