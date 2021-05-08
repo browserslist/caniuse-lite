@@ -1,5 +1,3 @@
-const path = require('path')
-const bunyan = require('bunyan')
 const git = require('gift')
 const fetch = require('node-fetch')
 const execa = require('execa')
@@ -12,16 +10,6 @@ const { filter } = require('rxjs/operators')
 const streamToObservable = require('@samverschueren/stream-to-observable')
 
 const pkg = require('./package.json')
-
-const log = bunyan.createLogger({
-  name: 'caniuseLite',
-  serializers: { err: bunyan.stdSerializers.err },
-  streams: [
-    {
-      path: path.join(__dirname, 'error.log')
-    }
-  ]
-})
 
 // Cache this so we don't exit early.
 const currentVersion = pkg.devDependencies['caniuse-db']
@@ -135,4 +123,6 @@ const tasks = new Listr([
   }
 ])
 
-tasks.run().catch(err => log.error({ err }, `Publish failed.`))
+tasks.run().catch(err => {
+  console.error(err.stack)
+})

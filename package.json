@@ -41,7 +41,6 @@
     "babel-preset-env": "^1.1.8",
     "babel-register": "^6.18.0",
     "babel-types": "^6.21.0",
-    "bunyan": "^1.8.15",
     "caniuse-db": "1.0.30001223",
     "clean-publish": "^2.2.0",
     "eslint": "^7.26.0",
