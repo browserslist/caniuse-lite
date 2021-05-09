@@ -1,5 +1,4 @@
 const git = require('gift')
-const fetch = require('node-fetch')
 const execa = require('execa')
 const split = require('split')
 const fs = require('fs').promises
@@ -10,9 +9,6 @@ const streamToObservable = require('@samverschueren/stream-to-observable')
 
 const runTasks = require('./src/lib/runTasks')
 const pkg = require('./package.json')
-
-// Cache this so we don't exit early.
-const currentVersion = pkg.devDependencies['caniuse-db']
 
 const repo = git(__dirname)
 
@@ -27,23 +23,7 @@ const exec = (cmd, args) => {
   ).pipe(filter(Boolean))
 }
 
-const enabled = ctx => ctx.version !== currentVersion
-
 runTasks([
-  {
-    title: 'Querying for a new caniuse-db version',
-    task: (ctx, task) =>
-      fetch('https://registry.npmjs.org/caniuse-db')
-        .then(response => response.json())
-        .then(body => {
-          let version = (ctx.version = body['dist-tags'].latest)
-          if (enabled(ctx)) {
-            task.title = `Upgrading ${currentVersion} => ${version}`
-          } else {
-            task.title = `Already up to date! (v${version})`
-          }
-        })
-  },
   {
     title: 'Syncing local repository',
     task: () =>
@@ -54,31 +34,26 @@ runTasks([
           }
           return resolve()
         })
-      }),
-    enabled
+      })
   },
   {
     title: 'Updating local caniuse-db version',
     task: ctx => {
       pkg.devDependencies['caniuse-db'] = ctx.version
       return fs.writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`)
-    },
-    enabled
+    }
   },
   {
     title: 'Retrieving dependencies from npm',
-    task: () => exec('yarn', ['install']),
-    enabled
+    task: () => exec('yarn', ['install'])
   },
   {
     title: 'Packing caniuse data',
-    task: () => exec('node', ['src/packer/index.js']),
-    enabled
+    task: () => exec('node', ['src/packer/index.js'])
   },
   {
     title: 'Running tests',
-    task: () => exec('yarn', ['test']),
-    enabled
+    task: () => exec('yarn', ['test'])
   },
   {
     title: 'Staging files for commit',
@@ -90,8 +65,7 @@ runTasks([
           }
           return resolve()
         })
-      }),
-    enabled
+      })
   },
   {
     title: 'Committing changes',
@@ -103,22 +77,18 @@ runTasks([
           }
           return resolve()
         })
-      }),
-    enabled
+      })
   },
   {
     title: 'Updating version',
-    task: ctx => exec('npm', ['version', ctx.version]),
-    enabled
+    task: ctx => exec('npm', ['version', ctx.version])
   },
   {
     title: 'Publishing to npm',
-    task: () => exec('npx', ['clean-publish']),
-    enabled
+    task: () => exec('npx', ['clean-publish'])
   },
   {
     title: 'Syncing repo & tags to GitHub',
-    task: () => exec('git', ['push', '--follow-tags']),
-    enabled
+    task: () => exec('git', ['push', '--follow-tags'])
   }
 ])
