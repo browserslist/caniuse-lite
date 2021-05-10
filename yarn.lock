@@ -1559,9 +1559,9 @@ caniuse-db@1.0.30001225:
   integrity sha512-mr16X2UzEAjBGicWBsMyRPO6+Q8AJPHXZAnnzp/DyI5RcaB9qag5YlOIJffZWa5bENDfwT8/VC4NGUp1o89aSA==
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001219:
-  version "1.0.30001225"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001225.tgz#4a79952082ddbc2b0e707f05696372b07748eeea"
-  integrity sha512-oDbH3OluyOsP4NEBA8y3XUNZMaN5yp/Ra+WGs9IebgaclHSks70axdwFH82FBt/HmrwShBmltHkU3ti9mgxQgA==
+  version "1.0.30001227"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001227.tgz#437fe8b514ac4512d9bdb4ea79f20c400bd0b4d1"
+  integrity sha512-HHZT4QpUw4Pf45IE3xxKAPgAN3q2aRai/x5TSHP8lrrKzARoH0IeBviwStcRi5lsFlscTkBbXC7gXyms43151A==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -2596,10 +2596,10 @@ eslint-plugin-security@^1.4.0:
   dependencies:
     safe-regex "^1.1.0"
 
-eslint-plugin-unicorn@^32.0.0:
-  version "32.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-32.0.0.tgz#a62fa2752b80259ffb8b24878631148237dc2a4d"
-  integrity sha512-VYE/XvZvdcY0RvOKGxsrVVWo8DaI/tGVYuhKzSd6Uuy69Ydc8zX+roZ/H9PgyykM4nuj8JDoOHSwVk9a4OYbCQ==
+eslint-plugin-unicorn@^32.0.1:
+  version "32.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-32.0.1.tgz#a7cb9f538441b78936a96261eea4392d76526d77"
+  integrity sha512-LaZ9utnXtOJjnoDkpm+nQsONUUmyRR0WD6PGROSdQRRW3LRmgK/ZP8wxjW+Ai+2uolKTtuJzLx2mvbIeIoLqpg==
   dependencies:
     ci-info "^3.1.1"
     clean-regexp "^1.0.0"
