@@ -27,6 +27,7 @@ jobs:
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
         uses: bahmutov/npm-install@v1
+        install-command: yarn install
       - name: Run script
         if: steps.caniuse.outputs.newVersion
         run: node ./publish.js

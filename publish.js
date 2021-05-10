@@ -23,10 +23,6 @@ const exec = (cmd, args) => {
 
 runTasks([
   {
-    title: 'Retrieving dependencies from npm',
-    task: () => exec('yarn', ['install'])
-  },
-  {
     title: 'Packing Can I Use data',
     task: () => exec('node', ['src/packer/index.js'])
   },
