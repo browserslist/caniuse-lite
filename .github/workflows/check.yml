@@ -1,7 +1,7 @@
 name: Check
 on:
   schedule:
-    - cron: "41 * * * *"
+    - cron: "29 * * * *"
 env:
   FORCE_COLOR: 2
 jobs:
