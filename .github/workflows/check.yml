@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+          scope: caniuse-lite
       - name: Check caniuse-db version
         id: caniuse
         run: node ./check.js
