@@ -1,14 +1,12 @@
+require('any-observable/register/rxjs-all')
 const git = require('gift')
 const execa = require('execa')
 const split = require('split')
-const fs = require('fs').promises
-require('any-observable/register/rxjs-all')
 const { merge } = require('rxjs')
 const { filter } = require('rxjs/operators')
 const streamToObservable = require('@samverschueren/stream-to-observable')
 
 const runTasks = require('./src/lib/runTasks')
-const pkg = require('./package.json')
 
 const repo = git(__dirname)
 
@@ -25,23 +23,16 @@ const exec = (cmd, args) => {
 
 runTasks([
   {
-    title: 'Updating local caniuse-db version',
-    task: ctx => {
-      pkg.devDependencies['caniuse-db'] = ctx.version
-      return fs.writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`)
-    }
-  },
-  {
     title: 'Retrieving dependencies from npm',
     task: () => exec('yarn', ['install'])
   },
   {
-    title: 'Packing caniuse data',
+    title: 'Packing Can I Use data',
     task: () => exec('node', ['src/packer/index.js'])
   },
   {
     title: 'Running tests',
-    task: () => exec('yarn', ['test'])
+    task: () => exec('npx', ['jest'])
   },
   {
     title: 'Staging files for commit',

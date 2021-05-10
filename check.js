@@ -1,3 +1,4 @@
+const { writeFile } = require('fs')
 const { get } = require('https')
 
 const pkg = require('./package.json')
@@ -14,8 +15,12 @@ get('https://registry.npmjs.org/caniuse-db', res => {
   })
   res.on('end', () => {
     let body = JSON.parse(data)
-    if (pkg.devDependencies['caniuse-db'] !== body['dist-tags'].latest) {
-      process.stdout.write('::set-output name=newVersion::1\n')
+    let lastVersion = body['dist-tags'].latest
+    if (pkg.devDependencies['caniuse-db'] !== lastVersion) {
+      pkg.devDependencies['caniuse-db'] = lastVersion
+      writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`, () => {
+        process.stdout.write('::set-output name=newVersion::1\n')
+      })
     } else {
       process.stdout.write('Already up to date\n')
     }
