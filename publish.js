@@ -6,7 +6,7 @@ const pkg = require('./package.json')
 
 const repo = git(__dirname)
 
-const exec = async (cmd, args) => {
+const exec = async (cmd, args, alwaysPrint) => {
   await new Promise((resolve, reject) => {
     let execution = spawn(cmd, args, { env: process.env })
 
@@ -20,6 +20,7 @@ const exec = async (cmd, args) => {
 
     execution.on('exit', code => {
       if (code === 0) {
+        if (alwaysPrint) process.stderr.write(output)
         resolve()
       } else {
         process.stderr.write(output)
@@ -70,7 +71,7 @@ runTasks([
   },
   {
     title: 'Publishing to npm',
-    task: () => exec('npx', ['clean-publish'])
+    task: () => exec('npx', ['clean-publish'], true)
   },
   {
     title: 'Syncing repo & tags to GitHub',
