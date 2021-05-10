@@ -24,7 +24,7 @@ function unpackSupport(cipher) {
   return stats.concat(notesArray).join(' ')
 }
 
-module.exports = function unpackFeature(packed) {
+function unpackFeature(packed) {
   let unpacked = { status: statuses[packed.B], title: packed.C }
   unpacked.stats = Object.keys(packed.A).reduce((browserStats, key) => {
     let browser = packed.A[key]
@@ -41,3 +41,6 @@ module.exports = function unpackFeature(packed) {
   }, {})
   return unpacked
 }
+
+module.exports = unpackFeature
+module.exports.default = unpackFeature

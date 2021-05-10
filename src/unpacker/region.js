@@ -1,6 +1,6 @@
 const { browsers } = require('./browsers')
 
-module.exports = function unpackRegion(packed) {
+function unpackRegion(packed) {
   return Object.keys(packed).reduce((list, browser) => {
     let data = packed[browser]
     list[browsers[browser]] = Object.keys(data).reduce((memo, key) => {
@@ -15,3 +15,6 @@ module.exports = function unpackRegion(packed) {
     return list
   }, {})
 }
+
+module.exports = unpackRegion
+module.exports.default = unpackRegion
