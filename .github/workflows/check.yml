@@ -27,8 +27,25 @@ jobs:
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
         run: yarn install --ignore-scripts
+      - name: Copy unpacker
+        if: steps.caniuse.outputs.newVersion
+        run: yarn run prepublish
+      - name: Pack Can I Use data
+        if: steps.caniuse.outputs.newVersion
+        run: node ./src/packer/index.js
+      - name: Run tests
+        if: steps.caniuse.outputs.newVersion
+        run: npx jest
+      - name: Commit changes
+        if: steps.caniuse.outputs.newVersion
+        run: |
+          git add data/ package.json yarn.lock
+          git commit -m "Update caniuse-db"
       - name: Publish
         if: steps.caniuse.outputs.newVersion
-        run: node ./publish.js
+        run: npx clean-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      - name: Push git commit
+        if: steps.caniuse.outputs.newVersion
+        run: git push --follow-tags
