@@ -29,5 +29,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 6
+      - name: Copy unpacker
+        run: npm run copy
       - name: Run tests
         run: npm run integration
