@@ -29,9 +29,6 @@ jobs:
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
         run: yarn install --ignore-scripts
-      - name: Copy unpacker
-        if: steps.caniuse.outputs.newVersion
-        run: yarn run copy
       - name: Pack Can I Use data
         if: steps.caniuse.outputs.newVersion
         run: yarn run pack
