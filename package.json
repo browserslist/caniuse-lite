@@ -4,9 +4,10 @@
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "main": "dist/unpacker/index.js",
   "scripts": {
+    "integration": "node ./consumer.js > /dev/null",
     "copy": "rm -Rf dist && mkdir -p dist/unpacker && mkdir -p dist/lib && cp -R src/unpacker/* dist/unpacker/ && cp src/lib/statuses.js dist/lib/statuses.js && cp src/lib/supported.js dist/lib/supported.js",
     "pack": "rm -Rf data && node src/packer/index.js",
-    "test": "yarn run copy && yarn run pack && eslint . && jest src && size-limit"
+    "test": "yarn run copy && yarn run pack && eslint . && jest src && yarn run integration && size-limit"
   },
   "files": [
     "data",
