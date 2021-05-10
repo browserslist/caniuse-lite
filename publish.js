@@ -25,18 +25,6 @@ const exec = (cmd, args) => {
 
 runTasks([
   {
-    title: 'Syncing local repository',
-    task: () =>
-      new Promise((resolve, reject) => {
-        repo.pull(err => {
-          if (err) {
-            return reject(err)
-          }
-          return resolve()
-        })
-      })
-  },
-  {
     title: 'Updating local caniuse-db version',
     task: ctx => {
       pkg.devDependencies['caniuse-db'] = ctx.version
