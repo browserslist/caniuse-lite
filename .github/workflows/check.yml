@@ -43,9 +43,12 @@ jobs:
           git commit -m "Update caniuse-db"
       - name: Publish
         if: steps.caniuse.outputs.newVersion
-        run: npx clean-publish
+        run: npx clean-publish &> publish.log
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-      - name: Push git commit
+      - name: Check npm log
+        if: steps.caniuse.outputs.newVersion
+        run: node ./log.js
+      - name: Push changes
         if: steps.caniuse.outputs.newVersion
         run: git push --follow-tags
