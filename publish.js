@@ -10,22 +10,22 @@ const version = pkg.devDependencies['caniuse-db']
 
 async function exec(cmd, args) {
   await new Promise((resolve, reject) => {
-    let execution = spawn(cmd, args, {
+    let subprocess = spawn(cmd, args, {
       env: process.env,
-      maxBuffer: 20 * 1024 * 1024
+      maxBuffer: 100 * 1024 * 1024
     })
 
     let output = ''
-    execution.stdout.on('data', data => {
+    subprocess.stdout.on('data', data => {
       process.stdout.write(data)
       output += data.toString()
     })
-    execution.stderr.on('data', data => {
+    subprocess.stderr.on('data', data => {
       process.stderr.write(data)
       output += data.toString()
     })
 
-    execution.on('exit', code => {
+    subprocess.on('close', code => {
       if (code === 0) {
         if (output.includes('npm ERR!')) {
           reject(Error('npm error'))
@@ -37,6 +37,8 @@ async function exec(cmd, args) {
         reject(new Error('Exit code ' + code))
       }
     })
+
+    subprocess.on('error', e => reject(e))
   })
 }
 
