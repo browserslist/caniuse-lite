@@ -1,24 +1,32 @@
-require('any-observable/register/rxjs-all')
+const { spawn } = require('child_process')
 const git = require('gift')
-const execa = require('execa')
-const split = require('split')
-const { merge } = require('rxjs')
-const { filter } = require('rxjs/operators')
-const streamToObservable = require('@samverschueren/stream-to-observable')
 
 const runTasks = require('./src/lib/runTasks')
 
 const repo = git(__dirname)
 
 // With thanks: https://github.com/sindresorhus/np
-const exec = (cmd, args) => {
-  let cp = execa(cmd, args)
+const exec = async (cmd, args) => {
+  await new Promise((resolve, reject) => {
+    let execution = spawn(cmd, args, { env: process.env })
 
-  return merge(
-    streamToObservable(cp.stdout.pipe(split())),
-    streamToObservable(cp.stderr.pipe(split())),
-    cp
-  ).pipe(filter(Boolean))
+    let output = ''
+    execution.stdout.on('data', data => {
+      output += data.toString()
+    })
+    execution.stderr.on('data', data => {
+      output += data.toString()
+    })
+
+    execution.on('exit', code => {
+      if (code === 0) {
+        resolve()
+      } else {
+        process.stderr.write(output)
+        reject(new Error('Exit code ' + code))
+      }
+    })
+  })
 }
 
 runTasks([
