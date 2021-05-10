@@ -2,7 +2,7 @@ name: Check
 on:
   push:
   schedule:
-    - cron: "29 * * * *"
+    - cron: "41 * * * *"
 env:
   FORCE_COLOR: 2
 jobs:
