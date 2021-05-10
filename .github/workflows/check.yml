@@ -18,6 +18,11 @@ jobs:
       - name: Check caniuse-db version
         id: caniuse
         run: node ./check.js
+      - name: Setup git config
+        if: steps.caniuse.outputs.newVersion
+        run: |
+          git config user.name "Can I Use Updater"
+          git config user.email "<andrey+caniuse@sitnik.ru>"
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
         uses: bahmutov/npm-install@v1
