@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
         run: yarn install
-      - name: Run script
+      - name: Publish
         if: steps.caniuse.outputs.newVersion
         run: node ./publish.js
         env:

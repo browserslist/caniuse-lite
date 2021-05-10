@@ -2,10 +2,10 @@ const { spawn } = require('child_process')
 const git = require('gift')
 
 const runTasks = require('./src/lib/runTasks')
+const pkg = require('./package.json')
 
 const repo = git(__dirname)
 
-// With thanks: https://github.com/sindresorhus/np
 const exec = async (cmd, args) => {
   await new Promise((resolve, reject) => {
     let execution = spawn(cmd, args, { env: process.env })
@@ -28,6 +28,8 @@ const exec = async (cmd, args) => {
     })
   })
 }
+
+const version = pkg.devDependencies['caniuse-db']
 
 runTasks([
   {
@@ -52,9 +54,9 @@ runTasks([
   },
   {
     title: 'Committing changes',
-    task: ctx =>
+    task: () =>
       new Promise((resolve, reject) => {
-        repo.commit(`Update caniuse-db to ${ctx.version}`, err => {
+        repo.commit(`Update caniuse-db to ${version}`, err => {
           if (err) {
             return reject(err)
           }
@@ -64,7 +66,7 @@ runTasks([
   },
   {
     title: 'Updating version',
-    task: ctx => exec('npm', ['version', ctx.version])
+    task: () => exec('npm', ['version', version])
   },
   {
     title: 'Publishing to npm',
