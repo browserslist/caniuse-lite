@@ -18,7 +18,7 @@ function unpackSupport(cipher) {
   while (notes) {
     let note = Math.floor(Math.log(notes) / MATH2LOG) + 1
     notesArray.unshift(`#${note}`)
-    notes -= 2 ** (note - 1)
+    notes -= Math.pow(2, note - 1)
   }
 
   return stats.concat(notesArray).join(' ')
