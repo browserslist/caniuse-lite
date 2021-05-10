@@ -10,6 +10,10 @@ const version = pkg.devDependencies['caniuse-db']
 
 runTasks([
   {
+    title: 'Copying unpacker',
+    task: () => execSync('yarn run prepublish', { stdio: 'inherit' })
+  },
+  {
     title: 'Packing Can I Use data',
     task: () => execSync('node src/packer/index.js', { stdio: 'inherit' })
   },
