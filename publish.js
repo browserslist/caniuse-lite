@@ -11,11 +11,11 @@ const version = pkg.devDependencies['caniuse-db']
 runTasks([
   {
     title: 'Packing Can I Use data',
-    task: () => execSync('node src/packer/index.js')
+    task: () => execSync('node src/packer/index.js', { stdio: 'inherit' })
   },
   {
     title: 'Running tests',
-    task: () => execSync('npx jest')
+    task: () => execSync('npx jest', { stdio: 'inherit' })
   },
   {
     title: 'Staging files for commit',
@@ -43,14 +43,14 @@ runTasks([
   },
   {
     title: 'Updating version',
-    task: () => execSync('npm version ' + version)
+    task: () => execSync('npm version ' + version, { stdio: 'inherit' })
   },
   {
     title: 'Publishing to npm',
-    task: () => execSync('npx clean-publish')
+    task: () => execSync('npx clean-publish', { stdio: 'inherit' })
   },
   {
     title: 'Syncing repo & tags to GitHub',
-    task: () => execSync('git push --follow-tags')
+    task: () => execSync('git push --follow-tags', { stdio: 'inherit' })
   }
 ])

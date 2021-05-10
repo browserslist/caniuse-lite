@@ -1,12 +1,11 @@
-const { red, green, gray } = require('colorette')
+const { red } = require('colorette')
 
 async function run(tasks) {
   let ctx = {}
   for (let task of tasks) {
     if (!task.enabled || task.enabled(ctx)) {
-      process.stdout.write(gray('- ') + task.title + '\n')
+      process.stdout.write(task.title + '\n')
       await task.task(ctx, task)
-      process.stdout.write(green('✔ ') + task.title + '\n')
     }
   }
 }
