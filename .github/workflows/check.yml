@@ -26,7 +26,7 @@ jobs:
           git config user.email "<andrey+caniuse@sitnik.ru>"
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
-        run: yarn install
+        run: yarn install --ignore-scripts
       - name: Publish
         if: steps.caniuse.outputs.newVersion
         run: node ./publish.js
