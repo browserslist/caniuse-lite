@@ -1,4 +1,4 @@
-const { execSync } = require('child_process')
+const { spawn } = require('child_process')
 const git = require('gift')
 
 const runTasks = require('./src/lib/runTasks')
@@ -8,18 +8,50 @@ const repo = git(__dirname)
 
 const version = pkg.devDependencies['caniuse-db']
 
+async function exec(cmd, args) {
+  await new Promise((resolve, reject) => {
+    let execution = spawn(cmd, args, {
+      env: process.env,
+      maxBuffer: 20 * 1024 * 1024
+    })
+
+    let output = ''
+    execution.stdout.on('data', data => {
+      process.stdout.write(data)
+      output += data.toString()
+    })
+    execution.stderr.on('data', data => {
+      process.stderr.write(data)
+      output += data.toString()
+    })
+
+    execution.on('exit', code => {
+      if (code === 0) {
+        if (output.includes('npm ERR!')) {
+          reject(Error('npm error'))
+        } else {
+          resolve()
+        }
+      } else {
+        process.stderr.write(output)
+        reject(new Error('Exit code ' + code))
+      }
+    })
+  })
+}
+
 runTasks([
   {
     title: 'Copying unpacker',
-    task: () => execSync('yarn run prepublish', { stdio: 'inherit' })
+    task: () => exec('yarn', ['run', 'prepublish'])
   },
   {
     title: 'Packing Can I Use data',
-    task: () => execSync('node src/packer/index.js', { stdio: 'inherit' })
+    task: () => exec('node', ['src/packer/index.js'])
   },
   {
     title: 'Running tests',
-    task: () => execSync('npx jest', { stdio: 'inherit' })
+    task: () => exec('npx', ['jest'])
   },
   {
     title: 'Staging files for commit',
@@ -47,20 +79,14 @@ runTasks([
   },
   {
     title: 'Updating version',
-    task: () => execSync('npm version ' + version, { stdio: 'inherit' })
+    task: () => exec('npm', ['version', version])
   },
   {
     title: 'Publishing to npm',
-    task: () => {
-      let out = execSync('npx clean-publish')
-      process.stdout.write(out.toString())
-      if (out.toString().includes('npm ERR!')) {
-        throw new Error('npm error')
-      }
-    }
+    task: () => exec('npx', ['clean-publish'])
   },
   {
     title: 'Syncing repo & tags to GitHub',
-    task: () => execSync('git push --follow-tags', { stdio: 'inherit' })
+    task: () => exec('git', ['push', '--follow-tags'])
   }
 ])
