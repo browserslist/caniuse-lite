@@ -12,15 +12,22 @@ const exec = async (cmd, args, alwaysPrint) => {
 
     let output = ''
     execution.stdout.on('data', data => {
-      output += data.toString()
+      if (alwaysPrint) {
+        process.stdout.write(data)
+      } else {
+        output += data.toString()
+      }
     })
     execution.stderr.on('data', data => {
-      output += data.toString()
+      if (alwaysPrint) {
+        process.stderr.write(data)
+      } else {
+        output += data.toString()
+      }
     })
 
     execution.on('exit', code => {
       if (code === 0) {
-        if (alwaysPrint) process.stderr.write(output)
         resolve()
       } else {
         process.stderr.write(output)
