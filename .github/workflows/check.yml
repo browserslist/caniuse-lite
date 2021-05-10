@@ -1,5 +1,6 @@
 name: Check
 on:
+  push:
   schedule:
     - cron: "29 * * * *"
 env:
