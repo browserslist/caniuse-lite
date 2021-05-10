@@ -51,7 +51,13 @@ runTasks([
   },
   {
     title: 'Publishing to npm',
-    task: () => execSync('npx clean-publish', { stdio: 'inherit' })
+    task: () => {
+      let out = execSync('npx clean-publish')
+      process.stdout.write(out.toString())
+      if (out.toString().includes('npm ERR!')) {
+        throw new Error('npm error')
+      }
+    }
   },
   {
     title: 'Syncing repo & tags to GitHub',
