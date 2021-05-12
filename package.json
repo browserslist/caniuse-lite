@@ -37,7 +37,7 @@
     "@size-limit/file": "^4.10.2",
     "@size-limit/webpack": "^4.10.2",
     "any-observable": "^0.5.1",
-    "caniuse-db": "1.0.30001225",
+    "caniuse-db": "1.0.30001226",
     "clean-publish": "^2.2.0",
     "colorette": "^1.2.2",
     "eslint": "^7.26.0",
@@ -53,7 +53,7 @@
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
     "ramda": "^0.27.1",
-    "rxjs": "^7.0.0",
+    "rxjs": "^7.0.1",
     "simple-git-hooks": "^2.4.1",
     "size-limit": "^4.10.2"
   },
