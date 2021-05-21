@@ -34,10 +34,10 @@
     "@babel/generator": "^7.14.3",
     "@babel/types": "^7.14.2",
     "@logux/eslint-config": "^45.4.3",
-    "@size-limit/file": "^4.10.2",
-    "@size-limit/webpack": "^4.10.2",
+    "@size-limit/file": "^4.10.3",
+    "@size-limit/webpack": "^4.10.3",
     "any-observable": "^0.5.1",
-    "caniuse-db": "1.0.30001227",
+    "caniuse-db": "1.0.30001228",
     "clean-publish": "^2.2.0",
     "colorette": "^1.2.2",
     "eslint": "^7.26.0",
@@ -55,7 +55,7 @@
     "ramda": "^0.27.1",
     "rxjs": "^7.0.1",
     "simple-git-hooks": "^2.4.1",
-    "size-limit": "^4.10.2"
+    "size-limit": "^4.10.3"
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config",
