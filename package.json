@@ -1,6 +1,6 @@
 {
   "name": "caniuse-lite",
-  "version": "1.0.30001240",
+  "version": "1.0.30001241",
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "main": "dist/unpacker/index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "@size-limit/file": "^4.11.0",
     "@size-limit/webpack": "^4.11.0",
     "any-observable": "^0.5.1",
-    "caniuse-db": "1.0.30001240",
+    "caniuse-db": "1.0.30001241",
     "clean-publish": "^2.2.0",
     "colorette": "^1.2.2",
     "eslint": "^7.28.0",
