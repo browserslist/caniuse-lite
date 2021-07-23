@@ -1,3 +1,5 @@
+'use strict'
+
 const features = require('./data/features')
 const lite = require('./dist/unpacker')
 

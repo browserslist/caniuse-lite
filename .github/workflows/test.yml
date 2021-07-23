@@ -19,8 +19,8 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Run tests
         run: yarn test
-  node6:
-    name: Node.js 6 Quick
+  node4:
+    name: Node.js 4 Quick
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -28,6 +28,6 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 6
+          node-version: 4
       - name: Run tests
         run: npm run integration
