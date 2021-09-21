@@ -39,7 +39,6 @@
     "any-observable": "^0.5.1",
     "caniuse-db": "1.0.30001259",
     "clean-publish": "^2.2.0",
-    "colorette": "^1.4.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
@@ -108,5 +107,8 @@
     {
       "path": "./consumer.js"
     }
-  ]
+  ],
+  "dependencies": {
+    "nanocolors": "^0.1.0"
+  }
 }

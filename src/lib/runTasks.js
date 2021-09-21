@@ -1,4 +1,4 @@
-const { red } = require('colorette')
+const { red } = require('nanocolors')
 
 async function run(tasks) {
   let ctx = {}
