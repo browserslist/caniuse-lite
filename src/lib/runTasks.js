@@ -1,5 +1,3 @@
-const { red } = require('nanocolors')
-
 async function run(tasks) {
   let ctx = {}
   for (let task of tasks) {
@@ -13,9 +11,9 @@ async function run(tasks) {
 module.exports = function runTasks(tasks) {
   run(tasks).catch(err => {
     if (typeof err === 'string') {
-      process.stderr.write(red(err) + '\n')
+      process.stderr.write(err + '\n')
     } else {
-      process.stderr.write(red(err.stack) + '\n')
+      process.stderr.write(err.stack + '\n')
     }
     process.exit(1)
   })
