@@ -3,8 +3,6 @@ on:
   push:
   schedule:
     - cron: "41 * * * *"
-env:
-  FORCE_COLOR: 2
 jobs:
   publish:
     name: Check
@@ -35,6 +33,8 @@ jobs:
       - name: Run tests
         if: steps.caniuse.outputs.newVersion
         run: npx jest
+        env:
+          FORCE_COLOR: 2
       - name: Commit changes
         if: steps.caniuse.outputs.newVersion
         run: node ./commit.js
