@@ -66,7 +66,7 @@ Object.keys(autofillSupportData).forEach(browser => {
     browserData = browserDataRaw
   }
 
-  if (browserData.version_added) {
+  if (browserData.version_added && browserData.version_added !== 'preview') {
     mappedData[bcdBrowserToCanIUseBrowser(browser)] = {
       prefix: browserData.prefix,
       versionAdded: browserData.version_added
