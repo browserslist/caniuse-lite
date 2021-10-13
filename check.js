@@ -29,8 +29,9 @@ get('https://registry.npmjs.org/caniuse-db', res => {
   })
 })
 
-const autofillData = bcd.css.selectors.autofill.__compat
-
+/**
+ * This function maps the browser keys from @mdn/browser-compat-data, to caniuse's format.
+ */
 function bcdBrowserToCanIUseBrowser(bcdBrowser) {
   let browser = bcdBrowser
 
@@ -51,44 +52,72 @@ function bcdBrowserToCanIUseBrowser(bcdBrowser) {
   return browser
 }
 
-let result = {
-  title: ':autofill CSS pseudo-class',
-  spec: autofillData.spec_url,
-  stats: {}
-}
-
-let autofillSupportData = autofillData.support
-
-Object.keys(autofillSupportData).forEach(browser => {
-  let browserDataRaw = autofillSupportData[browser]
-  let browserData
-
-  if (Array.isArray(browserDataRaw)) {
-    if (browserDataRaw[0].version_added === 'preview') {
-      browserData = browserDataRaw[1]
-    } else {
-      browserData = browserDataRaw[0]
-    }
-  } else {
-    browserData = browserDataRaw
+/**
+ * This function maps support data from @mdn/browser-compat-data, to caniuse's
+ * format.
+ */
+function bcdDataToCanIUseData(bcdData, title) {
+  let result = {
+    title,
+    spec: bcdData.spec_url,
+    stats: {}
   }
 
-  if (
-    browserData.version_added !== 'preview' &&
-    !browserData.partial_implementation
-  ) {
-    result.stats[bcdBrowserToCanIUseBrowser(browser)] = {}
-    Object.keys(bcd.browsers[browser].releases).forEach(version => {
-      let supported =
-        parseFloat(version) >= parseFloat(browserData.version_added)
-      supported &&= !browserData.prefix
-      supported &&= browserData.version_added
+  let supportData = bcdData.support
 
+  Object.keys(supportData).forEach(browser => {
+    let browserDataRaw = supportData[browser]
+    let browserData
+
+    // Browser support data in BCD can either be an object or an array.
+    if (Array.isArray(browserDataRaw)) {
+      /*
+       If the first entry in the array has a version added of "preview" we want to get the second entry.
+       This allows us to ignore browsers such as Safari Tech Preview.
+       */
+      if (browserDataRaw[0].version_added === 'preview') {
+        browserData = browserDataRaw[1]
+      } else {
+        browserData = browserDataRaw[0]
+      }
+    } else {
+      // If it's not an array it's already in the correct format to process.
+      browserData = browserDataRaw
+    }
+
+    result.stats[bcdBrowserToCanIUseBrowser(browser)] = {}
+    // Loop through all versions for the current browser
+    // TODO check if this is necessary or if it supports missing older browser versions than the supported version.
+    Object.keys(bcd.browsers[browser].releases).forEach(version => {
+      /**
+       * Feature is supported when:
+       * The BCD version isn't null or false (it exists)
+       * The BCD version isn't "preview", used for preview browsers such as Safari TP.
+       * The current version is greater than or equal to the BCD version.
+       * There's no prefix information in the BCD entry.
+       * There's no flag information in the BCD entry.
+       * The implementation isn't marked as partial.
+       */
+      let supported = browserData.version_added
+      supported &&= browserData.version_added !== 'preview'
+      supported &&= parseFloat(version) >= parseFloat(browserData.version_added)
+      supported &&= !browserData.prefix
+      supported &&= !browserData.flags
+      supported &&= !browserData.partial_implementation
+
+      // This adds to the output data in the required format.
       result.stats[bcdBrowserToCanIUseBrowser(browser)][version] = supported
         ? 'y'
         : 'n'
     })
-  }
-})
+  })
 
-console.log(JSON.stringify(result))
+  return result
+}
+
+const autofillData = bcdDataToCanIUseData(
+  bcd.css.selectors.autofill.__compat,
+  ':autofill CSS pseudo-class'
+)
+
+console.log(JSON.stringify(autofillData))
