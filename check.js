@@ -29,7 +29,7 @@ get('https://registry.npmjs.org/caniuse-db', res => {
   })
 })
 
-const autofillSupportData = bcd.css.selectors.autofill.__compat.support
+const autofillData = bcd.css.selectors.autofill.__compat
 
 function bcdBrowserToCanIUseBrowser(bcdBrowser) {
   let browser = bcdBrowser
@@ -51,7 +51,14 @@ function bcdBrowserToCanIUseBrowser(bcdBrowser) {
   return browser
 }
 
-let mappedData = {}
+let result = {
+  title: ':autofill CSS pseudo-class',
+  spec: autofillData.spec_url,
+  stats: {}
+}
+
+let autofillSupportData = autofillData.support
+
 Object.keys(autofillSupportData).forEach(browser => {
   let browserDataRaw = autofillSupportData[browser]
   let browserData
@@ -66,12 +73,22 @@ Object.keys(autofillSupportData).forEach(browser => {
     browserData = browserDataRaw
   }
 
-  if (browserData.version_added && browserData.version_added !== 'preview') {
-    mappedData[bcdBrowserToCanIUseBrowser(browser)] = {
-      prefix: browserData.prefix,
-      versionAdded: browserData.version_added
-    }
+  if (
+    browserData.version_added !== 'preview' &&
+    !browserData.partial_implementation
+  ) {
+    result.stats[bcdBrowserToCanIUseBrowser(browser)] = {}
+    Object.keys(bcd.browsers[browser].releases).forEach(version => {
+      let supported =
+        parseFloat(version) >= parseFloat(browserData.version_added)
+      supported &&= !browserData.prefix
+      supported &&= browserData.version_added
+
+      result.stats[bcdBrowserToCanIUseBrowser(browser)][version] = supported
+        ? 'y'
+        : 'n'
+    })
   }
 })
 
-console.log(mappedData)
+console.log(JSON.stringify(result))
