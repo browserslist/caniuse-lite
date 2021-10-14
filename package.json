@@ -34,7 +34,7 @@
     "@babel/generator": "^7.15.8",
     "@babel/types": "^7.15.6",
     "@logux/eslint-config": "^46.0.0",
-    "@mdn/browser-compat-data": "^4.0.6",
+    "@mdn/browser-compat-data": "4.0.6",
     "@size-limit/file": "^6.0.3",
     "@size-limit/webpack": "^6.0.3",
     "any-observable": "^0.5.1",
