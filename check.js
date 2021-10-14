@@ -1,4 +1,4 @@
-const { writeFile } = require('fs')
+const { writeFile, writeFileSync } = require('fs')
 const { get } = require('https')
 const bcd = require('@mdn/browser-compat-data')
 
@@ -120,4 +120,7 @@ const autofillData = bcdDataToCanIUseData(
   ':autofill CSS pseudo-class'
 )
 
-console.log(JSON.stringify(autofillData))
+writeFileSync(
+  './node_modules/caniuse-db/features-json/css-autofill.json',
+  JSON.stringify(autofillData)
+)
