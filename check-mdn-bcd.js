@@ -16,7 +16,17 @@ get('https://registry.npmjs.org/@mdn/browser-compat-data', res => {
   res.on('end', () => {
     let body = JSON.parse(data)
     let lastVersion = body['dist-tags'].latest
-    if (pkg.devDependencies['@mdn/browser-compat-data'] !== lastVersion) {
+    let currentMajorVersion =
+      pkg.devDependencies['@mdn/browser-compat-data'].split('.')[0]
+    let latestMajorVersion = lastVersion.split('.')[0]
+
+    if (latestMajorVersion !== currentMajorVersion) {
+      throw new Error(
+        '@mdn/browser-compat-data has received a major version bump.'
+      )
+    } else if (
+      pkg.devDependencies['@mdn/browser-compat-data'] !== lastVersion
+    ) {
       pkg.devDependencies['@mdn/browser-compat-data'] = lastVersion
       writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`, () => {
         process.stdout.write('::set-output name=newVersion::1\n')
