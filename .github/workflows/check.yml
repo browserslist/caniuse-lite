@@ -21,7 +21,7 @@ jobs:
         run: node ./check.js
       - name: Check @mdn/browser-compat-data version
         id: mdn
-        run: node ./check.js
+        run: node ./check-mdn-bcd.js
       - name: Setup git config
         if: steps.caniuse.outputs.newVersion
         run: |
