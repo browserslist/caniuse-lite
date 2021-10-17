@@ -72,14 +72,18 @@ function bcdDataToCanIUseData(bcdData, title) {
       let supported = browserData.version_added
       supported &&= browserData.version_added !== 'preview'
       supported &&= parseFloat(version) >= parseFloat(browserData.version_added)
-      supported &&= !browserData.prefix
       supported &&= !browserData.flags
       supported &&= !browserData.partial_implementation
 
+      let value = supported ? 'y' : 'n'
+
+      // Add x to data if there's a prefix.
+      if (browserData.prefix) {
+        value += ' x'
+      }
+
       // This adds to the output data in the required format.
-      result.stats[bcdBrowserToCanIUseBrowser(browser)][version] = supported
-        ? 'y'
-        : 'n'
+      result.stats[bcdBrowserToCanIUseBrowser(browser)][version] = value
     })
   })
 
