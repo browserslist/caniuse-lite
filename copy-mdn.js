@@ -40,8 +40,8 @@ function versionMatches(browserVersion, versionAdded, versionRemoved) {
     return false
   }
 
-  if (typeof versionAdded === 'string' && versionAdded.includes('<=')) {
-    versionAdded = versionAdded.version_added.replace('<=', '')
+  if (typeof versionAdded === 'string' && versionAdded.includes('≤')) {
+    versionAdded = versionAdded.version_added.replace('≤', '')
   }
 
   let versionIsGreaterOrEqualToVersionAdded =
