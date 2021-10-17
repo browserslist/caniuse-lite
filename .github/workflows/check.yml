@@ -19,6 +19,10 @@ jobs:
       - name: Check caniuse-db version
         id: caniuse
         run: node ./check.js
+      - name: Check @mdn/browser-compat-data version
+        id: mdn
+        if: steps.caniuse.outputs.newVersion
+        run: node ./check-mdn-bcd.js
       - name: Setup git config
         if: steps.caniuse.outputs.newVersion
         run: |
@@ -27,6 +31,9 @@ jobs:
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
         run: yarn install --ignore-scripts
+      - name: Copy MDN data
+        if: steps.caniuse.outputs.newVersion
+        run: node ./copy-mdn.js
       - name: Pack Can I Use data
         if: steps.caniuse.outputs.newVersion
         run: yarn run pack
