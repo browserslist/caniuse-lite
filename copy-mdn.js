@@ -25,6 +25,44 @@ function bcdBrowserToCanIUseBrowser(bcdBrowser) {
 }
 
 /**
+ *
+ * If versionAdded is a range take the upper end of the range as the value.
+ *
+ * Version matches if all are true:
+ * The versionAdded isn't null or false (it exists)
+ * The versionAdded isn't "preview", used for preview browsers such as Safari TP.
+ * The versionAdded is true
+ * The current version is greater than or equal to the versionAdded.
+ * The current version is less than the BCD version_Removed if exists.
+ */
+function versionMatches(browserVersion, versionAdded, versionRemoved) {
+  if (versionAdded === 'preview' || !versionAdded) {
+    return false
+  }
+
+  if (typeof versionAdded === 'string' && versionAdded.includes('<=')) {
+    versionAdded = versionAdded.version_added.replace('<=', '')
+  }
+
+  let versionIsGreaterOrEqualToVersionAdded =
+    parseFloat(browserVersion) >= parseFloat(versionAdded)
+
+  /**
+   * BCD data occasionally uses true for version_added.
+   * This is generally when the feature has been supported for so long that it's unknown when it was supported.
+   * Here we just treat this as supported.
+   */
+  versionIsGreaterOrEqualToVersionAdded ||= versionAdded === true
+
+  let versionIsLessThanVersionRemoved =
+    !versionRemoved || parseFloat(browserVersion) < parseFloat(versionRemoved)
+
+  return (
+    versionIsGreaterOrEqualToVersionAdded && versionIsLessThanVersionRemoved
+  )
+}
+
+/**
  * This function maps support data from @mdn/browser-compat-data, to caniuse's
  * format.
  */
@@ -39,45 +77,89 @@ function bcdDataToCanIUseData(bcdData, title) {
 
   Object.keys(supportData).forEach(browser => {
     let browserDataRaw = supportData[browser]
-    let browserData
-
-    // Browser support data in BCD can either be an object or an array.
-    if (Array.isArray(browserDataRaw)) {
-      /*
-       If the first entry in the array has a version added of "preview" we want to get the second entry.
-       This allows us to ignore browsers such as Safari Tech Preview.
-       */
-      if (browserDataRaw[0].version_added === 'preview') {
-        browserData = browserDataRaw[1]
-      } else {
-        browserData = browserDataRaw[0]
-      }
-    } else {
-      // If it's not an array it's already in the correct format to process.
-      browserData = browserDataRaw
-    }
 
     result.stats[bcdBrowserToCanIUseBrowser(browser)] = {}
     // Loop through all versions for the current browser
     Object.keys(bcd.browsers[browser].releases).forEach(version => {
+      let browserData
+
+      // Browser support data in BCD can either be an object or an array.
+      if (!Array.isArray(browserDataRaw)) {
+        // If it's not an array it's already in the correct format to process.
+        browserData = browserDataRaw
+      } else {
+        // This allows us to ignore preview browsers such as Safari Tech Preview.
+        browserDataRaw = browserDataRaw.filter(
+          entry => entry.version_added !== 'preview'
+        )
+
+        if (browserDataRaw.length === 1) {
+          browserData = browserDataRaw[0]
+        } else {
+          for (let entry of browserDataRaw) {
+            let versionMatch = versionMatches(
+              version,
+              entry.version_added,
+              entry.version_removed
+            )
+
+            if (!versionMatch) continue
+
+            // If fully supported unprefixed
+            if (
+              !entry.flags &&
+              !entry.partial_implementation &&
+              !entry.prefix
+            ) {
+              browserData = entry
+              break
+            }
+
+            let nonFlaggedDataIndex = browserDataRaw.findIndex(e1 => !e1.flags)
+            let nonPartial = browserDataRaw.findIndex(
+              e2 => !e2.flags && !e2.partial_implementation
+            )
+
+            if (entry.flags && nonFlaggedDataIndex !== -1) {
+              // Prefer non-flagged over flagged data
+              continue
+            }
+
+            if (entry.partial_implementation && nonPartial) {
+              // Prefer non-partial over partial data
+              continue
+            }
+
+            browserData = entry
+          }
+
+          if (!browserData) {
+            browserData = {
+              version_added: false
+            }
+          }
+        }
+      }
+
       /**
        * Feature is supported when:
-       * The BCD version isn't null or false (it exists)
-       * The BCD version isn't "preview", used for preview browsers such as Safari TP.
-       * The current version is greater than or equal to the BCD version.
-       * There's no prefix information in the BCD entry.
+       * The version matches
        * There's no flag information in the BCD entry.
-       * The implementation isn't marked as partial.
        */
-      let supported = browserData.version_added
-      supported &&= browserData.version_added !== 'preview'
-      supported &&= parseFloat(version) >= parseFloat(browserData.version_added)
-      supported &&= !browserData.flags
-      supported &&= !browserData.partial_implementation
+      let supported =
+        versionMatches(
+          version,
+          browserData.version_added,
+          browserData.version_removed
+        ) && !browserData.flags
 
-      let value = supported ? 'y' : 'n'
+      let value = 'n'
+      if (browserData.partial_implementation && supported) {
+        value = 'a'
+      } else if (supported) {
+        value = 'y'
+      }
 
-      // Add x to data if there's a prefix.
       if (browserData.prefix) {
         value += ' x'
       }
