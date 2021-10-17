@@ -21,6 +21,7 @@ jobs:
         run: node ./check.js
       - name: Check @mdn/browser-compat-data version
         id: mdn
+        if: steps.caniuse.outputs.newVersion
         run: node ./check-mdn-bcd.js
       - name: Setup git config
         if: steps.caniuse.outputs.newVersion
@@ -28,7 +29,7 @@ jobs:
           git config user.name "Auto-Updater"
           git config user.email "<andrey+caniuse@sitnik.ru>"
       - name: Install dependencies
-        if: steps.caniuse.outputs.newVersion || steps.mdn.outputs.newVersion
+        if: steps.caniuse.outputs.newVersion
         run: yarn install --ignore-scripts
       - name: Copy MDN data
         run: node ./copy-mdn.js
