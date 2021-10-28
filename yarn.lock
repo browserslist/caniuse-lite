@@ -537,10 +537,10 @@
   dependencies:
     globals "^13.11.0"
 
-"@mdn/browser-compat-data@4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.0.7.tgz#d49658ed8662908a742dac7b0082cbe5c4e13487"
-  integrity sha512-rWwBWRpA34dKdF3qNKancAZ9ZpPx3Dk/bByKONQm+vK92JVGeydHt0lTHNpAkDfB+eqbU8Dz0FXTO5dLw7zIbg==
+"@mdn/browser-compat-data@4.0.8":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.0.8.tgz#4f903e4d62bac0160a7b8283ba5a664a0ab589e1"
+  integrity sha512-knKNYGN0Yvo9UUIbCG0P1XgEf1L49JfJYCoFxxiwz55R3FKuZh3a24nC6KuvKHU3/P/5oNjqlpoqZxjqyDAifQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -1424,10 +1424,10 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-db@1.0.30001271:
-  version "1.0.30001271"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001271.tgz#043576964c24f28d072ec8c935db153ed506620a"
-  integrity sha512-V7/O06sNu6e54ArdzLA1xFuYJ+kK9XXsO4pYa53ixujAVX/OVCGvDfRICSgkxdk8pdMZ+tA1v5ylLKDHNwUqEg==
+caniuse-db@1.0.30001272:
+  version "1.0.30001272"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001272.tgz#6d8d4d28370b5668a2afa3bf8cde373d5606a6b3"
+  integrity sha512-/NplzwUm4ZCpKOJs/zq3newlycZ/T7sW9xVFINmDyRBmmSoqTpQQTAJ0f+a4xfOODI8T6aM23GGGVQwoxZAgdw==
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001265:
   version "1.0.30001269"
