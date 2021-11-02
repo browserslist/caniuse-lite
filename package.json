@@ -36,7 +36,6 @@
     "@babel/types": "^7.16.0",
     "@logux/eslint-config": "^46.1.0",
     "@mdn/browser-compat-data": "4.0.8",
-    "@size-limit/preset-small-lib": "^6.0.3",
     "any-observable": "^0.5.1",
     "caniuse-db": "1.0.30001274",
     "clean-publish": "^3.4.2",
@@ -48,7 +47,6 @@
     "eslint-plugin-promise": "^5.1.1",
     "ramda": "^0.27.1",
     "rxjs": "^7.4.0",
-    "size-limit": "^6.0.4",
     "uvu": "^0.5.2"
   },
   "eslintConfig": {
@@ -88,10 +86,5 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "none"
-  },
-  "size-limit": [
-    {
-      "path": "./consumer.js"
-    }
-  ]
+  }
 }
