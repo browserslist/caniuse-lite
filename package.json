@@ -7,7 +7,7 @@
     "integration": "node ./consumer.js > /dev/null",
     "pack": "node copy-mdn.js && rm -Rf data && node src/packer/index.js",
     "unit": "uvu . \\.test\\.js$",
-    "test": "yarn run pack && eslint . && yarn run unit && yarn run integration && size-limit"
+    "test": "yarn run pack && eslint . && yarn run unit && yarn run integration"
   },
   "files": [
     "data",
@@ -36,7 +36,6 @@
     "@babel/types": "^7.16.0",
     "@logux/eslint-config": "^46.1.0",
     "@mdn/browser-compat-data": "4.0.8",
-    "any-observable": "^0.5.1",
     "caniuse-db": "1.0.30001274",
     "clean-publish": "^3.4.2",
     "eslint": "^8.1.0",
@@ -46,7 +45,6 @@
     "eslint-plugin-prefer-let": "^3.0.0",
     "eslint-plugin-promise": "^5.1.1",
     "ramda": "^0.27.1",
-    "rxjs": "^7.4.0",
     "uvu": "^0.5.2"
   },
   "eslintConfig": {
