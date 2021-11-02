@@ -1,3 +1,5 @@
+const { test } = require('uvu')
+const { equal } = require('uvu/assert')
 const path = require('path')
 const fs = require('fs').promises
 
@@ -13,7 +15,7 @@ const base = path.join(
 
 const getContents = getContentsFactory(base)
 
-beforeAll(() => {
+test.before(() => {
   return fs
     .readdir(base)
     .then(getContents)
@@ -24,11 +26,13 @@ beforeAll(() => {
     })
 })
 
-it('should be 1:1', () => {
+test('should be 1:1', () => {
   Object.keys(fulldata).forEach(key => {
     let data = fulldata[key]
     let packed = require(path.join(__dirname, `../data/regions/${key}.js`))
     let unpacked = regions(packed)
-    expect(unpacked).toEqual(data.data)
+    equal(unpacked, data.data)
   })
 })
+
+test.run()

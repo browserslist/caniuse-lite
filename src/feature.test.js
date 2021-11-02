@@ -1,3 +1,5 @@
+const { test } = require('uvu')
+const { equal, ok } = require('uvu/assert')
 const path = require('path')
 const fs = require('fs').promises
 
@@ -13,7 +15,7 @@ const base = path.join(
 
 const getContents = getContentsFactory(base)
 
-beforeAll(() => {
+test.before(() => {
   return fs
     .readdir(base)
     .then(getContents)
@@ -24,22 +26,24 @@ beforeAll(() => {
     })
 })
 
-it('should be 1:1', () => {
+test('should be 1:1', () => {
   Object.keys(fulldata).forEach(key => {
     let data = fulldata[key]
     let packed = require(path.join(__dirname, `../data/features/${key}.js`))
     let unpacked = features(packed)
-    expect(Object.keys(unpacked.stats)).toEqual(Object.keys(data.stats))
+    equal(Object.keys(unpacked.stats), Object.keys(data.stats))
     Object.keys(unpacked.stats).forEach(browser => {
       Object.keys(unpacked.stats[browser]).forEach(version => {
         let unpackedSupport = unpacked.stats[browser][version].split(' ')
         let originalSupport = data.stats[browser][version].split(' ')
         unpackedSupport.forEach(value => {
-          expect(originalSupport).toContain(value)
+          ok(originalSupport.includes(value))
         })
       })
     })
-    expect(unpacked.status).toEqual(data.status)
-    expect(unpacked.title).toEqual(data.title)
+    equal(unpacked.status, data.status)
+    equal(unpacked.title, data.title)
   })
 })
+
+test.run()

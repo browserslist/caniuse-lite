@@ -1,3 +1,6 @@
+const { test } = require('uvu')
+const { ok } = require('uvu/assert')
+
 const { encode, decode } = require('./base62')
 
 function testEquality(num) {
@@ -6,8 +9,10 @@ function testEquality(num) {
   return decoded === num
 }
 
-it('should encode and decode numbers', () => {
+test('should encode and decode numbers', () => {
   for (let num = 0; num < 5000; num++) {
-    expect(testEquality(num)).toBe(true)
+    ok(testEquality(num))
   }
 })
+
+test.run()

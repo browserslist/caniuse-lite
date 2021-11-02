@@ -1,8 +1,13 @@
+const { test } = require('uvu')
+const { type } = require('uvu/assert')
+
 const lite = require('../dist/unpacker/index')
 
-it('should have the appropriate keys', () => {
-  expect(lite.agents).toBeDefined()
-  expect(lite.feature).toBeDefined()
-  expect(lite.features).toBeDefined()
-  expect(lite.region).toBeDefined()
+test('should have the appropriate keys', () => {
+  type(lite.agents, 'object')
+  type(lite.feature, 'function')
+  type(lite.features, 'object')
+  type(lite.region, 'function')
 })
+
+test.run()

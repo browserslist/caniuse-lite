@@ -1,23 +1,28 @@
+const { test } = require('uvu')
+const { equal } = require('uvu/assert')
+
 const { agents } = require('../dist/unpacker/agents')
 
-it('should be 1:1', () => {
+test('should be 1:1', () => {
   let fulldata = require('caniuse-db/data.json').agents
   Object.keys(agents).forEach(key => {
     let data = agents[key]
-    expect(data.usage_global).toEqual(fulldata[key].usage_global)
-    expect(data.prefix).toEqual(fulldata[key].prefix)
-    expect(data.versions).toEqual(fulldata[key].versions)
-    expect(data.prefix_exceptions).toEqual(fulldata[key].prefix_exceptions)
-    expect(data.browser).toEqual(fulldata[key].browser)
+    equal(data.usage_global, fulldata[key].usage_global)
+    equal(data.prefix, fulldata[key].prefix)
+    equal(data.versions, fulldata[key].versions)
+    equal(data.prefix_exceptions, fulldata[key].prefix_exceptions)
+    equal(data.browser, fulldata[key].browser)
   })
 })
 
-it('should properly process release dates', () => {
+test('should properly process release dates', () => {
   let fulldata = require('caniuse-db/fulldata-json/data-2.0.json')
   Object.keys(agents).forEach(key => {
     let data = agents[key]
     fulldata.agents[key].version_list.forEach(({ version, release_date }) => {
-      expect(data.release_date[version]).toEqual(release_date)
+      equal(data.release_date[version], release_date)
     })
   })
 })
+
+test.run()
