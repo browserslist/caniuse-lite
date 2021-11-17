@@ -191,10 +191,10 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
-caniuse-db@1.0.30001281:
-  version "1.0.30001281"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001281.tgz#9cc84688209bc1ae0f8be4564643999068f8c3de"
-  integrity sha512-7W+ioSv6bz11Kjr4aIvyZIdispJNkeGeL8PlosKtNSu6UR7wmGSvtDR+e3vCGQWOaSnhtCxkBj7phbfEGHtd7g==
+caniuse-db@1.0.30001282:
+  version "1.0.30001282"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001282.tgz#a6085d27dcdc7a99b0d280c2dcb22e6fb8fd73aa"
+  integrity sha512-czsWYzaRcSfPVTWzxwl6xo6JdVPTTShJoWjAO7ZYArI3oKFe7COLk3G9k/WVysOCEs5Jiu66Ly+8nRLlj85vdw==
 
 chalk@^4.0.0:
   version "4.1.2"
