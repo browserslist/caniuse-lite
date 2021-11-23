@@ -79,9 +79,9 @@ function packBrowserVersions(agents) {
 
 const getAgents = R.compose(R.prop('agents'), JSON.parse)
 
-module.exports = function packAgents() {
+module.exports = async function packAgents() {
   // We're not requiring the JSON because it nukes the null values
-  return Promise.all([
+  let [[agents, browserVersions], fullAgents] = await Promise.all([
     fs
       .readFile(require.resolve('caniuse-db/data.json'), 'utf8')
       .then(getAgents)
@@ -93,10 +93,11 @@ module.exports = function packAgents() {
       )
       .then(getAgents)
   ])
-    .then(R.flatten)
-    .then(R.apply(relevantKeys))
-    .then(stringifyObject)
-    .then(s =>
-      fs.writeFile(path.join(__dirname, '..', '..', 'data', 'agents.js'), s)
-    )
+
+  let output = relevantKeys(agents, browserVersions, fullAgents)
+
+  return fs.writeFile(
+    path.join(__dirname, '..', '..', 'data', 'agents.js'),
+    stringifyObject(output)
+  )
 }
