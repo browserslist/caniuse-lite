@@ -12,8 +12,7 @@ function getKey(encoded) {
 }
 
 function stringify(list) {
-  return Object.keys(list).reduce((ast, key) => {
-    let data = list[key]
+  return Object.entries(list).map(([key, data]) => {
     let value
     if (data === null) {
       value = t.nullLiteral()
@@ -47,8 +46,8 @@ function stringify(list) {
     } else if (data === Object(data)) {
       value = t.objectExpression(stringify(data))
     }
-    return ast.concat(t.objectProperty(getKey(key), value))
-  }, [])
+    return t.objectProperty(getKey(key), value)
+  })
 }
 
 module.exports = R.compose(
