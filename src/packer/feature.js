@@ -25,13 +25,8 @@ const base = path.join(
 
 const getContents = getContentsFactory(base)
 
-const callExpression = R.curryN(2, t.callExpression)
-
-const requireCall = R.compose(
-  callExpression(t.identifier('require')),
-  R.of,
-  t.stringLiteral
-)
+const requireCall = moduleName =>
+  t.callExpression(t.identifier('require'), [t.stringLiteral(moduleName)])
 
 const featureIndex = R.compose(
   generateCode,
