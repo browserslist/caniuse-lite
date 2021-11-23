@@ -17,8 +17,6 @@ const browsersInverted = R.invertObj(browsers)
 const statusesInverted = R.invertObj(statuses)
 const versionsInverted = R.invertObj(versions)
 
-const objFromKeys = R.curry((fn, keys) => R.zipObj(keys, R.map(fn, keys)))
-
 const base = path.join(
   path.dirname(require.resolve(`caniuse-db/data.json`)),
   `features-json`
@@ -40,12 +38,9 @@ const featureIndex = R.compose(
   R.of,
   moduleExports,
   t.objectExpression,
-  R.values,
-  R.mapObjIndexed((value, key) =>
-    t.objectProperty(t.stringLiteral(key), requireCall(value))
-  ),
-  objFromKeys(R.concat('./features/')),
-  R.map(R.prop('name'))
+  R.map(({ name }) =>
+    t.objectProperty(t.stringLiteral(name), requireCall(`./features/${name}`))
+  )
 )
 
 const packSupport = R.compose(
