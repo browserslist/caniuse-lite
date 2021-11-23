@@ -5,54 +5,60 @@ const R = require('ramda')
 const stringifyObject = require('../lib/stringifyObject')
 const browsersData = require('../../data/browsers')
 const { encode } = require('../lib/base62')
+const fromEntries = require('../util/fromEntries')
 
 const browsers = R.invertObj(browsersData)
 
 function relevantKeys(agents, versions, fullAgents) {
   let versionsInverted = R.invertObj(versions)
-  return Object.keys(agents).reduce((map, key) => {
-    let agent = agents[key]
-    map[browsers[key]] = {
-      A: Object.keys(agent.usage_global).reduce((list, k) => {
-        let val = agent.usage_global[k]
-        list[versionsInverted[k]] = val
-        return list
-      }, {}),
-      B: agent.prefix,
-      C: R.compose(
-        R.unnest,
-        R.map(
-          R.ifElse(
-            R.equals(null),
-            R.always(''),
-            R.flip(R.prop)(versionsInverted)
+
+  return fromEntries(
+    Object.entries(agents).map(([key, agent]) => {
+      let map = {
+        A: fromEntries(
+          Object.entries(agent.usage_global).map(([k, value]) => [
+            versionsInverted[k],
+            value
+          ])
+        ),
+        B: agent.prefix,
+        C: R.compose(
+          R.unnest,
+          R.map(
+            R.ifElse(
+              R.equals(null),
+              R.always(''),
+              R.flip(R.prop)(versionsInverted)
+            )
           )
+        )(agent.versions),
+        E: agent.browser,
+        F: fromEntries(
+          fullAgents[key].version_list.map(item => [
+            versionsInverted[item.version],
+            item.release_date
+          ])
         )
-      )(agent.versions),
-      E: agent.browser,
-      F: fullAgents[key].version_list.reduce((map2, item) => {
-        map2[versionsInverted[item.version]] = item.release_date
-        return map2
-      }, {})
-    }
-    if (agent.prefix_exceptions) {
-      map[browsers[key]].D = Object.keys(agent.prefix_exceptions).reduce(
-        (list, k) => {
-          let val = agent.prefix_exceptions[k]
-          list[versionsInverted[k]] = val
-          return list
-        },
-        {}
-      )
-    }
-    return map
-  }, {})
+      }
+
+      if (agent.prefix_exceptions) {
+        map.D = fromEntries(
+          Object.entries(agent.prefix_exceptions).map(([k, value]) => [
+            versionsInverted[k],
+            value
+          ])
+        )
+      }
+
+      return [browsers[key], map]
+    })
+  )
 }
 
 function packBrowserVersions(agents) {
-  let browserVersions = Object.keys(agents)
-    .reduce((map, key) => {
-      let versions = Object.keys(agents[key].usage_global)
+  let browserVersions = Object.values(agents)
+    .reduce((map, agent) => {
+      let versions = Object.keys(agent.usage_global)
       versions.forEach(version => {
         let exists = map.find(v => v.version === version)
         if (exists) {
@@ -79,9 +85,9 @@ function packBrowserVersions(agents) {
 
 const getAgents = R.compose(R.prop('agents'), JSON.parse)
 
-module.exports = function packAgents() {
+module.exports = async function packAgents() {
   // We're not requiring the JSON because it nukes the null values
-  return Promise.all([
+  let [[agents, browserVersions], fullAgents] = await Promise.all([
     fs
       .readFile(require.resolve('caniuse-db/data.json'), 'utf8')
       .then(getAgents)
@@ -93,10 +99,11 @@ module.exports = function packAgents() {
       )
       .then(getAgents)
   ])
-    .then(R.flatten)
-    .then(R.apply(relevantKeys))
-    .then(stringifyObject)
-    .then(s =>
-      fs.writeFile(path.join(__dirname, '..', '..', 'data', 'agents.js'), s)
-    )
+
+  let output = relevantKeys(agents, browserVersions, fullAgents)
+
+  return fs.writeFile(
+    path.join(__dirname, '..', '..', 'data', 'agents.js'),
+    stringifyObject(output)
+  )
 }
