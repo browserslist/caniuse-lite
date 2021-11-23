@@ -10,7 +10,6 @@ const stringifyObject = require('../lib/stringifyObject')
 const statuses = require('../../dist/lib/statuses')
 const supported = require('../../dist/lib/supported')
 const parseDecimal = require('../util/parseDecimal')
-const pow = require('../util/pow')
 const browsers = require('../../data/browsers')
 const versions = require('../../data/browserVersions')
 
@@ -55,7 +54,7 @@ const packSupport = R.compose(
     R.ifElse(
       R.flip(R.has)(supported),
       R.flip(R.prop)(supported),
-      R.compose(pow(2), R.add(6), parseDecimal, R.slice(1, Infinity))
+      R.compose(num => 2 ** num, R.add(6), parseDecimal, R.slice(1, Infinity))
     )
   ),
   R.split(' ')

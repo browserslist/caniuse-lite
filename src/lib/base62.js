@@ -1,7 +1,5 @@
 const R = require('ramda')
 
-const pow = require('../util/pow')
-
 const characters =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
@@ -17,8 +15,9 @@ module.exports.encode = function encode(integer) {
 
 module.exports.decode = R.compose(
   R.sum,
-  R.addIndex(R.map)((character, index) =>
-    R.multiply(characters.indexOf(character), pow(62, index))
-  ),
+  chars =>
+    chars.map(
+      (character, index) => characters.indexOf(character) * 62 ** index
+    ),
   R.split('')
 )
