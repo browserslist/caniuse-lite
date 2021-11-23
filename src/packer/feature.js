@@ -51,54 +51,48 @@ const packSupport = R.compose(
   R.split(' ')
 )
 
-module.exports = function packFeature() {
-  return fs
-    .readdir(base)
-    .then(getContents)
-    .then(
-      R.tap(features =>
-        Promise.all(
-          features.map(({ name, contents }) => {
-            let packed = {}
+module.exports = async function packFeature() {
+  let features = await fs.readdir(base).then(getContents)
 
-            packed.A = fromEntries(
-              Object.entries(contents.stats).map(([key, browser]) => {
-                let supportData = fromEntries(
-                  Object.entries(browser).map(([version, support]) => [
-                    versionsInverted[version],
-                    packSupport(support)
-                  ])
-                )
+  await Promise.all(
+    features.map(({ name, contents }) => {
+      let packed = {}
 
-                let compacted = Object.entries(supportData).reduce(
-                  (min, [k, value]) => {
-                    if (!min[value]) {
-                      min[value] = k
-                    } else {
-                      min[value] += ` ${k}`
-                    }
-                    return min
-                  },
-                  {}
-                )
+      packed.A = fromEntries(
+        Object.entries(contents.stats).map(([key, browser]) => {
+          let supportData = fromEntries(
+            Object.entries(browser).map(([version, support]) => [
+              versionsInverted[version],
+              packSupport(support)
+            ])
+          )
 
-                return [browsersInverted[key], compacted]
-              })
-            )
-            packed.B = parseDecimal(statusesInverted[contents.status])
-            packed.C = contents.title
-            return fs.writeFile(
-              path.join(__dirname, `../../data/features/${name}.js`),
-              stringifyObject(packed)
-            )
-          })
-        )
+          let compacted = Object.entries(supportData).reduce(
+            (min, [k, value]) => {
+              if (!min[value]) {
+                min[value] = k
+              } else {
+                min[value] += ` ${k}`
+              }
+              return min
+            },
+            {}
+          )
+
+          return [browsersInverted[key], compacted]
+        })
       )
-    )
-    .then(features =>
-      fs.writeFile(
-        path.join(__dirname, '../../data/features.js'),
-        featureIndex(features)
+      packed.B = parseDecimal(statusesInverted[contents.status])
+      packed.C = contents.title
+      return fs.writeFile(
+        path.join(__dirname, `../../data/features/${name}.js`),
+        stringifyObject(packed)
       )
-    )
+    })
+  )
+
+  return fs.writeFile(
+    path.join(__dirname, '../../data/features.js'),
+    featureIndex(features)
+  )
 }
