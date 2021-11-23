@@ -9,6 +9,7 @@ const moduleExports = require('../lib/moduleExports')
 const stringifyObject = require('../lib/stringifyObject')
 const statuses = require('../../dist/lib/statuses')
 const supported = require('../../dist/lib/supported')
+const fromEntries = require('../util/fromEntries')
 const parseDecimal = require('../util/parseDecimal')
 const browsers = require('../../data/browsers')
 const versions = require('../../data/browserVersions')
@@ -62,33 +63,32 @@ module.exports = function packFeature() {
     .then(
       R.tap(features =>
         Promise.all(
-          features.map(feature => {
-            let { name, contents } = feature
+          features.map(({ name, contents }) => {
             let packed = {}
-            packed.A = Object.keys(contents.stats).reduce(
-              (browserStats, key) => {
-                let browser = contents.stats[key]
-                let supportData = Object.keys(browser).reduce(
-                  (stats, version) => {
-                    let support = browser[version]
-                    stats[versionsInverted[version]] = packSupport(support)
-                    return stats
+
+            packed.A = fromEntries(
+              Object.entries(contents.stats).map(([key, browser]) => {
+                let supportData = fromEntries(
+                  Object.entries(browser).map(([version, support]) => [
+                    versionsInverted[version],
+                    packSupport(support)
+                  ])
+                )
+
+                let compacted = Object.entries(supportData).reduce(
+                  (min, [k, value]) => {
+                    if (!min[value]) {
+                      min[value] = k
+                    } else {
+                      min[value] += ` ${k}`
+                    }
+                    return min
                   },
                   {}
                 )
-                let compacted = Object.keys(supportData).reduce((min, k) => {
-                  let value = supportData[k]
-                  if (!min[value]) {
-                    min[value] = k
-                  } else {
-                    min[value] += ` ${k}`
-                  }
-                  return min
-                }, {})
-                browserStats[browsersInverted[key]] = compacted
-                return browserStats
-              },
-              {}
+
+                return [browsersInverted[key], compacted]
+              })
             )
             packed.B = parseDecimal(statusesInverted[contents.status])
             packed.C = contents.title

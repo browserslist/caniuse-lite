@@ -4,6 +4,7 @@ const { invertObj } = require('ramda')
 
 const getContentsFactory = require('../lib/getContents')
 const stringifyObject = require('../lib/stringifyObject')
+const fromEntries = require('../util/fromEntries')
 const browsers = require('../../data/browsers')
 
 const browsersInverted = invertObj(browsers)
@@ -22,24 +23,26 @@ module.exports = function packRegion() {
     .then(regions =>
       Promise.all(
         regions.map(region => {
-          let { data } = region.contents
-          let packed = Object.keys(data).reduce((list, key) => {
-            let stats = data[key]
-            list[browsersInverted[key]] = Object.keys(stats).reduce((l, k) => {
-              let stat = stats[k]
-              if (stat === null) {
-                if (l._) {
-                  l._ += ` ${k}`
-                } else {
-                  l._ = k
+          let {
+            contents: { data }
+          } = region
+          let packed = fromEntries(
+            Object.entries(data).map(([key, stats]) => [
+              browsersInverted[key],
+              Object.entries(stats).reduce((l, [k, stat]) => {
+                if (stat === null) {
+                  if (l._) {
+                    l._ += ` ${k}`
+                  } else {
+                    l._ = k
+                  }
+                  return l
                 }
+                l[k] = stat
                 return l
-              }
-              l[k] = stat
-              return l
-            }, {})
-            return list
-          }, {})
+              }, {})
+            ])
+          )
 
           return fs.writeFile(
             path.join(__dirname, `../../data/regions/${region.name}.js`),

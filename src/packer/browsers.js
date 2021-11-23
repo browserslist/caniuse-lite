@@ -6,15 +6,13 @@ const R = require('ramda')
 
 const stringifyObject = require('../lib/stringifyObject')
 const { encode } = require('../lib/base62')
+const fromEntries = require('../util/fromEntries')
 
 function getBrowsers(data) {
   let feature = Object.keys(data)[0]
   let browsers = Object.keys(data[feature].stats)
 
-  return browsers.reduce((packed, browser, index) => {
-    packed[encode(index)] = browser
-    return packed
-  }, {})
+  return fromEntries(browsers.map((browser, index) => [encode(index), browser]))
 }
 
 module.exports = () =>
