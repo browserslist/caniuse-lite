@@ -28,27 +28,26 @@ const getContents = getContentsFactory(base)
 const requireCall = moduleName =>
   t.callExpression(t.identifier('require'), [t.stringLiteral(moduleName)])
 
-const featureIndex = R.compose(
-  generateCode,
-  R.of,
-  moduleExports,
-  t.objectExpression,
-  R.map(({ name }) =>
-    t.objectProperty(t.stringLiteral(name), requireCall(`./features/${name}`))
-  )
-)
-
-const packSupport = R.compose(
-  R.sum,
-  R.map(
-    R.ifElse(
-      R.flip(R.has)(supported),
-      R.flip(R.prop)(supported),
-      R.compose(num => 2 ** num, R.add(6), parseDecimal, R.slice(1, Infinity))
+function featureIndex(features) {
+  let index = t.objectExpression(
+    features.map(({ name }) =>
+      t.objectProperty(t.stringLiteral(name), requireCall(`./features/${name}`))
     )
-  ),
-  R.split(' ')
-)
+  )
+
+  return generateCode([moduleExports(index)])
+}
+
+function packSupport(supportData) {
+  return R.sum(
+    supportData.split(' ').map(support => {
+      if (support in supported) {
+        return supported[support]
+      }
+      return 2 ** (6 + parseDecimal(support.slice(1)))
+    })
+  )
+}
 
 module.exports = async function packFeature() {
   let features = await fs.readdir(base).then(getContents)
