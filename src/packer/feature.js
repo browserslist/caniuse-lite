@@ -30,7 +30,6 @@ const requireCall = moduleName =>
 
 const featureIndex = R.compose(
   generateCode,
-  t.program,
   R.of,
   moduleExports,
   t.objectExpression,

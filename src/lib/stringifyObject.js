@@ -1,5 +1,4 @@
 const t = require('@babel/types')
-const R = require('ramda')
 
 const generateCode = require('./generateCode')
 const moduleExports = require('./moduleExports')
@@ -33,10 +32,8 @@ function stringifyRecursive(data) {
   }
 }
 
-module.exports = R.compose(
-  generateCode,
-  t.program,
-  R.of,
-  moduleExports,
-  stringifyRecursive
-)
+function stringify(data) {
+  return generateCode([moduleExports(stringifyRecursive(data))])
+}
+
+module.exports = stringify
