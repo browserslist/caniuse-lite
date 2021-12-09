@@ -22,14 +22,11 @@ function relevantKeys(agents, versions, fullAgents) {
           ])
         ),
         B: agent.prefix,
-        C: R.compose(
-          R.unnest,
-          R.map(
-            R.ifElse(
-              R.equals(null),
-              R.always(''),
-              R.flip(R.prop)(versionsInverted)
-            )
+        C: R.chain(
+          R.ifElse(
+            R.equals(null),
+            R.always(''),
+            R.flip(R.prop)(versionsInverted)
           )
         )(agent.versions),
         E: agent.browser,

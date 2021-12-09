@@ -1,5 +1,4 @@
 const t = require('@babel/types')
-const R = require('ramda')
 
 const generateCode = require('./generateCode')
 const moduleExports = require('./moduleExports')
@@ -11,50 +10,30 @@ function getKey(encoded) {
   return t.identifier(encoded)
 }
 
-function stringify(list) {
-  return Object.entries(list).map(([key, data]) => {
-    let value
-    if (data === null) {
-      value = t.nullLiteral()
-    } else if (typeof data === 'undefined') {
-      value = t.identifier('undefined')
-    } else if (typeof data === 'string') {
-      value = t.stringLiteral(data)
-    } else if (typeof data === 'number') {
-      value = t.numericLiteral(data)
-    } else if (Array.isArray(data)) {
-      value = t.arrayExpression(
-        data.map(function child(d) {
-          if (d === null) {
-            return t.nullLiteral()
-          }
-          if (typeof d === 'undefined') {
-            return t.identifier('undefined')
-          }
-          if (typeof d === 'string') {
-            return t.stringLiteral(d)
-          }
-          if (typeof d === 'number') {
-            return t.numericLiteral(d)
-          }
-          if (Array.isArray(d)) {
-            return t.arrayExpression(d.map(child))
-          }
-          return ''
-        })
+function stringifyRecursive(data) {
+  if (data === null) {
+    return t.nullLiteral()
+  } else if (typeof data === 'undefined') {
+    return t.identifier('undefined')
+  } else if (typeof data === 'string') {
+    return t.stringLiteral(data)
+  } else if (typeof data === 'number') {
+    return t.numericLiteral(data)
+  } else if (Array.isArray(data)) {
+    return t.arrayExpression(data.map(stringifyRecursive))
+  } else if (data === Object(data)) {
+    return t.objectExpression(
+      Object.entries(data).map(([key, value]) =>
+        t.objectProperty(getKey(key), stringifyRecursive(value))
       )
-    } else if (data === Object(data)) {
-      value = t.objectExpression(stringify(data))
-    }
-    return t.objectProperty(getKey(key), value)
-  })
+    )
+  } else {
+    throw new Error(`Unhandled type "${typeof data}" when creating object`)
+  }
 }
 
-module.exports = R.compose(
-  generateCode,
-  t.program,
-  R.of,
-  moduleExports,
-  t.objectExpression,
-  stringify
-)
+function stringify(data) {
+  return generateCode([moduleExports(stringifyRecursive(data))])
+}
+
+module.exports = stringify
