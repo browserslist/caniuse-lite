@@ -58,10 +58,10 @@
   resolved "https://registry.yarnpkg.com/@logux/eslint-config/-/eslint-config-46.1.0.tgz#26921037e20ace9e8811bfe8672cede991ecb11c"
   integrity sha512-7DikH6MvW2mc9DJHTmA9uGAPexBA69u21KNjCHqAbWPAqHD7XM++2BWBswMSJaWD3o2u+IEBFK6ZywNuPsNCbQ==
 
-"@mdn/browser-compat-data@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.1.0.tgz#78867eef0f12845d62957f89e2262f4ea43bee58"
-  integrity sha512-58eB5/ovJ5CfArzZwmZdenF/WlAGGS+1PG8RUb3oJ4st9exETBjClmFC0E1uVrZG1BwPaT205RKS8RhnUh5x3Q==
+"@mdn/browser-compat-data@4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.1.1.tgz#1ed3b92e4b3bd7f8c4d6251a23715b0fb82ed110"
+  integrity sha512-SIHGQwbJFN3W1w/RXuWtaUx5XsDAE9DY+kJllcuRmsjreOTE47UaaWI0XehX/UHMARd6jIlglIW46+o3hpZ5+Q==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -191,10 +191,10 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
-caniuse-db@1.0.30001285:
-  version "1.0.30001285"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001285.tgz#858e7ea71493e71ebca83ddfd8b490bf53cf17d8"
-  integrity sha512-3bYDZDDQcdWJJFO8i+hUbaJJcHyTPWAzRWx8pOG0kmmBCTUB6M8eJ83AniGVj7CFy1QhqTbI+HmQKAVjUdwKfg==
+caniuse-db@1.0.30001286:
+  version "1.0.30001286"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001286.tgz#73c013448caaee8730cb151fa85353c29007e5a8"
+  integrity sha512-r5F4eY7LpqtmNdMe1tZmut2fKKE0SFjuUoX3PlYLE4UHK1rLw1m64792vg6iuOucZI5HNhocB1F7YEo4aJe0lg==
 
 chalk@^4.0.0:
   version "4.1.2"
