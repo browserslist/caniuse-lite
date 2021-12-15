@@ -191,3 +191,13 @@ writeFileSync(
   './node_modules/caniuse-db/features-json/css-autofill.json',
   JSON.stringify(autofillData)
 )
+
+const fileSelectorButtonData = bcdDataToCanIUseData(
+  bcd.css.selectors['file-selector-button'].__compat,
+  '::file-selector-button CSS pseudo-element'
+)
+
+writeFileSync(
+  './node_modules/caniuse-db/features-json/css-file-selector-button.json',
+  JSON.stringify(fileSelectorButtonData)
+)
