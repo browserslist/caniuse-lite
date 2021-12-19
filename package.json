@@ -7,7 +7,7 @@
     "integration": "node ./consumer.js > /dev/null",
     "pack": "node copy-mdn.js && rm -Rf data && node src/packer/index.js",
     "unit": "uvu . \\.test\\.js$",
-    "test": "yarn run pack && eslint . && yarn run unit && yarn run integration"
+    "test": "pnpm run pack && eslint . && pnpm run unit && pnpm run integration"
   },
   "files": [
     "data",
