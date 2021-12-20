@@ -119,7 +119,8 @@ function bcdDataToCanIUseData(bcdData, title) {
             if (
               !entry.flags &&
               !entry.partial_implementation &&
-              !entry.prefix
+              !entry.prefix &&
+              !entry.alternative_name
             ) {
               browserData = entry
               break
@@ -170,7 +171,7 @@ function bcdDataToCanIUseData(bcdData, title) {
         value = 'y'
       }
 
-      if (browserData.prefix) {
+      if (browserData.prefix || browserData.alternative_name) {
         value += ' x'
       }
 
