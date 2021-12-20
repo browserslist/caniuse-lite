@@ -1,16 +1,16 @@
 const path = require('path')
 const fs = require('fs').promises
-const R = require('ramda')
 
 const stringifyObject = require('../lib/stringifyObject')
 const browsersData = require('../../data/browsers')
 const { encode } = require('../lib/base62')
 const fromEntries = require('../util/fromEntries')
+const invertObj = require('../util/invertObj')
 
-const browsers = R.invertObj(browsersData)
+const browsers = invertObj(browsersData)
 
 function relevantKeys(agents, versions, fullAgents) {
-  let versionsInverted = R.invertObj(versions)
+  let versionsInverted = invertObj(versions)
 
   return fromEntries(
     Object.entries(agents).map(([key, agent]) => {
@@ -22,13 +22,9 @@ function relevantKeys(agents, versions, fullAgents) {
           ])
         ),
         B: agent.prefix,
-        C: R.chain(
-          R.ifElse(
-            R.equals(null),
-            R.always(''),
-            R.flip(R.prop)(versionsInverted)
-          )
-        )(agent.versions),
+        C: agent.versions.flatMap(version =>
+          version === null ? [''] : versionsInverted[version]
+        ),
         E: agent.browser,
         F: fromEntries(
           fullAgents[key].version_list.map(item => [
@@ -80,7 +76,9 @@ function packBrowserVersions(agents) {
     .then(() => [agents, browserVersions])
 }
 
-const getAgents = R.compose(R.prop('agents'), JSON.parse)
+function getAgents(data) {
+  return JSON.parse(data).agents
+}
 
 module.exports = async function packAgents() {
   // We're not requiring the JSON because it nukes the null values

@@ -13,7 +13,6 @@ specifiers:
   eslint-plugin-node: ^11.1.0
   eslint-plugin-prefer-let: ^3.0.1
   eslint-plugin-promise: ^6.0.0
-  ramda: ^0.27.1
   uvu: ^0.5.2
 
 devDependencies:
@@ -29,7 +28,6 @@ devDependencies:
   eslint-plugin-node: 11.1.0_eslint@8.5.0
   eslint-plugin-prefer-let: 3.0.1
   eslint-plugin-promise: 6.0.0_eslint@8.5.0
-  ramda: 0.27.1
   uvu: 0.5.2
 
 packages:
@@ -1145,10 +1143,6 @@ packages:
 
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
-    dev: true
-
-  /ramda/0.27.1:
-    resolution: {integrity: sha512-PgIdVpn5y5Yns8vqb8FzBUEYn98V3xcPgawAkkgj0YJ0qDsnHCiNmZYfOGMgOvoB0eWFLpYbhxUR3mxfDIMvpw==}
     dev: true
 
   /regexpp/3.2.0:

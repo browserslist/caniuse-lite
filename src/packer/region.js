@@ -1,10 +1,10 @@
 const path = require('path')
 const fs = require('fs').promises
-const { invertObj } = require('ramda')
 
 const getContentsFactory = require('../lib/getContents')
 const stringifyObject = require('../lib/stringifyObject')
 const fromEntries = require('../util/fromEntries')
+const invertObj = require('../util/invertObj')
 const browsers = require('../../data/browsers')
 
 const browsersInverted = invertObj(browsers)

@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs').promises
 const t = require('@babel/types')
-const R = require('ramda')
 
 const generateCode = require('../lib/generateCode')
 const getContentsFactory = require('../lib/getContents')
@@ -10,13 +9,15 @@ const stringifyObject = require('../lib/stringifyObject')
 const statuses = require('../../dist/lib/statuses')
 const supported = require('../../dist/lib/supported')
 const fromEntries = require('../util/fromEntries')
+const invertObj = require('../util/invertObj')
 const parseDecimal = require('../util/parseDecimal')
+const sum = require('../util/sum')
 const browsers = require('../../data/browsers')
 const versions = require('../../data/browserVersions')
 
-const browsersInverted = R.invertObj(browsers)
-const statusesInverted = R.invertObj(statuses)
-const versionsInverted = R.invertObj(versions)
+const browsersInverted = invertObj(browsers)
+const statusesInverted = invertObj(statuses)
+const versionsInverted = invertObj(versions)
 
 const base = path.join(
   path.dirname(require.resolve(`caniuse-db/data.json`)),
@@ -39,7 +40,7 @@ function featureIndex(features) {
 }
 
 function packSupport(supportData) {
-  return R.sum(
+  return sum(
     supportData.split(' ').map(support => {
       if (support in supported) {
         return supported[support]

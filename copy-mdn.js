@@ -1,8 +1,8 @@
 const bcd = require('@mdn/browser-compat-data')
 const { writeFileSync } = require('fs')
-const R = require('ramda')
 
 const versions = require('./data/browserVersions')
+const invertObj = require('./src/util/invertObj')
 
 /**
  * This function maps the browser keys from @mdn/browser-compat-data, to caniuse's format.
@@ -85,7 +85,7 @@ function bcdDataToCanIUseData(bcdData, title) {
     result.stats[bcdBrowserToCanIUseBrowser(browser)] = {}
     // Loop through all versions for the current browser
     Object.keys(bcd.browsers[browser].releases).forEach(version => {
-      let versionsInverted = R.invertObj(versions)
+      let versionsInverted = invertObj(versions)
 
       if (!versionsInverted[version]) {
         return
