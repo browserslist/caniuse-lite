@@ -18,7 +18,8 @@ get('https://registry.npmjs.org/caniuse-db', res => {
     let lastVersion = body['dist-tags'].latest
     if (pkg.devDependencies['caniuse-db'] !== lastVersion) {
       pkg.version = lastVersion
-      pkg.devDependencies['caniuse-db'] = lastVersion
+      // Fix frozen config in pnpm
+      // pkg.devDependencies['caniuse-db'] = lastVersion
       writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`, () => {
         process.stdout.write('::set-output name=newVersion::1\n')
       })

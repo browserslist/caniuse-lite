@@ -27,7 +27,8 @@ get('https://registry.npmjs.org/@mdn/browser-compat-data', res => {
     } else if (
       pkg.devDependencies['@mdn/browser-compat-data'] !== lastVersion
     ) {
-      pkg.devDependencies['@mdn/browser-compat-data'] = lastVersion
+      // Fix frozen config in pnpm
+      // pkg.devDependencies['@mdn/browser-compat-data'] = lastVersion
       writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`, () => {
         process.stdout.write('::set-output name=newVersion::1\n')
       })
