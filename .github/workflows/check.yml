@@ -35,7 +35,7 @@ jobs:
           git config user.email "<andrey+caniuse@sitnik.ru>"
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: pnpm install --ignore-scripts
       - name: Copy MDN data
         if: steps.caniuse.outputs.newVersion
         run: node ./copy-mdn.js
