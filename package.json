@@ -36,7 +36,7 @@
     "@babel/types": "^7.16.0",
     "@logux/eslint-config": "^46.1.1",
     "@mdn/browser-compat-data": "4.1.2",
-    "caniuse-db": "1.0.30001291",
+    "caniuse-db": "1.0.30001292",
     "clean-publish": "^3.4.4",
     "eslint": "^8.5.0",
     "eslint-config-standard": "^16.0.3",
