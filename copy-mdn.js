@@ -119,7 +119,8 @@ function bcdDataToCanIUseData(bcdData, title) {
             if (
               !entry.flags &&
               !entry.partial_implementation &&
-              !entry.prefix
+              !entry.prefix &&
+              !entry.alternative_name
             ) {
               browserData = entry
               break
@@ -170,7 +171,7 @@ function bcdDataToCanIUseData(bcdData, title) {
         value = 'y'
       }
 
-      if (browserData.prefix) {
+      if (browserData.prefix || browserData.alternative_name) {
         value += ' x'
       }
 
@@ -190,4 +191,14 @@ const autofillData = bcdDataToCanIUseData(
 writeFileSync(
   './node_modules/caniuse-db/features-json/css-autofill.json',
   JSON.stringify(autofillData)
+)
+
+const fileSelectorButtonData = bcdDataToCanIUseData(
+  bcd.css.selectors['file-selector-button'].__compat,
+  '::file-selector-button CSS pseudo-element'
+)
+
+writeFileSync(
+  './node_modules/caniuse-db/features-json/css-file-selector-button.json',
+  JSON.stringify(fileSelectorButtonData)
 )
