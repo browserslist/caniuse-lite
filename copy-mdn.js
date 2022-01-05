@@ -202,3 +202,13 @@ writeFileSync(
   './node_modules/caniuse-db/features-json/css-file-selector-button.json',
   JSON.stringify(fileSelectorButtonData)
 )
+
+const stretchData = bcdDataToCanIUseData(
+  bcd.css.properties.width.stretch.__compat,
+  'width: stretch property'
+)
+
+writeFileSync(
+  './node_modules/caniuse-db/features-json/css-width-stretch.json',
+  JSON.stringify(stretchData)
+)
