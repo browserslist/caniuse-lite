@@ -1,8 +1,6 @@
-const bcd = require('@mdn/browser-compat-data')
 const { writeFileSync } = require('fs')
-
-const versions = require('./data/browserVersions')
-const invertObj = require('./src/util/invertObj')
+const { agents } = require('caniuse-db/data.json')
+const bcd = require('@mdn/browser-compat-data')
 
 /**
  * This function maps the browser keys from @mdn/browser-compat-data, to caniuse's format.
@@ -81,18 +79,14 @@ function bcdDataToCanIUseData(bcdData, title) {
 
   Object.keys(supportData).forEach(browser => {
     let browserDataRaw = supportData[browser]
+    let caniuseBrowser = bcdBrowserToCanIUseBrowser(browser)
 
-    result.stats[bcdBrowserToCanIUseBrowser(browser)] = {}
+    result.stats[caniuseBrowser] = {}
     // Loop through all versions for the current browser
-    Object.keys(bcd.browsers[browser].releases).forEach(version => {
-      let versionsInverted = invertObj(versions)
-
-      if (!versionsInverted[version]) {
-        return
-      }
+    agents[caniuseBrowser].versions.forEach(version => {
+      if (!version) return
 
       let browserData
-
       // Browser support data in BCD can either be an object or an array.
       if (!Array.isArray(browserDataRaw)) {
         // If it's not an array it's already in the correct format to process.
@@ -152,17 +146,13 @@ function bcdDataToCanIUseData(bcdData, title) {
         }
       }
 
-      /**
-       * Feature is supported when:
-       * The version matches
-       * There's no flag information in the BCD entry.
-       */
       let supported =
+        !browserData.flags &&
         versionMatches(
           version,
           browserData.version_added,
           browserData.version_removed
-        ) && !browserData.flags
+        )
 
       let value = 'n'
       if (browserData.partial_implementation && supported) {
@@ -171,12 +161,14 @@ function bcdDataToCanIUseData(bcdData, title) {
         value = 'y'
       }
 
-      if (browserData.prefix || browserData.alternative_name) {
+      if (
+        value !== 'n' &&
+        (browserData.prefix || browserData.alternative_name)
+      ) {
         value += ' x'
       }
 
-      // This adds to the output data in the required format.
-      result.stats[bcdBrowserToCanIUseBrowser(browser)][version] = value
+      result.stats[caniuseBrowser][version] = value
     })
   })
 
@@ -187,7 +179,6 @@ const autofillData = bcdDataToCanIUseData(
   bcd.css.selectors.autofill.__compat,
   ':autofill CSS pseudo-class'
 )
-
 writeFileSync(
   './node_modules/caniuse-db/features-json/css-autofill.json',
   JSON.stringify(autofillData)
@@ -197,7 +188,6 @@ const fileSelectorButtonData = bcdDataToCanIUseData(
   bcd.css.selectors['file-selector-button'].__compat,
   '::file-selector-button CSS pseudo-element'
 )
-
 writeFileSync(
   './node_modules/caniuse-db/features-json/css-file-selector-button.json',
   JSON.stringify(fileSelectorButtonData)
@@ -207,7 +197,6 @@ const stretchData = bcdDataToCanIUseData(
   bcd.css.properties.width.stretch.__compat,
   'width: stretch property'
 )
-
 writeFileSync(
   './node_modules/caniuse-db/features-json/css-width-stretch.json',
   JSON.stringify(stretchData)
