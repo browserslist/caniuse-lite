@@ -33,10 +33,6 @@ test('should be 1:1', () => {
     equal(Object.keys(unpacked.stats), Object.keys(data.stats))
     Object.keys(unpacked.stats).forEach(browser => {
       Object.keys(unpacked.stats[browser]).forEach(version => {
-        console.log(
-          unpacked.stats[browser][version],
-          data.stats[browser][version]
-        )
         let unpackedSupport = unpacked.stats[browser][version].split(' ')
         let originalSupport = data.stats[browser][version].split(' ')
         unpackedSupport.forEach(value => {
