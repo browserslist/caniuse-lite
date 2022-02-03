@@ -5,7 +5,7 @@ specifiers:
   '@babel/types': ^7.16.8
   '@logux/eslint-config': ^46.1.1
   '@mdn/browser-compat-data': 4.1.6
-  caniuse-db: 1.0.30001305
+  caniuse-db: 1.0.30001306
   clean-publish: ^4.0.0
   eslint: ^8.8.0
   eslint-config-standard: ^16.0.3
@@ -20,7 +20,7 @@ devDependencies:
   '@babel/types': 7.16.8
   '@logux/eslint-config': 46.1.1_78f08d0053c073645909d39bd7f54d5e
   '@mdn/browser-compat-data': 4.1.6
-  caniuse-db: 1.0.30001305
+  caniuse-db: 1.0.30001306
   clean-publish: 4.0.0
   eslint: 8.8.0
   eslint-config-standard: 16.0.3_3fa03ca42f6626059a4867a76f65b153
@@ -223,8 +223,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-db/1.0.30001305:
-    resolution: {integrity: sha512-NIyJPGC4SwQ9ft0lHonvqEm+HFtRCwVPAsyKDFCW3skaUwAEu2eNUrxDk6l5rCUPc2tIl4pV51IgfjK5owNjZg==}
+  /caniuse-db/1.0.30001306:
+    resolution: {integrity: sha512-QWoBRXGt0SEx77u61W3QwB5EwWOgASpkKc9rZW06uCgIZuzTTaVoE7qr0RRqPaISoHM77MG1sIh2sO//QM6BAA==}
     dev: true
 
   /chalk/4.1.2:
