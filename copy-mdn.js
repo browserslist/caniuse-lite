@@ -201,3 +201,13 @@ writeFileSync(
   './node_modules/caniuse-db/features-json/css-width-stretch.json',
   JSON.stringify(stretchData)
 )
+
+const printColorAdjustData = bcdDataToCanIUseData(
+  bcd.css.properties['print-color-adjust'].__compat,
+  'print-color-adjust property'
+)
+writeFileSync(
+  './node_modules/caniuse-db/features-json/css-print-color-adjust.json',
+  JSON.stringify(printColorAdjustData)
+)
+
