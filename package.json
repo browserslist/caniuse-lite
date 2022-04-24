@@ -38,16 +38,16 @@
   ],
   "license": "CC-BY-4.0",
   "devDependencies": {
-    "@babel/generator": "^7.17.7",
+    "@babel/generator": "^7.17.9",
     "@babel/types": "^7.17.0",
-    "@logux/eslint-config": "^46.1.1",
-    "@mdn/browser-compat-data": "4.1.16",
+    "@logux/eslint-config": "^47.0.0",
+    "@mdn/browser-compat-data": "4.1.17",
     "caniuse-db": "1.0.30001332",
     "clean-publish": "^4.0.0",
-    "eslint": "^8.11.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-node": "^11.1.0",
+    "eslint": "^8.14.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.1.0",
     "eslint-plugin-prefer-let": "^3.0.1",
     "eslint-plugin-promise": "^6.0.0",
     "uvu": "^0.5.3"
@@ -56,7 +56,7 @@
     "extends": "@logux/eslint-config",
     "rules": {
       "security/detect-non-literal-require": "off",
-      "node/global-require": "off",
+      "n/global-require": "off",
       "camelcase": "off"
     },
     "overrides": [
@@ -72,7 +72,7 @@
           "*.js"
         ],
         "rules": {
-          "node/no-unsupported-features/node-builtins": "off",
+          "n/no-unsupported-features/node-builtins": "off",
           "no-console": "off"
         }
       }
