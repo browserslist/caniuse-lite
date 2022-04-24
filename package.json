@@ -55,7 +55,6 @@
   "eslintConfig": {
     "extends": "@logux/eslint-config",
     "rules": {
-      "security/detect-non-literal-require": "off",
       "n/global-require": "off",
       "camelcase": "off"
     },
