@@ -36,7 +36,6 @@ jobs:
           git config user.name "Auto-Updater"
           git config user.email "<andrey+caniuse@sitnik.ru>"
       - name: Install dependencies
-        if: steps.caniuse.outputs.newVersion
         run: pnpm install --no-frozen-lockfile --ignore-scripts
       - name: Copy MDN data
         if: steps.caniuse.outputs.newVersion
