@@ -38,8 +38,8 @@
   ],
   "license": "CC-BY-4.0",
   "devDependencies": {
-    "@babel/generator": "^7.17.9",
-    "@babel/types": "^7.17.0",
+    "@babel/generator": "^7.17.10",
+    "@babel/types": "^7.17.10",
     "@logux/eslint-config": "^47.2.0",
     "@mdn/browser-compat-data": "4.1.18",
     "caniuse-db": "1.0.30001334",
@@ -47,7 +47,7 @@
     "eslint": "^8.14.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.1.0",
+    "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-prefer-let": "^3.0.1",
     "eslint-plugin-promise": "^6.0.0",
     "uvu": "^0.5.3"
