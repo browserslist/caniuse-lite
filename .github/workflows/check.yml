@@ -22,12 +22,10 @@ jobs:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
           scope: caniuse-lite
-          cache: pnpm
       - name: Check caniuse-db version
         id: caniuse
         run: node ./check.js
       - name: Check @mdn/browser-compat-data version
-        id: mdn
         if: steps.caniuse.outputs.newVersion
         run: node ./check-mdn-bcd.js
       - name: Setup git config
@@ -36,6 +34,7 @@ jobs:
           git config user.name "Auto-Updater"
           git config user.email "<andrey+caniuse@sitnik.ru>"
       - name: Install dependencies
+        if: steps.caniuse.outputs.newVersion
         run: pnpm install --no-frozen-lockfile --ignore-scripts
       - name: Copy MDN data
         if: steps.caniuse.outputs.newVersion
