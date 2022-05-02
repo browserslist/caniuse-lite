@@ -1,11 +1,11 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@babel/generator': ^7.17.10
   '@babel/types': ^7.17.10
   '@logux/eslint-config': ^47.2.0
   '@mdn/browser-compat-data': 4.1.18
-  caniuse-db: 1.0.30001334
+  caniuse-db: 1.0.30001335
   clean-publish: ^4.0.0
   eslint: ^8.14.0
   eslint-config-standard: ^17.0.0
@@ -18,12 +18,12 @@ specifiers:
 devDependencies:
   '@babel/generator': 7.17.10
   '@babel/types': 7.17.10
-  '@logux/eslint-config': 47.2.0_e35ebbb1355184d838496251cefc4537
+  '@logux/eslint-config': 47.2.0_4nplxmjvkgcnqocjmji457cfg4
   '@mdn/browser-compat-data': 4.1.18
-  caniuse-db: 1.0.30001334
+  caniuse-db: 1.0.30001335
   clean-publish: 4.0.0
   eslint: 8.14.0
-  eslint-config-standard: 17.0.0_14af0798efd537ecbc8732fe6f15829c
+  eslint-config-standard: 17.0.0_csxqpghp2u36zpehgl7g6fmctq
   eslint-plugin-import: 2.26.0_eslint@8.14.0
   eslint-plugin-n: 15.2.0_eslint@8.14.0
   eslint-plugin-prefer-let: 3.0.1
@@ -103,7 +103,7 @@ packages:
     resolution: {integrity: sha512-Fg32GrJo61m+VqYSdRSjRXMjQ06j8YIYfcTqndLYVAaHmroZHLJZCydsWBOTDqXS2v+mjxohBWEMfg97GXmYQg==}
     dev: true
 
-  /@logux/eslint-config/47.2.0_e35ebbb1355184d838496251cefc4537:
+  /@logux/eslint-config/47.2.0_4nplxmjvkgcnqocjmji457cfg4:
     resolution: {integrity: sha512-nNPPkw+kfA2bLyhkxaqGzd3MWSN4S2dUf69xo2syskBd5ZfFk2WT9ssO+yDDUd26yNgN3AmweKztEwyUim9wOQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -115,7 +115,7 @@ packages:
       eslint-plugin-promise: ^6.0.0
     dependencies:
       eslint: 8.14.0
-      eslint-config-standard: 17.0.0_14af0798efd537ecbc8732fe6f15829c
+      eslint-config-standard: 17.0.0_csxqpghp2u36zpehgl7g6fmctq
       eslint-plugin-import: 2.26.0_eslint@8.14.0
       eslint-plugin-n: 15.2.0_eslint@8.14.0
       eslint-plugin-prefer-let: 3.0.1
@@ -247,8 +247,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-db/1.0.30001334:
-    resolution: {integrity: sha512-hy0EJjKNwoMF+JbTnSLL1CurPsBrMl25P/XLaaN/c+xyp9eVFZ7PbjcxZgU0bCeS6nHm+gx20fgTykaLg8PEyw==}
+  /caniuse-db/1.0.30001335:
+    resolution: {integrity: sha512-AxdlkjdSGkGwqCD0btb4mm7JDRG8cAvbRpJ50trfHIc/bC0W9tXb41id6/+Ybi3ip/l2G5I5FmhGCRHPhu194g==}
     dev: true
 
   /chalk/4.1.2:
@@ -399,7 +399,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /eslint-config-standard/17.0.0_14af0798efd537ecbc8732fe6f15829c:
+  /eslint-config-standard/17.0.0_csxqpghp2u36zpehgl7g6fmctq:
     resolution: {integrity: sha512-/2ks1GKyqSOkH7JFvXJicu0iMpoojkwB+f5Du/1SC0PtBL+s8v30k9njRZ21pm2drKYm2342jFnGWzttxPmZVg==}
     peerDependencies:
       eslint: ^8.0.1
