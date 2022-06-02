@@ -41,7 +41,7 @@
     "@babel/generator": "^7.18.2",
     "@babel/types": "^7.18.2",
     "@logux/eslint-config": "^47.2.0",
-    "@mdn/browser-compat-data": "4.2.1",
+    "@mdn/browser-compat-data": "5.0.1",
     "caniuse-db": "1.0.30001344",
     "clean-publish": "^4.0.0",
     "eslint": "^8.16.0",
