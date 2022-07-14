@@ -63,6 +63,8 @@ function versionMatches(browserVersion, versionAdded, versionRemoved) {
   )
 }
 
+let unknown = {}
+
 /**
  * This function maps support data from @mdn/browser-compat-data, to caniuse's
  * format.
@@ -80,6 +82,14 @@ function bcdDataToCanIUseData(bcdData, title) {
   Object.keys(supportData).forEach(browser => {
     let browserDataRaw = supportData[browser]
     let caniuseBrowser = bcdBrowserToCanIUseBrowser(browser)
+
+    if (!agents[caniuseBrowser]) {
+      if (!unknown[caniuseBrowser]) {
+        unknown[caniuseBrowser] = true
+        console.warn(`Unknown browser ${caniuseBrowser}`)
+      }
+      return
+    }
 
     result.stats[caniuseBrowser] = {}
     // Loop through all versions for the current browser
