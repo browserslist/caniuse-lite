@@ -249,7 +249,7 @@ const textDecorationColorData = bcdDataToCanIUseData(
   'text-decoration-color property'
 )
 writeFileSync(
-  './node_modules/caniuse-db/features-json/mdn-text-decoration-color.json',
+  features + 'mdn-text-decoration-color.json',
   JSON.stringify(textDecorationColorData)
 )
 
@@ -258,7 +258,7 @@ const textDecorationLineData = bcdDataToCanIUseData(
   'text-decoration-line property'
 )
 writeFileSync(
-  './node_modules/caniuse-db/features-json/mdn-text-decoration-line.json',
+  features + 'mdn-text-decoration-line.json',
   JSON.stringify(textDecorationLineData)
 )
 
@@ -267,7 +267,7 @@ const textDecorationStyleData = bcdDataToCanIUseData(
   'text-decoration-style property'
 )
 writeFileSync(
-  './node_modules/caniuse-db/features-json/mdn-text-decoration-style.json',
+  features + 'mdn-text-decoration-style.json',
   JSON.stringify(textDecorationStyleData)
 )
 
@@ -276,6 +276,6 @@ const textDecorationShorthandData = bcdDataToCanIUseData(
   'text-decoration shorthand property'
 )
 writeFileSync(
-  './node_modules/caniuse-db/features-json/mdn-text-decoration-shorthand.json',
+  features + 'mdn-text-decoration-shorthand.json',
   JSON.stringify(textDecorationShorthandData)
 )
