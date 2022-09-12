@@ -244,3 +244,38 @@ writeFileSync(
   JSON.stringify(unicodeBidiIsolateOverride)
 )
 
+const textDecorationColorData = bcdDataToCanIUseData(
+  bcd.css.properties['text-decoration-color'].__compat,
+  'text-decoration-color property'
+)
+writeFileSync(
+  features + 'mdn-text-decoration-color.json',
+  JSON.stringify(textDecorationColorData)
+)
+
+const textDecorationLineData = bcdDataToCanIUseData(
+  bcd.css.properties['text-decoration-line'].__compat,
+  'text-decoration-line property'
+)
+writeFileSync(
+  features + 'mdn-text-decoration-line.json',
+  JSON.stringify(textDecorationLineData)
+)
+
+const textDecorationStyleData = bcdDataToCanIUseData(
+  bcd.css.properties['text-decoration-style'].__compat,
+  'text-decoration-style property'
+)
+writeFileSync(
+  features + 'mdn-text-decoration-style.json',
+  JSON.stringify(textDecorationStyleData)
+)
+
+const textDecorationShorthandData = bcdDataToCanIUseData(
+  bcd.css.properties['text-decoration'].shorthand.__compat,
+  'text-decoration shorthand property'
+)
+writeFileSync(
+  features + 'mdn-text-decoration-shorthand.json',
+  JSON.stringify(textDecorationShorthandData)
+)
