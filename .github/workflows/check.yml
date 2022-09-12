@@ -5,6 +5,8 @@ on:
       - main
   schedule:
     - cron: "41 * * * *"
+permissions:
+  contents: write
 jobs:
   publish:
     name: Check
@@ -45,8 +47,6 @@ jobs:
       - name: Run tests
         if: steps.caniuse.outputs.newVersion
         run: pnpm unit
-        env:
-          FORCE_COLOR: 2
       - name: Commit changes
         if: steps.caniuse.outputs.newVersion
         run: node ./commit.js
