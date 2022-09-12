@@ -185,21 +185,20 @@ function bcdDataToCanIUseData(bcdData, title) {
   return result
 }
 
+const features = './node_modules/caniuse-db/features-json/'
+
 const autofillData = bcdDataToCanIUseData(
   bcd.css.selectors.autofill.__compat,
   ':autofill CSS pseudo-class'
 )
-writeFileSync(
-  './node_modules/caniuse-db/features-json/css-autofill.json',
-  JSON.stringify(autofillData)
-)
+writeFileSync(features + 'css-autofill.json', JSON.stringify(autofillData))
 
 const fileSelectorButtonData = bcdDataToCanIUseData(
   bcd.css.selectors['file-selector-button'].__compat,
   '::file-selector-button CSS pseudo-element'
 )
 writeFileSync(
-  './node_modules/caniuse-db/features-json/css-file-selector-button.json',
+  features + 'css-file-selector-button.json',
   JSON.stringify(fileSelectorButtonData)
 )
 
@@ -207,17 +206,41 @@ const stretchData = bcdDataToCanIUseData(
   bcd.css.properties.width.stretch.__compat,
   'width: stretch property'
 )
-writeFileSync(
-  './node_modules/caniuse-db/features-json/css-width-stretch.json',
-  JSON.stringify(stretchData)
-)
+writeFileSync(features + 'css-width-stretch.json', JSON.stringify(stretchData))
 
 const printColorAdjustData = bcdDataToCanIUseData(
   bcd.css.properties['print-color-adjust'].__compat,
   'print-color-adjust property'
 )
 writeFileSync(
-  './node_modules/caniuse-db/features-json/css-print-color-adjust.json',
+  features + 'css-print-color-adjust.json',
   JSON.stringify(printColorAdjustData)
+)
+
+const unicodeBidiIsolate = bcdDataToCanIUseData(
+  bcd.css.properties['unicode-bidi'].isolate.__compat,
+  'isolate from unicode-bidi'
+)
+writeFileSync(
+  features + 'mdn-css-unicode-bidi-isolate.json',
+  JSON.stringify(unicodeBidiIsolate)
+)
+
+const unicodeBidiPlaintext = bcdDataToCanIUseData(
+  bcd.css.properties['unicode-bidi'].plaintext.__compat,
+  'plaintext from unicode-bidi'
+)
+writeFileSync(
+  features + 'mdn-css-unicode-bidi-plaintext.json',
+  JSON.stringify(unicodeBidiPlaintext)
+)
+
+const unicodeBidiIsolateOverride = bcdDataToCanIUseData(
+  bcd.css.properties['unicode-bidi']['isolate-override'].__compat,
+  'isolate-override from unicode-bidi'
+)
+writeFileSync(
+  features + 'mdn-css-unicode-bidi-isolate-override.json',
+  JSON.stringify(unicodeBidiIsolateOverride)
 )
 
