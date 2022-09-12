@@ -276,6 +276,6 @@ const textDecorationShorthandData = bcdDataToCanIUseData(
   'text-decoration shorthand property'
 )
 writeFileSync(
-  './node_modules/caniuse-db/features-json/mdn-text-decoration_shorthand.json',
+  './node_modules/caniuse-db/features-json/mdn-text-decoration-shorthand.json',
   JSON.stringify(textDecorationShorthandData)
 )
