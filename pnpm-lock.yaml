@@ -4,8 +4,8 @@ specifiers:
   '@babel/generator': ^7.19.0
   '@babel/types': ^7.19.0
   '@logux/eslint-config': ^47.2.0
-  '@mdn/browser-compat-data': 5.2.17
-  caniuse-db: 1.0.30001434
+  '@mdn/browser-compat-data': 5.2.20
+  caniuse-db: 1.0.30001435
   clean-publish: ^4.0.1
   eslint: ^8.23.1
   eslint-config-standard: ^17.0.0
@@ -19,8 +19,8 @@ devDependencies:
   '@babel/generator': 7.19.0
   '@babel/types': 7.19.0
   '@logux/eslint-config': 47.2.0_vnf3lxnh2hriqoyjreevx5yqwq
-  '@mdn/browser-compat-data': 5.2.17
-  caniuse-db: 1.0.30001434
+  '@mdn/browser-compat-data': 5.2.20
+  caniuse-db: 1.0.30001435
   clean-publish: 4.0.1
   eslint: 8.23.1
   eslint-config-standard: 17.0.0_4nulviyjkaspo7v2xlghuwxbf4
@@ -150,8 +150,8 @@ packages:
       eslint-plugin-promise: 6.0.1_eslint@8.23.1
     dev: true
 
-  /@mdn/browser-compat-data/5.2.17:
-    resolution: {integrity: sha512-aA+rFHhXmq14GVIcEWNk8OntLEOQFwEZk9ZgG5VcDquz+pQhIjJPXacR+rwL9Z0Elfg909EcRRHC96p06/CNUg==}
+  /@mdn/browser-compat-data/5.2.20:
+    resolution: {integrity: sha512-8FIjbB+NcHzU6Uk+8Kqpio8gkjrOROxYczwybI/fKI+Vr4d0pymm2hh+F/lTIAk3NWfyDCyNwldhzj/GAYutdg==}
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -280,8 +280,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-db/1.0.30001434:
-    resolution: {integrity: sha512-S3C9KcO14uBVr1NDSwx3bGprJTiY0q90IyC2MyJWUmGxkPjsuWODfv/8Tl67Dok/n4q2l4yzS0/MqWDu/rZxDQ==}
+  /caniuse-db/1.0.30001435:
+    resolution: {integrity: sha512-smsMDvw7O77c7DsfRfyTt3z/XnQTzTsQB74vLlwJKxGq0ISqHrL2XioCxZkYiCjSWQKBqOZI1CpB8aokVsHmQw==}
     dev: true
 
   /chalk/4.1.2:
