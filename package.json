@@ -14,11 +14,7 @@
     "dist"
   ],
   "keywords": [
-    "support",
-    "css",
-    "js",
-    "html5",
-    "svg"
+    "support"
   ],
   "author": {
     "name": "Ben Briggs",
@@ -88,5 +84,8 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "none"
+  },
+  "clean-publish": {
+    "cleanDocs": true
   }
 }
