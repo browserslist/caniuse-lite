@@ -1,4 +1,4 @@
-const { writeFile } = require('fs')
+const { writeFileSync } = require('fs')
 const { get } = require('https')
 
 const pkg = require('./package.json')
@@ -19,9 +19,9 @@ get('https://registry.npmjs.org/caniuse-db', res => {
     if (pkg.devDependencies['caniuse-db'] !== lastVersion) {
       pkg.version = lastVersion
       pkg.devDependencies['caniuse-db'] = lastVersion
-      writeFile('./package.json', `${JSON.stringify(pkg, null, 2)}\n`, () => {
-        process.stdout.write('::set-output name=newVersion::1\n')
-      })
+      writeFileSync('./package.json', `${JSON.stringify(pkg, null, 2)}\n`)
+      writeFileSync(process.env.GITHUB_OUTPUT, 'newVersion=1\n')
+      process.stdout.write('caniuse-db has new version\n')
     } else {
       process.stdout.write('Already up to date\n')
     }
