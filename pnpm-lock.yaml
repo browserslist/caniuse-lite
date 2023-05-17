@@ -11,11 +11,11 @@ devDependencies:
     specifier: ^49.0.0
     version: 49.0.0(eslint-config-standard@17.0.0)(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.6.1)(eslint-plugin-prefer-let@3.0.1)(eslint-plugin-promise@6.1.1)(eslint@8.36.0)
   '@mdn/browser-compat-data':
-    specifier: 5.2.57
-    version: 5.2.57
+    specifier: 5.2.58
+    version: 5.2.58
   caniuse-db:
-    specifier: 1.0.30001487
-    version: 1.0.30001487
+    specifier: 1.0.30001488
+    version: 1.0.30001488
   clean-publish:
     specifier: ^4.1.1
     version: 4.1.1
@@ -178,8 +178,8 @@ packages:
       eslint-plugin-promise: 6.1.1(eslint@8.36.0)
     dev: true
 
-  /@mdn/browser-compat-data@5.2.57:
-    resolution: {integrity: sha512-ED1+lSPglyGjBVPubg44h7nIzZK/Oc3lUI/rEZ+xDWmSY/LRKFINdJKYdGnViy/R7LXa3EGDKFSC9jXG6mfaiQ==}
+  /@mdn/browser-compat-data@5.2.58:
+    resolution: {integrity: sha512-LgWYcbQQCJCdm5X/ACvoVnZOkXFQVKJO25frCSx4YKPuCm/Winfwey/aqCkFgJki3UGbmmqtxlcffCzmtlVMVA==}
     dev: true
 
   /@nodelib/fs.scandir@2.1.5:
@@ -325,8 +325,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-db@1.0.30001487:
-    resolution: {integrity: sha512-40ZGbp0wuA0P1ExvBlDbr76z6zvBXxhNyJtxzP8EN1vHJRg2LSMbysLbgz+0VZRZ0gHPxa3nhzIedqptA9brxA==}
+  /caniuse-db@1.0.30001488:
+    resolution: {integrity: sha512-xpvREX0zJezEEPXJCrXtqh8sYtKZstvS4+rlfHr7up039ZkBzQA7xCOk3JJUThVNNCKMP9VuP9yLS5W/8wi0bA==}
     dev: true
 
   /chalk@4.1.2:
