@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 devDependencies:
   '@babel/generator':
@@ -14,8 +18,8 @@ devDependencies:
     specifier: 5.2.59
     version: 5.2.59
   caniuse-db:
-    specifier: 1.0.30001489
-    version: 1.0.30001489
+    specifier: 1.0.30001490
+    version: 1.0.30001490
   clean-publish:
     specifier: ^4.1.1
     version: 4.1.1
@@ -325,8 +329,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-db@1.0.30001489:
-    resolution: {integrity: sha512-y4hMxaQf5j0Sw+u9F9fTV0M8ybQJa4zoNw1MpeJhsSs23845oaNChzqJL4Z34DSIO5nwqTLa4vAGez4JNCPv9A==}
+  /caniuse-db@1.0.30001490:
+    resolution: {integrity: sha512-jNWfe1/qlrehh93KBvjTChGmDBVBTpckdaAlAsbAEO2tVt1yddiY0YdZbYc2e31CXtX15KuGbBbe0xAEbwAgqA==}
     dev: true
 
   /chalk@4.1.2:
