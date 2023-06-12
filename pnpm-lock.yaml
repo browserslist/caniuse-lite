@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -18,8 +18,8 @@ devDependencies:
     specifier: 5.2.63
     version: 5.2.63
   caniuse-db:
-    specifier: 1.0.30001499
-    version: 1.0.30001499
+    specifier: 1.0.30001500
+    version: 1.0.30001500
   clean-publish:
     specifier: ^4.1.1
     version: 4.1.1
@@ -329,8 +329,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-db@1.0.30001499:
-    resolution: {integrity: sha512-KkuG14G/O9QoDceU1A6Fe2l8AEEJoGnOr8MzaGBSCBd836HAmcX83F3jZRkSRBs33e6lF3vKrwMNCtRIBoAapA==}
+  /caniuse-db@1.0.30001500:
+    resolution: {integrity: sha512-7KqOmh+DtVU9EDBv2s9trhsID3E2s7f/2ey6orpvoSGsRDJo4j/GYJv06DC9N04fZflkb9iktvhWR4cV7gHIOw==}
     dev: true
 
   /chalk@4.1.2:
