@@ -1,6 +1,6 @@
 {
   "name": "caniuse-lite",
-  "version": "1.0.30001513",
+  "version": "1.0.30001514",
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "main": "dist/unpacker/index.js",
   "scripts": {
@@ -41,8 +41,8 @@
     "@babel/generator": "^7.21.3",
     "@babel/types": "^7.21.3",
     "@logux/eslint-config": "^49.0.0",
-    "@mdn/browser-compat-data": "5.3.0",
-    "caniuse-db": "1.0.30001513",
+    "@mdn/browser-compat-data": "5.3.1",
+    "caniuse-db": "1.0.30001514",
     "clean-publish": "^4.1.1",
     "eslint": "^8.36.0",
     "eslint-config-standard": "^17.0.0",
