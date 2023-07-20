@@ -39,16 +39,17 @@
   ],
   "license": "CC-BY-4.0",
   "devDependencies": {
-    "@babel/generator": "^7.21.3",
-    "@babel/types": "^7.21.3",
-    "@logux/eslint-config": "^49.0.0",
+    "@babel/generator": "^7.22.9",
+    "@babel/types": "^7.22.5",
+    "@logux/eslint-config": "^51.0.0",
     "@mdn/browser-compat-data": "5.3.4",
     "caniuse-db": "1.0.30001517",
-    "clean-publish": "^4.1.1",
-    "eslint": "^8.36.0",
-    "eslint-config-standard": "^17.0.0",
+    "clean-publish": "^4.2.0",
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-perfectionist": "^1.5.0",
     "eslint-plugin-prefer-let": "^3.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "uvu": "^0.5.6"
@@ -56,6 +57,7 @@
   "eslintConfig": {
     "extends": "@logux/eslint-config",
     "rules": {
+      "perfectionist/sort-objects": "off",
       "n/global-require": "off",
       "camelcase": "off"
     },
