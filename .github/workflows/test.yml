@@ -37,4 +37,4 @@ jobs:
         with:
           node-version: 4
       - name: Run tests
-        run: npm run integration
+        run: npm run test:integration

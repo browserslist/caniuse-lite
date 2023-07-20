@@ -4,10 +4,11 @@
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "main": "dist/unpacker/index.js",
   "scripts": {
-    "integration": "node ./consumer.js > /dev/null",
     "pack": "node copy-mdn.js && rm -Rf data && node src/packer/index.js",
-    "unit": "uvu . \\.test\\.js$",
-    "test": "pnpm run pack && eslint . && pnpm run unit && pnpm run integration"
+    "test:integration": "node ./consumer.js > /dev/null",
+    "test:unit": "uvu . \\.test\\.js$",
+    "test:lint": "eslint .",
+    "test": "pnpm run pack && pnpm run /^test:/"
   },
   "files": [
     "data",
