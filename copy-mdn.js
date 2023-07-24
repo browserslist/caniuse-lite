@@ -79,6 +79,10 @@ function bcdDataToCanIUseData(bcdData, title) {
 
   let supportData = bcdData.support
 
+  // MDN adds the Oculus Browser, which is not currently available in caniuse.
+  // https://github.com/mdn/browser-compat-data/issues/12303
+  delete supportData?.oculus
+
   Object.keys(supportData).forEach(browser => {
     let browserDataRaw = supportData[browser]
     let caniuseBrowser = bcdBrowserToCanIUseBrowser(browser)
@@ -278,4 +282,16 @@ const textDecorationShorthandData = bcdDataToCanIUseData(
 writeFileSync(
   features + 'mdn-text-decoration-shorthand.json',
   JSON.stringify(textDecorationShorthandData)
+)
+
+// https://caniuse.com/mdn-css_selectors_backdrop
+// https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop#browser_compatibility
+const cssBackdrop = bcdDataToCanIUseData(
+  bcd.css.selectors.backdrop.__compat,
+  'CSS ::backdrop pseudo-element'
+)
+
+writeFileSync(
+  features + 'mdn-css-backdrop-pseudo-element.json',
+  JSON.stringify(cssBackdrop)
 )
