@@ -46,7 +46,7 @@ jobs:
         run: pnpm run pack
       - name: Run tests
         if: steps.caniuse.outputs.newVersion
-        run: pnpm unit
+        run: pnpm test:unit
       - name: Commit changes
         if: steps.caniuse.outputs.newVersion
         run: node ./commit.js
