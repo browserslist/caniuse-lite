@@ -17,6 +17,8 @@ function stringifyRecursive(data) {
     return t.identifier('undefined')
   } else if (typeof data === 'string') {
     return t.stringLiteral(data)
+  } else if (typeof data === 'boolean') {
+    return t.booleanLiteral(data)
   } else if (typeof data === 'number') {
     return t.numericLiteral(data)
   } else if (Array.isArray(data)) {
