@@ -42,6 +42,7 @@ test('should be 1:1', () => {
     })
     equal(unpacked.status, data.status)
     equal(unpacked.title, data.title)
+    equal(unpacked.shown, data.shown)
   })
 })
 

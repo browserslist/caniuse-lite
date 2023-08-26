@@ -83,6 +83,7 @@ module.exports = async function packFeature() {
       )
       packed.B = parseDecimal(statusesInverted[contents.status])
       packed.C = contents.title
+      packed.D = contents.shown
       return fs.writeFile(
         path.join(__dirname, `../../data/features/${name}.js`),
         stringifyObject(packed)

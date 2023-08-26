@@ -57,7 +57,7 @@ In addition, the subset contains the `release_date` key with release dates (as t
 
 The `feature` method takes a file from `data/features` and converts it into
 something that more closely represents the `caniuse-db` format. Note that only
-the `title`, `stats` and `status` keys are kept from the original data.
+the `title`, `stats`, `status`, and `shown` keys are kept from the original data.
 
 
 ### `lite.features`
