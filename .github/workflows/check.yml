@@ -4,7 +4,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "41 * * * *"
+    - cron: '41 * * * *'
 permissions:
   contents: write
 jobs:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          registry-url: "https://registry.npmjs.org"
+          registry-url: 'https://registry.npmjs.org'
           scope: caniuse-lite
       - name: Check caniuse-db version
         id: caniuse
