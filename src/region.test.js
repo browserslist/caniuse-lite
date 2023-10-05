@@ -1,5 +1,5 @@
-const { join, dirname } = require('path')
-const { readdir } = require('fs').promises
+const { join, dirname } = require('node:path')
+const { readdir } = require('node:fs').promises
 const { equal } = require('uvu/assert')
 const { test } = require('uvu')
 

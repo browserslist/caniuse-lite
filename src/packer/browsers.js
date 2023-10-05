@@ -1,7 +1,7 @@
 /* Create a mapping from browser version strings to shorter identifiers. */
 
-const path = require('path')
-const fs = require('fs').promises
+const path = require('node:path')
+const fs = require('node:fs').promises
 
 const stringifyObject = require('../lib/stringifyObject')
 const { encode } = require('../lib/base62')

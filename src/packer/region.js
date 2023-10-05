@@ -1,5 +1,5 @@
-const path = require('path')
-const fs = require('fs').promises
+const path = require('node:path')
+const fs = require('node:fs').promises
 
 const getContentsFactory = require('../lib/getContents')
 const stringifyObject = require('../lib/stringifyObject')

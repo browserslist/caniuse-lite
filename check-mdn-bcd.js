@@ -1,5 +1,5 @@
-const { writeFileSync } = require('fs')
-const { get } = require('https')
+const { writeFileSync } = require('node:fs')
+const { get } = require('node:https')
 
 const pkg = require('./package.json')
 

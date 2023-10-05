@@ -1,6 +1,6 @@
-const { join, dirname } = require('path')
+const { join, dirname } = require('node:path')
 const { equal, ok } = require('uvu/assert')
-const { readdir } = require('fs').promises
+const { readdir } = require('node:fs').promises
 const { test } = require('uvu')
 
 const getContentsFactory = require('./lib/getContents')

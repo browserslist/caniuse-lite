@@ -1,5 +1,5 @@
-const path = require('path')
-const fs = require('fs').promises
+const path = require('node:path')
+const fs = require('node:fs').promises
 
 const packBrowsers = require('./browsers')
 const runTasks = require('../lib/runTasks')

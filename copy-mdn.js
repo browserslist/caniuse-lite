@@ -1,4 +1,4 @@
-const { writeFileSync } = require('fs')
+const { writeFileSync } = require('node:fs')
 const { agents } = require('caniuse-db/data.json')
 const bcd = require('@mdn/browser-compat-data')
 

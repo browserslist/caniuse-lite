@@ -1,4 +1,4 @@
-const { readFile } = require('fs').promises
+const { readFile } = require('node:fs').promises
 
 readFile('./publish.log').then(log => {
   if (log.toString().includes('npm ERR!')) {
