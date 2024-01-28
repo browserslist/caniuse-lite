@@ -276,7 +276,7 @@ writeFileSync(
 )
 
 const textDecorationShorthandData = bcdDataToCanIUseData(
-  bcd.css.properties['text-decoration'].shorthand.__compat,
+  bcd.css.properties['text-decoration']['includes_color-and-style'].__compat,
   'text-decoration shorthand property'
 )
 writeFileSync(
