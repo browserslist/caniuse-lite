@@ -18,8 +18,8 @@ devDependencies:
     specifier: 5.5.9
     version: 5.5.9
   caniuse-db:
-    specifier: 1.0.30001582
-    version: 1.0.30001582
+    specifier: 1.0.30001583
+    version: 1.0.30001583
   clean-publish:
     specifier: ^4.2.0
     version: 4.2.0
@@ -459,8 +459,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-db@1.0.30001582:
-    resolution: {integrity: sha512-bf2eeY5tUaWORL7/JkFSNysbI8rY6UXZYiitnWPr+FDEzitYYEkHxQVB3+tPOrIWN9DNKQ+BKaUC45zHsRSd6A==}
+  /caniuse-db@1.0.30001583:
+    resolution: {integrity: sha512-ANscoxMPL2Rrffj9x6qDqRQu4jGhYD06Fg/ma4g3fkv1CVEe6xB3pfOHiurPNLsCJb75V/02ZCTdYjpovSd6XA==}
     dev: true
 
   /chalk@4.1.2:
