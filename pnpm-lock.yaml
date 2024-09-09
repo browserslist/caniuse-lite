@@ -18,11 +18,11 @@ importers:
         specifier: ^53.2.0
         version: 53.2.0(@typescript-eslint/parser@7.13.0(eslint@9.5.0)(typescript@5.4.5))(eslint@9.5.0)(typescript@5.4.5)
       '@mdn/browser-compat-data':
-        specifier: 5.5.50
-        version: 5.5.50
+        specifier: 5.5.51
+        version: 5.5.51
       caniuse-db:
-        specifier: 1.0.30001658
-        version: 1.0.30001658
+        specifier: 1.0.30001659
+        version: 1.0.30001659
       clean-publish:
         specifier: ^5.0.0
         version: 5.0.0
@@ -141,8 +141,8 @@ packages:
       svelte:
         optional: true
 
-  '@mdn/browser-compat-data@5.5.50':
-    resolution: {integrity: sha512-7Vlybx9Vao3kQNJGps2sFnBSq5uWcUsZtlwU2bUzeeKbwzKO507V7K+vv0TlfQ1qunDy1PiRz6BGtdxyMMD5tQ==}
+  '@mdn/browser-compat-data@5.5.51':
+    resolution: {integrity: sha512-17L3+/oqX+sgSyucNKSipri1LkI/d8pwPQI4Vv2ejRVZLZr1WGxcEGBnglqFhdlislQBceJiHAdQnWEE+YJE3A==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -294,8 +294,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-db@1.0.30001658:
-    resolution: {integrity: sha512-uYy2vPANfmWJ139HtapgdqOaa6d/PyMRnN78vC9Qsv73uA0E6ADZAwapA1nMGeXl2/IJQZ/VUlRAtUgKHmOUWw==}
+  caniuse-db@1.0.30001659:
+    resolution: {integrity: sha512-CtFMkaqm+3Vu8FU35bNId5SRZutNxgpBMra3O9+s3U5lfvHUs4F4rfZCtJeoGmG5w+z0k2yTAzZdLPGemWrA2A==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1195,7 +1195,7 @@ snapshots:
       - typescript
       - vue-eslint-parser
 
-  '@mdn/browser-compat-data@5.5.50': {}
+  '@mdn/browser-compat-data@5.5.51': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -1392,7 +1392,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-db@1.0.30001658: {}
+  caniuse-db@1.0.30001659: {}
 
   chalk@4.1.2:
     dependencies:
