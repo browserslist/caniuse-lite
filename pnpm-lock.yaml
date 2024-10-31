@@ -21,8 +21,8 @@ importers:
         specifier: 5.6.11
         version: 5.6.11
       caniuse-db:
-        specifier: 1.0.30001675
-        version: 1.0.30001675
+        specifier: 1.0.30001676
+        version: 1.0.30001676
       clean-publish:
         specifier: ^5.0.0
         version: 5.0.0
@@ -294,8 +294,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-db@1.0.30001675:
-    resolution: {integrity: sha512-E7Df8OxviUPrerFl6V/kiJ1h5JxDxWgFxZtENHu9FJylKt8Tbx9RFFKars5HWdCvJKtC1KOEc0Fpbgd8QmXxHg==}
+  caniuse-db@1.0.30001676:
+    resolution: {integrity: sha512-6Tor7xBUvjO4N/kS+NydLoyKhrsM2j7mJb0E5CMFhM0otOqGjPEPZtUvdxZSN9254YZrDK92JH0tu8LgNnf+Jg==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1392,7 +1392,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-db@1.0.30001675: {}
+  caniuse-db@1.0.30001676: {}
 
   chalk@4.1.2:
     dependencies:
