@@ -1,6 +1,6 @@
-const { writeFileSync } = require('node:fs')
-const { agents } = require('caniuse-db/data.json')
 const bcd = require('@mdn/browser-compat-data')
+const { agents } = require('caniuse-db/data.json')
+const { writeFileSync } = require('node:fs')
 
 /**
  * This function maps the browser keys from @mdn/browser-compat-data, to caniuse's format.

@@ -3,8 +3,8 @@
 const path = require('node:path')
 const fs = require('node:fs').promises
 
-const stringifyObject = require('../lib/stringifyObject')
 const { encode } = require('../lib/base62')
+const stringifyObject = require('../lib/stringifyObject')
 const fromEntries = require('../util/fromEntries')
 
 function getBrowsers({ data }) {

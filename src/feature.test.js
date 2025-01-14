@@ -3,8 +3,8 @@ const { equal, ok } = require('uvu/assert')
 const { readdir } = require('node:fs').promises
 const { test } = require('uvu')
 
-const getContentsFactory = require('./lib/getContents')
 const features = require('../dist/unpacker/feature')
+const getContentsFactory = require('./lib/getContents')
 
 let fulldata = {}
 

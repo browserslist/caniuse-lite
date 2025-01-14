@@ -1,11 +1,11 @@
 const path = require('node:path')
 const fs = require('node:fs').promises
 
+const browsers = require('../../data/browsers')
 const getContentsFactory = require('../lib/getContents')
 const stringifyObject = require('../lib/stringifyObject')
 const fromEntries = require('../util/fromEntries')
 const invertObj = require('../util/invertObj')
-const browsers = require('../../data/browsers')
 
 const browsersInverted = invertObj(browsers)
 

@@ -1,10 +1,10 @@
 const { join, dirname } = require('node:path')
 const { readdir } = require('node:fs').promises
-const { equal } = require('uvu/assert')
 const { test } = require('uvu')
+const { equal } = require('uvu/assert')
 
-const getContentsFactory = require('./lib/getContents')
 const regions = require('../dist/unpacker/region')
+const getContentsFactory = require('./lib/getContents')
 
 let fulldata = {}
 

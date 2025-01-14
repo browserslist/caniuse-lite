@@ -1,8 +1,8 @@
 const path = require('node:path')
 const fs = require('node:fs').promises
 
-const packBrowsers = require('./browsers')
 const runTasks = require('../lib/runTasks')
+const packBrowsers = require('./browsers')
 
 /* Subsequent tasks need to be lazily loaded as the generator order matters,
    and the files are destroyed/re-created on each packing step. */
