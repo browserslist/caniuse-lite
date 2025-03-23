@@ -18,11 +18,11 @@ importers:
         specifier: ^53.5.1
         version: 53.5.1(@typescript-eslint/parser@8.20.0(eslint@9.18.0)(typescript@5.4.5))(eslint@9.18.0)(typescript@5.4.5)
       '@mdn/browser-compat-data':
-        specifier: 5.7.3
-        version: 5.7.3
+        specifier: 5.7.5
+        version: 5.7.5
       caniuse-db:
-        specifier: 1.0.30001706
-        version: 1.0.30001706
+        specifier: 1.0.30001707
+        version: 1.0.30001707
       clean-publish:
         specifier: ^5.1.0
         version: 5.1.0
@@ -162,8 +162,8 @@ packages:
       svelte:
         optional: true
 
-  '@mdn/browser-compat-data@5.7.3':
-    resolution: {integrity: sha512-ckygcngv0i7Qe0yOzzge/K7Gr5dnk2jNm/AYdqUd1ZTGa9pIEdDuVyWmL3bDU/NdJ8FtdSAjng98YfUuou9Csw==}
+  '@mdn/browser-compat-data@5.7.5':
+    resolution: {integrity: sha512-AD9mNP6Yv1IdFOnP22UnggZM1Cx6MWcTlatCLzv69ObHNJsyKHAACnjc7ldlF9sIBs76J3jGfto1TywCFRy5DA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -313,8 +313,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-db@1.0.30001706:
-    resolution: {integrity: sha512-VU8G223XVwNTRSBghmexTgTnp/as9X4IIzDzLTmH+XylLkNiC5TzNCL2ift67tTE1/A29+FaXz5DM7upLXTOow==}
+  caniuse-db@1.0.30001707:
+    resolution: {integrity: sha512-qAh4lbpYliRSGxdgUGeLYbKYu7JUikmfHp1N4GmeqMNAfXU7RssamxgR7vHNNOEP6a+devOkPS7FPrYIH+ubAA==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1294,7 +1294,7 @@ snapshots:
       - typescript
       - vue-eslint-parser
 
-  '@mdn/browser-compat-data@5.7.3': {}
+  '@mdn/browser-compat-data@5.7.5': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -1497,7 +1497,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-db@1.0.30001706: {}
+  caniuse-db@1.0.30001707: {}
 
   chalk@4.1.2:
     dependencies:
