@@ -18,11 +18,11 @@ importers:
         specifier: ^55.1.0
         version: 55.1.0(eslint@9.23.0)(typescript@5.4.5)
       '@mdn/browser-compat-data':
-        specifier: 6.0.2
-        version: 6.0.2
+        specifier: 6.0.3
+        version: 6.0.3
       caniuse-db:
-        specifier: 1.0.30001710
-        version: 1.0.30001710
+        specifier: 1.0.30001711
+        version: 1.0.30001711
       clean-publish:
         specifier: ^5.1.0
         version: 5.1.0
@@ -178,8 +178,8 @@ packages:
       svelte-eslint-parser:
         optional: true
 
-  '@mdn/browser-compat-data@6.0.2':
-    resolution: {integrity: sha512-xmNSe29Rk5xeTvZCLbRecO80BMFs1tglyEw/gbHD9XPUNcRYkvxNMwKaFYbj5C2O6D6kWNgIeip1VnEb7Gc40Q==}
+  '@mdn/browser-compat-data@6.0.3':
+    resolution: {integrity: sha512-v/CYYHzCWSh83AkPK5zDkpmf6ZtawSk2AY5jedKJzpMFb/vlqSkvl8AHdLD7cd7ARZnzG22paQubfszdh8X+NA==}
 
   '@napi-rs/wasm-runtime@0.2.7':
     resolution: {integrity: sha512-5yximcFK5FNompXfJFoWanu5l8v1hNGqNHh9du1xETp9HWk/B/PzvchX55WYOPaIeNglG8++68AAiauBAtbnzw==}
@@ -417,8 +417,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-db@1.0.30001710:
-    resolution: {integrity: sha512-FklFAhSYXbpEKc9lwp7Zdt9gQTvIfoSSKlCbjP5uZdwRHmHA6rHva1ADHVktxLL7Tc9N84C32qrUvMvPzNFFhA==}
+  caniuse-db@1.0.30001711:
+    resolution: {integrity: sha512-k3SGc/NOdrpuWiHi1KGlly4QEkn5bKue8ELrZTgHrHHQI/m3WI80s1q4BtG11aeVAECoipjmUHrDX+C4L7jF4A==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1417,7 +1417,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@mdn/browser-compat-data@6.0.2': {}
+  '@mdn/browser-compat-data@6.0.3': {}
 
   '@napi-rs/wasm-runtime@0.2.7':
     dependencies:
@@ -1684,7 +1684,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-db@1.0.30001710: {}
+  caniuse-db@1.0.30001711: {}
 
   chalk@4.1.2:
     dependencies:
