@@ -18,11 +18,11 @@ importers:
         specifier: ^55.1.0
         version: 55.1.0(eslint@9.23.0)(typescript@5.4.5)
       '@mdn/browser-compat-data':
-        specifier: 6.0.10
-        version: 6.0.10
+        specifier: 6.0.11
+        version: 6.0.11
       caniuse-db:
-        specifier: 1.0.30001716
-        version: 1.0.30001716
+        specifier: 1.0.30001717
+        version: 1.0.30001717
       clean-publish:
         specifier: ^5.1.0
         version: 5.1.0
@@ -178,8 +178,8 @@ packages:
       svelte-eslint-parser:
         optional: true
 
-  '@mdn/browser-compat-data@6.0.10':
-    resolution: {integrity: sha512-nfWBYU5kxYs8TlAh/+1zKSkNasow4U0M41DOmzdXCJlocUFFR1tZ+LCdHuxyr9ADzUpPZAVw3KoVcKszY8e8aw==}
+  '@mdn/browser-compat-data@6.0.11':
+    resolution: {integrity: sha512-vcLCW2dvKfHGV4t/lkocstKvu15hfaMaAEaGTzL4wZ6ZWmI2aHbrFcO/LkK34jkFPjKXm3GHLm5h35u5WD4d9w==}
 
   '@napi-rs/wasm-runtime@0.2.7':
     resolution: {integrity: sha512-5yximcFK5FNompXfJFoWanu5l8v1hNGqNHh9du1xETp9HWk/B/PzvchX55WYOPaIeNglG8++68AAiauBAtbnzw==}
@@ -417,8 +417,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  caniuse-db@1.0.30001716:
-    resolution: {integrity: sha512-kw6lXydqKC52YPwCvtEzfsNdWw1rA7f3kqkfDqH+4BYLC4ZElz9RTkD7NVB4iOy9643j0kmX0M4b2HI+tMMR3A==}
+  caniuse-db@1.0.30001717:
+    resolution: {integrity: sha512-V0sTnN19lYOQrM19FYGDmITrIH5Gck9dI005H9dVhIE9MEYZIWMBjKdwCeTSqhCf65H6n+ZMRiMz/4j5jq57Iw==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -1417,7 +1417,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@mdn/browser-compat-data@6.0.10': {}
+  '@mdn/browser-compat-data@6.0.11': {}
 
   '@napi-rs/wasm-runtime@0.2.7':
     dependencies:
@@ -1684,7 +1684,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-db@1.0.30001716: {}
+  caniuse-db@1.0.30001717: {}
 
   chalk@4.1.2:
     dependencies:
