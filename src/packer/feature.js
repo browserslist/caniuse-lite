@@ -1,32 +1,32 @@
-const path = require('node:path')
-const fs = require('node:fs').promises
-const t = require('@babel/types')
+let path = require('node:path')
+let fs = require('node:fs').promises
+let t = require('@babel/types')
 
-const browsers = require('../../data/browsers')
-const versions = require('../../data/browserVersions')
-const statuses = require('../../dist/lib/statuses')
-const supported = require('../../dist/lib/supported')
-const generateCode = require('../lib/generateCode')
-const getContentsFactory = require('../lib/getContents')
-const moduleExports = require('../lib/moduleExports')
-const stringifyObject = require('../lib/stringifyObject')
-const fromEntries = require('../util/fromEntries')
-const invertObj = require('../util/invertObj')
-const parseDecimal = require('../util/parseDecimal')
-const sum = require('../util/sum')
+let browsers = require('../../data/browsers')
+let versions = require('../../data/browserVersions')
+let statuses = require('../../dist/lib/statuses')
+let supported = require('../../dist/lib/supported')
+let generateCode = require('../lib/generateCode')
+let getContentsFactory = require('../lib/getContents')
+let moduleExports = require('../lib/moduleExports')
+let stringifyObject = require('../lib/stringifyObject')
+let fromEntries = require('../util/fromEntries')
+let invertObj = require('../util/invertObj')
+let parseDecimal = require('../util/parseDecimal')
+let sum = require('../util/sum')
 
-const browsersInverted = invertObj(browsers)
-const statusesInverted = invertObj(statuses)
-const versionsInverted = invertObj(versions)
+let browsersInverted = invertObj(browsers)
+let statusesInverted = invertObj(statuses)
+let versionsInverted = invertObj(versions)
 
-const base = path.join(
+let base = path.join(
   path.dirname(require.resolve(`caniuse-db/data.json`)),
   `features-json`
 )
 
-const getContents = getContentsFactory(base)
+let getContents = getContentsFactory(base)
 
-const requireCall = moduleName =>
+let requireCall = moduleName =>
   t.callExpression(t.identifier('require'), [t.stringLiteral(moduleName)])
 
 function featureIndex(features) {

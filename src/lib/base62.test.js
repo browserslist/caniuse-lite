@@ -1,7 +1,7 @@
-const { test } = require('uvu')
-const { ok } = require('uvu/assert')
+let { test } = require('uvu')
+let { ok } = require('uvu/assert')
 
-const { encode, decode } = require('./base62')
+let { encode, decode } = require('./base62')
 
 function testEquality(num) {
   let encoded = encode(num)

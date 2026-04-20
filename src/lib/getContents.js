@@ -1,5 +1,5 @@
-const path = require('node:path')
-const fs = require('node:fs').promises
+let path = require('node:path')
+let fs = require('node:fs').promises
 
 module.exports = base => files =>
   Promise.all(

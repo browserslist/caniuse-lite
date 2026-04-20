@@ -1,7 +1,7 @@
-const { test } = require('uvu')
-const { equal } = require('uvu/assert')
+let { test } = require('uvu')
+let { equal } = require('uvu/assert')
 
-const { agents } = require('../dist/unpacker/agents')
+let { agents } = require('../dist/unpacker/agents')
 
 test('should be 1:1', () => {
   let fulldata = require('caniuse-db/data.json').agents

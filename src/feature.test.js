@@ -1,19 +1,19 @@
-const { join, dirname } = require('node:path')
-const { equal, ok } = require('uvu/assert')
-const { readdir } = require('node:fs').promises
-const { test } = require('uvu')
+let { join, dirname } = require('node:path')
+let { equal, ok } = require('uvu/assert')
+let { readdir } = require('node:fs').promises
+let { test } = require('uvu')
 
-const features = require('../dist/unpacker/feature')
-const getContentsFactory = require('./lib/getContents')
+let features = require('../dist/unpacker/feature')
+let getContentsFactory = require('./lib/getContents')
 
 let fulldata = {}
 
-const base = join(
+let base = join(
   dirname(require.resolve(`caniuse-db/data.json`)),
   `features-json`
 )
 
-const getContents = getContentsFactory(base)
+let getContents = getContentsFactory(base)
 
 test.before(() => {
   return readdir(base)

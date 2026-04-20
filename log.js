@@ -1,4 +1,4 @@
-const { readFile } = require('node:fs/promises')
+let { readFile } = require('node:fs/promises')
 
 readFile('./publish.log').then(log => {
   let str = log.toString()

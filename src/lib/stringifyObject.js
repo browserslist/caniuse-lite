@@ -1,7 +1,7 @@
-const t = require('@babel/types')
+let t = require('@babel/types')
 
-const generateCode = require('./generateCode')
-const moduleExports = require('./moduleExports')
+let generateCode = require('./generateCode')
+let moduleExports = require('./moduleExports')
 
 function getKey(encoded) {
   if (/\d/.test(encoded[0])) {

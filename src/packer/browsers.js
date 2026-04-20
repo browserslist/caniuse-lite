@@ -1,11 +1,11 @@
 /* Create a mapping from browser version strings to shorter identifiers. */
 
-const path = require('node:path')
-const fs = require('node:fs').promises
+let path = require('node:path')
+let fs = require('node:fs').promises
 
-const { encode } = require('../lib/base62')
-const stringifyObject = require('../lib/stringifyObject')
-const fromEntries = require('../util/fromEntries')
+let { encode } = require('../lib/base62')
+let stringifyObject = require('../lib/stringifyObject')
+let fromEntries = require('../util/fromEntries')
 
 function getBrowsers({ data }) {
   let feature = Object.keys(data)[0]

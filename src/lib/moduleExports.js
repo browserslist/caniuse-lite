@@ -1,4 +1,4 @@
-const t = require('@babel/types')
+let t = require('@babel/types')
 
 function moduleExports(expression) {
   return t.expressionStatement(

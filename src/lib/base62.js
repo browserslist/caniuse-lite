@@ -1,6 +1,6 @@
-const sum = require('../util/sum')
+let sum = require('../util/sum')
 
-const characters =
+let characters =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
 function encode(integer) {

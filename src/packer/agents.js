@@ -1,13 +1,13 @@
-const path = require('node:path')
-const fs = require('node:fs').promises
+let path = require('node:path')
+let fs = require('node:fs').promises
 
-const browsersData = require('../../data/browsers')
-const { encode } = require('../lib/base62')
-const stringifyObject = require('../lib/stringifyObject')
-const fromEntries = require('../util/fromEntries')
-const invertObj = require('../util/invertObj')
+let browsersData = require('../../data/browsers')
+let { encode } = require('../lib/base62')
+let stringifyObject = require('../lib/stringifyObject')
+let fromEntries = require('../util/fromEntries')
+let invertObj = require('../util/invertObj')
 
-const browsers = invertObj(browsersData)
+let browsers = invertObj(browsersData)
 
 function relevantKeys(agents, versions, fullAgents) {
   let versionsInverted = invertObj(versions)

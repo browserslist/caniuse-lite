@@ -1,7 +1,7 @@
-const { test } = require('uvu')
-const { type } = require('uvu/assert')
+let { test } = require('uvu')
+let { type } = require('uvu/assert')
 
-const lite = require('../dist/unpacker/index')
+let lite = require('../dist/unpacker/index')
 
 test('should have the appropriate keys', () => {
   type(lite.agents, 'object')

@@ -1,7 +1,7 @@
 'use strict'
 
-const features = require('./data/features')
-const lite = require('./dist/unpacker')
+let features = require('./data/features')
+let lite = require('./dist/unpacker')
 
 Object.keys(features).forEach(key => {
   let feat = features[key]

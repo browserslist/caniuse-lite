@@ -1,6 +1,6 @@
-const bcd = require('@mdn/browser-compat-data')
-const { agents } = require('caniuse-db/data.json')
-const { writeFileSync } = require('node:fs')
+let bcd = require('@mdn/browser-compat-data')
+let { agents } = require('caniuse-db/data.json')
+let { writeFileSync } = require('node:fs')
 
 /**
  * This function maps the browser keys from @mdn/browser-compat-data, to caniuse's format.
@@ -189,15 +189,15 @@ function bcdDataToCanIUseData(bcdData, title) {
   return result
 }
 
-const features = './node_modules/caniuse-db/features-json/'
+let features = './node_modules/caniuse-db/features-json/'
 
-const autofillData = bcdDataToCanIUseData(
+let autofillData = bcdDataToCanIUseData(
   bcd.css.selectors.autofill.__compat,
   ':autofill CSS pseudo-class'
 )
 writeFileSync(features + 'css-autofill.json', JSON.stringify(autofillData))
 
-const fileSelectorButtonData = bcdDataToCanIUseData(
+let fileSelectorButtonData = bcdDataToCanIUseData(
   bcd.css.selectors['file-selector-button'].__compat,
   '::file-selector-button CSS pseudo-element'
 )
@@ -206,13 +206,13 @@ writeFileSync(
   JSON.stringify(fileSelectorButtonData)
 )
 
-const stretchData = bcdDataToCanIUseData(
+let stretchData = bcdDataToCanIUseData(
   bcd.css.properties.width.stretch.__compat,
   'width: stretch property'
 )
 writeFileSync(features + 'css-width-stretch.json', JSON.stringify(stretchData))
 
-const printColorAdjustData = bcdDataToCanIUseData(
+let printColorAdjustData = bcdDataToCanIUseData(
   bcd.css.properties['print-color-adjust'].__compat,
   'print-color-adjust property'
 )
@@ -221,7 +221,7 @@ writeFileSync(
   JSON.stringify(printColorAdjustData)
 )
 
-const unicodeBidiIsolate = bcdDataToCanIUseData(
+let unicodeBidiIsolate = bcdDataToCanIUseData(
   bcd.css.properties['unicode-bidi'].isolate.__compat,
   'isolate from unicode-bidi'
 )
@@ -230,7 +230,7 @@ writeFileSync(
   JSON.stringify(unicodeBidiIsolate)
 )
 
-const unicodeBidiPlaintext = bcdDataToCanIUseData(
+let unicodeBidiPlaintext = bcdDataToCanIUseData(
   bcd.css.properties['unicode-bidi'].plaintext.__compat,
   'plaintext from unicode-bidi'
 )
@@ -239,7 +239,7 @@ writeFileSync(
   JSON.stringify(unicodeBidiPlaintext)
 )
 
-const unicodeBidiIsolateOverride = bcdDataToCanIUseData(
+let unicodeBidiIsolateOverride = bcdDataToCanIUseData(
   bcd.css.properties['unicode-bidi']['isolate-override'].__compat,
   'isolate-override from unicode-bidi'
 )
@@ -248,7 +248,7 @@ writeFileSync(
   JSON.stringify(unicodeBidiIsolateOverride)
 )
 
-const textDecorationColorData = bcdDataToCanIUseData(
+let textDecorationColorData = bcdDataToCanIUseData(
   bcd.css.properties['text-decoration-color'].__compat,
   'text-decoration-color property'
 )
@@ -257,7 +257,7 @@ writeFileSync(
   JSON.stringify(textDecorationColorData)
 )
 
-const textDecorationLineData = bcdDataToCanIUseData(
+let textDecorationLineData = bcdDataToCanIUseData(
   bcd.css.properties['text-decoration-line'].__compat,
   'text-decoration-line property'
 )
@@ -266,7 +266,7 @@ writeFileSync(
   JSON.stringify(textDecorationLineData)
 )
 
-const textDecorationStyleData = bcdDataToCanIUseData(
+let textDecorationStyleData = bcdDataToCanIUseData(
   bcd.css.properties['text-decoration-style'].__compat,
   'text-decoration-style property'
 )
@@ -275,7 +275,7 @@ writeFileSync(
   JSON.stringify(textDecorationStyleData)
 )
 
-const textDecorationShorthandData = bcdDataToCanIUseData(
+let textDecorationShorthandData = bcdDataToCanIUseData(
   bcd.css.properties['text-decoration']['includes_color-and-style'].__compat,
   'text-decoration shorthand property'
 )
@@ -286,7 +286,7 @@ writeFileSync(
 
 // https://caniuse.com/mdn-css_selectors_backdrop
 // https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop#browser_compatibility
-const cssBackdrop = bcdDataToCanIUseData(
+let cssBackdrop = bcdDataToCanIUseData(
   bcd.css.selectors.backdrop.__compat,
   'CSS ::backdrop pseudo-element'
 )

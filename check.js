@@ -1,7 +1,7 @@
-const { writeFileSync } = require('node:fs')
-const { get } = require('node:https')
+let { writeFileSync } = require('node:fs')
+let { get } = require('node:https')
 
-const pkg = require('./package.json')
+let pkg = require('./package.json')
 
 get('https://registry.npmjs.org/caniuse-db', res => {
   if (res.statusCode < 200 || res.statusCode >= 299) {

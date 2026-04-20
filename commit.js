@@ -1,6 +1,6 @@
-const { execSync } = require('node:child_process')
+let { execSync } = require('node:child_process')
 
-const pkg = require('./package.json')
+let pkg = require('./package.json')
 
 execSync('git add data/ package.json pnpm-lock.yaml')
 execSync(`git commit -m "Update caniuse-db ${pkg.version}"`)

@@ -1,3 +1,3 @@
-const parseDecimal = number => parseInt(number, 10)
+let parseDecimal = number => parseInt(number, 10)
 
 module.exports = parseDecimal

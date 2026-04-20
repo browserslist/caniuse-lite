@@ -1,20 +1,20 @@
-const path = require('node:path')
-const fs = require('node:fs').promises
+let path = require('node:path')
+let fs = require('node:fs').promises
 
-const browsers = require('../../data/browsers')
-const getContentsFactory = require('../lib/getContents')
-const stringifyObject = require('../lib/stringifyObject')
-const fromEntries = require('../util/fromEntries')
-const invertObj = require('../util/invertObj')
+let browsers = require('../../data/browsers')
+let getContentsFactory = require('../lib/getContents')
+let stringifyObject = require('../lib/stringifyObject')
+let fromEntries = require('../util/fromEntries')
+let invertObj = require('../util/invertObj')
 
-const browsersInverted = invertObj(browsers)
+let browsersInverted = invertObj(browsers)
 
-const base = path.join(
+let base = path.join(
   path.dirname(require.resolve(`caniuse-db/data.json`)),
   `region-usage-json`
 )
 
-const getContents = getContentsFactory(base)
+let getContents = getContentsFactory(base)
 
 module.exports = async function packRegion() {
   let regions = await fs.readdir(base).then(getContents)
