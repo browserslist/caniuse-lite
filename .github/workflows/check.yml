@@ -44,7 +44,7 @@ jobs:
         if: steps.caniuse.outputs.newVersion
         run: |
           git config user.name "Auto-Updater"
-          git config user.email "<andrey@sitnik.ru>"
+          git config user.email "<andrey@sitnik.es>"
       - name: Install dependencies
         if: steps.caniuse.outputs.newVersion
         run: pnpm install --no-frozen-lockfile --ignore-scripts
