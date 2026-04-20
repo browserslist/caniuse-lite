@@ -62,7 +62,7 @@ function packBrowserVersions(agents) {
       })
       return map
     }, [])
-    .sort((a, b) => b.count - a.count)
+    .toSorted((a, b) => b.count - a.count)
     .reduce((map, version, index) => {
       map[encode(index)] = version.version
       return map

@@ -22,13 +22,11 @@ used as an almost drop-in replacement for caniuse-db for contexts where size on
 disk is important; for example, usage in web browsers. The API differences are
 very small and are detailed in the section below.
 
-
 ## API
 
 ```js
-import * as lite from 'caniuse-lite';
+import * as lite from 'caniuse-lite'
 ```
-
 
 ### `lite.agents`
 
@@ -38,6 +36,7 @@ instead, which has the `browser`, `prefix`, `prefix_exceptions`, `usage_global`
 and `versions` keys from the original.
 
 In addition, the subset contains the `release_date` key with release dates (as timestamps) for each version:
+
 ```json
 {
   "release_date": {
@@ -52,13 +51,11 @@ In addition, the subset contains the `release_date` key with release dates (as t
 }
 ```
 
-
 ### `lite.feature(js)`
 
 The `feature` method takes a file from `data/features` and converts it into
 something that more closely represents the `caniuse-db` format. Note that only
 the `title`, `stats`, `status`, and `shown` keys are kept from the original data.
-
 
 ### `lite.features`
 
@@ -66,13 +63,11 @@ The `features` index is provided as a way to query all of the features that
 are listed in the `caniuse-db` dataset. Note that you will need to use the
 `feature` method on values from this index to get a human-readable format.
 
-
 ### `lite.region(js)`
 
 The `region` method takes a file from `data/regions` and converts it into
-something that more closely represents the `caniuse-db` format. Note that *only*
+something that more closely represents the `caniuse-db` format. Note that _only_
 the usage data is exposed here (the `data` key in the original files).
-
 
 ## License
 
@@ -83,7 +78,6 @@ the data for your project please contact me here: http://a.deveria.com/contact
 
 [1]: http://caniuse.com/
 [2]: https://github.com/Fyrd/caniuse/issues/1827
-
 
 ## Security contact information
 

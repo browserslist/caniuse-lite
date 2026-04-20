@@ -2,21 +2,10 @@
   "name": "caniuse-lite",
   "version": "1.0.30001788",
   "description": "A smaller version of caniuse-db, with only the essentials!",
-  "main": "dist/unpacker/index.js",
-  "scripts": {
-    "pack": "node copy-mdn.js && rm -Rf data && node src/packer/index.js",
-    "test:integration": "node ./consumer.js > /dev/null",
-    "test:unit": "uvu . \\.test\\.js$",
-    "test:lint": "eslint .",
-    "test": "pnpm run pack && pnpm run /^test:/"
-  },
-  "files": [
-    "data",
-    "dist"
-  ],
   "keywords": [
     "support"
   ],
+  "license": "CC-BY-4.0",
   "author": {
     "name": "Ben Briggs",
     "email": "beneb.info@gmail.com",
@@ -37,25 +26,31 @@
       "url": "https://github.com/sponsors/ai"
     }
   ],
-  "license": "CC-BY-4.0",
+  "files": [
+    "data",
+    "dist"
+  ],
+  "main": "dist/unpacker/index.js",
+  "scripts": {
+    "pack": "node copy-mdn.js && rm -Rf data && node src/packer/index.js",
+    "test:integration": "node ./consumer.js > /dev/null",
+    "test:unit": "uvu . \\.test\\.js$",
+    "test:lint": "oxlint",
+    "test": "pnpm run pack && pnpm run /^test:/"
+  },
   "devDependencies": {
     "@babel/generator": "^7.29.1",
     "@babel/types": "^7.29.0",
-    "@logux/eslint-config": "^57.1.0",
+    "@logux/oxc-configs": "^0.4.0",
     "@mdn/browser-compat-data": "7.3.12",
     "actions-up": "^1.14.1",
     "caniuse-db": "1.0.30001788",
     "clean-publish": "^6.0.5",
-    "eslint": "^10.2.1",
+    "eslint-plugin-prefer-let": "^4.2.2",
+    "oxlint": "^1.60.0",
+    "oxlint-tsgolint": "^0.21.1",
+    "typescript": "^6.0.3",
     "uvu": "^0.5.6"
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "jsxSingleQuote": false,
-    "quoteProps": "consistent",
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "none"
   },
   "clean-publish": {
     "cleanDocs": true
