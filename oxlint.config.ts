@@ -5,7 +5,8 @@ export default defineConfig({
   extends: [loguxOxlintConfig],
   ignorePatterns: ['data/**', 'dist/**'],
   rules: {
-    'node/global-require': 'off'
+    'node/global-require': 'off',
+    'no-underscore-dangle': 'off'
   },
   overrides: [
     {

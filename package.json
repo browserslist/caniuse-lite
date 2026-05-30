@@ -39,16 +39,16 @@
     "test": "pnpm run pack && pnpm run /^test:/"
   },
   "devDependencies": {
-    "@babel/generator": "^7.29.1",
-    "@babel/types": "^7.29.0",
+    "@babel/generator": "^7.29.7",
+    "@babel/types": "^7.29.7",
     "@logux/oxc-configs": "^0.4.0",
     "@mdn/browser-compat-data": "7.3.16",
-    "actions-up": "^1.14.1",
-    "caniuse-db": "1.0.30001793",
-    "clean-publish": "^6.0.5",
+    "actions-up": "^1.14.2",
+    "caniuse-db": "1.0.30001795",
+    "clean-publish": "^7.1.0",
     "eslint-plugin-prefer-let": "^4.2.2",
-    "oxlint": "^1.60.0",
-    "oxlint-tsgolint": "^0.21.1",
+    "oxlint": "^1.67.0",
+    "oxlint-tsgolint": "^0.23.0",
     "typescript": "^6.0.3",
     "uvu": "^0.5.6"
   },
