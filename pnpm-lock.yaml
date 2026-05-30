@@ -18,8 +18,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(oxlint-tsgolint@0.23.0)(oxlint@1.67.0(oxlint-tsgolint@0.23.0))(typescript@6.0.3)
       '@mdn/browser-compat-data':
-        specifier: 7.3.16
-        version: 7.3.16
+        specifier: 8.0.0
+        version: 8.0.0
       actions-up:
         specifier: ^1.14.2
         version: 1.14.2
@@ -89,8 +89,8 @@ packages:
       oxlint-tsgolint: '>=0.18.1'
       typescript: ^6.0.2
 
-  '@mdn/browser-compat-data@7.3.16':
-    resolution: {integrity: sha512-JQ6SGcHeyqSYGVwWe7NzOeXfp/vZgo2yz+fsEbMOyWLyNRVP4RoG8+dqaF/VTx1zPtF4J8XvxiWXH1l2cMZTwQ==}
+  '@mdn/browser-compat-data@8.0.0':
+    resolution: {integrity: sha512-VS5jxDp3MxneNPtrueJhktBn+iB5ZlSLYZyAVZPXDYjhTrD/o8cGtRiuEdQoNZidUiUBh6K87wRTbWe2164iag==}
 
   '@oxlint-tsgolint/darwin-arm64@0.23.0':
     resolution: {integrity: sha512-gOs9PVr2wEg4ox9z0aJo+RKhhImW86YL5N6yav8BK/rgPsIrwN/igSZ+pbRr723NFvUNKde9fgMhRA6JrXAOZw==}
@@ -422,7 +422,7 @@ snapshots:
       oxlint-tsgolint: 0.23.0
       typescript: 6.0.3
 
-  '@mdn/browser-compat-data@7.3.16': {}
+  '@mdn/browser-compat-data@8.0.0': {}
 
   '@oxlint-tsgolint/darwin-arm64@0.23.0':
     optional: true

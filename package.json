@@ -42,7 +42,7 @@
     "@babel/generator": "^7.29.7",
     "@babel/types": "^7.29.7",
     "@logux/oxc-configs": "^0.4.0",
-    "@mdn/browser-compat-data": "7.3.16",
+    "@mdn/browser-compat-data": "8.0.0",
     "actions-up": "^1.14.2",
     "caniuse-db": "1.0.30001795",
     "clean-publish": "^7.1.0",
