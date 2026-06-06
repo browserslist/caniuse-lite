@@ -18,14 +18,14 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(oxlint-tsgolint@0.23.0)(oxlint@1.67.0(oxlint-tsgolint@0.23.0))(typescript@6.0.3)
       '@mdn/browser-compat-data':
-        specifier: 8.0.0
-        version: 8.0.0
+        specifier: 8.0.2
+        version: 8.0.2
       actions-up:
         specifier: ^1.14.2
         version: 1.14.2
       caniuse-db:
-        specifier: 1.0.30001795
-        version: 1.0.30001795
+        specifier: 1.0.30001797
+        version: 1.0.30001797
       clean-publish:
         specifier: ^7.1.0
         version: 7.1.0
@@ -89,8 +89,8 @@ packages:
       oxlint-tsgolint: '>=0.18.1'
       typescript: ^6.0.2
 
-  '@mdn/browser-compat-data@8.0.0':
-    resolution: {integrity: sha512-VS5jxDp3MxneNPtrueJhktBn+iB5ZlSLYZyAVZPXDYjhTrD/o8cGtRiuEdQoNZidUiUBh6K87wRTbWe2164iag==}
+  '@mdn/browser-compat-data@8.0.2':
+    resolution: {integrity: sha512-bT8u6Ll/vuV8qC9tn8cqvxoAtBpKcCwhKMW51qJRK9+G3JUtAx3lc1wjij4GJzGCfqA0keRbJUFetCgwwYaskA==}
 
   '@oxlint-tsgolint/darwin-arm64@0.23.0':
     resolution: {integrity: sha512-gOs9PVr2wEg4ox9z0aJo+RKhhImW86YL5N6yav8BK/rgPsIrwN/igSZ+pbRr723NFvUNKde9fgMhRA6JrXAOZw==}
@@ -261,8 +261,8 @@ packages:
     resolution: {integrity: sha512-tixWYgm5ZoOD+3g6UTea91eow5z6AAHaho3g0V9CNSNb45gM8SmflpAc+GRd1InC4AqN/07Unrgp56Y94N9hJQ==}
     engines: {node: '>=20.19.0'}
 
-  caniuse-db@1.0.30001795:
-    resolution: {integrity: sha512-9zN51QoG+vAqanu7ldYqN0cHzWF/eFjZ5SZ9MflMvyi7nSDv2xwJKjriJNQeS7V8qa3K9Qz5xd/aj7ksT0qldg==}
+  caniuse-db@1.0.30001797:
+    resolution: {integrity: sha512-wV1BrKS/ZUWGpO22bqFgYx0d51CVR5lgWNdvtF1Aib78DNXVyeIZUG2mMTr9Vuul2Qab/YNs94S3rRmeE9cQ8g==}
 
   clean-publish@7.1.0:
     resolution: {integrity: sha512-fnsFHW6fIq7Sr5Pf9YUsxB1up5pEA13DHg4Q/bZdphWssmIUuKV7G5Kaq2Q0X6UsCFm//uFbONOWTi7m4DvMTg==}
@@ -422,7 +422,7 @@ snapshots:
       oxlint-tsgolint: 0.23.0
       typescript: 6.0.3
 
-  '@mdn/browser-compat-data@8.0.0': {}
+  '@mdn/browser-compat-data@8.0.2': {}
 
   '@oxlint-tsgolint/darwin-arm64@0.23.0':
     optional: true
@@ -514,7 +514,7 @@ snapshots:
 
   cac@7.0.0: {}
 
-  caniuse-db@1.0.30001795: {}
+  caniuse-db@1.0.30001797: {}
 
   clean-publish@7.1.0:
     dependencies:
