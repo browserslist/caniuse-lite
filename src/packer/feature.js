@@ -125,8 +125,7 @@ function buildGroups(sequences) {
       usedLiterals[groupParts[id][1]]++
     }
   }
-  let kept = literals
-    .map((_, id) => id)
+  let kept = [...literals.keys()]
     .filter(id => groupParts[id] && usedLiterals[id])
     .toSorted((a, b) => usedLiterals[b] - usedLiterals[a] || a - b)
   let keyOf = Array.from({ length: literals.length })
@@ -137,7 +136,8 @@ function buildGroups(sequences) {
   let symbol = id => (groupParts[id] ? `_${keyOf[id]}` : literals[id])
   let groups = {}
   for (let id of kept) {
-    groups[keyOf[id]] = `${symbol(groupParts[id][0])} ${symbol(groupParts[id][1])}`
+    let [left, right] = groupParts[id]
+    groups[keyOf[id]] = `${symbol(left)} ${symbol(right)}`
   }
   let encoded = seqs.map(seq => seq.map(symbol).join(' '))
   return { groups, encoded }
