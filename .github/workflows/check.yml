@@ -7,7 +7,6 @@ on:
     - cron: '41 * * * *'
 permissions:
   contents: write
-  id-token: write
 jobs:
   publish:
     name: Check
@@ -60,4 +59,3 @@ jobs:
       - name: Commit changes
         if: steps.caniuse.outputs.newVersion
         run: node ./commit.js
-
