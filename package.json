@@ -45,7 +45,6 @@
     "@mdn/browser-compat-data": "8.0.4",
     "actions-up": "^1.14.3",
     "caniuse-db": "1.0.30001799",
-    "clean-publish": "^7.1.0",
     "eslint-plugin-prefer-let": "^4.2.2",
     "oxlint": "^1.71.0",
     "oxlint-tsgolint": "^0.23.0",

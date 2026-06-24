@@ -60,14 +60,4 @@ jobs:
       - name: Commit changes
         if: steps.caniuse.outputs.newVersion
         run: node ./commit.js
-      - name: Publish
-        if: steps.caniuse.outputs.newVersion
-        run: ./node_modules/.bin/clean-publish -- --provenance &> publish.log
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Check npm log
-        if: steps.caniuse.outputs.newVersion
-        run: node ./log.js
-      - name: Push changes
-        if: steps.caniuse.outputs.newVersion
-        run: git push --follow-tags
+
