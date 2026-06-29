@@ -21,6 +21,8 @@ jobs:
             github.com:443
             release-assets.githubusercontent.com:443
             registry.npmjs.org:443
+            results-receiver.actions.githubusercontent.com:443
+            *.blob.core.windows.net:443
             *.sigstore.dev:443
       - name: Checkout the repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -62,3 +64,12 @@ jobs:
       - name: Push changes
         if: steps.caniuse.outputs.newVersion
         run: git push --follow-tags
+      - name: Write release marker
+        if: steps.caniuse.outputs.newVersion
+        run: echo true > should_release
+      - name: Upload release marker
+        if: steps.caniuse.outputs.newVersion
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: should_release
+          path: should_release
