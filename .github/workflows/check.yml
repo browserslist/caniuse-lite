@@ -59,3 +59,6 @@ jobs:
       - name: Commit changes
         if: steps.caniuse.outputs.newVersion
         run: node ./commit.js
+      - name: Push changes
+        if: steps.caniuse.outputs.newVersion
+        run: git push --follow-tags
