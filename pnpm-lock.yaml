@@ -24,8 +24,8 @@ importers:
         specifier: ^1.14.2
         version: 1.14.3
       caniuse-db:
-        specifier: 1.0.30001802
-        version: 1.0.30001802
+        specifier: 1.0.30001803
+        version: 1.0.30001803
       eslint-plugin-prefer-let:
         specifier: ^4.2.2
         version: 4.2.2
@@ -254,8 +254,8 @@ packages:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
 
-  caniuse-db@1.0.30001802:
-    resolution: {integrity: sha512-ZUY/hPS/b7Zww3zTbDdylN+9+8YiR+8/w49kMAvP4+Kekn/JjZpsbYSXIUVdZJATYpdsAdpD+hVEOgW5b1g+lg==}
+  caniuse-db@1.0.30001803:
+    resolution: {integrity: sha512-f12tTdZ7CJNGdAlK4ZtshdbkVuumervz7AEWqVGd3gH3m23s+40TUMhhufuOldoZtPMOpNcYuT/+6J7CVo+t1Q==}
 
   dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
@@ -474,7 +474,7 @@ snapshots:
 
   ansi-regex@5.0.1: {}
 
-  caniuse-db@1.0.30001802: {}
+  caniuse-db@1.0.30001803: {}
 
   dequal@2.0.3: {}
 
