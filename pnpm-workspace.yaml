@@ -1,0 +1,2 @@
+minimumReleaseAgeExclude:
+  - caniuse-db
