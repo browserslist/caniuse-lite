@@ -18,14 +18,14 @@ importers:
         specifier: ^0.4.1
         version: 0.4.1(oxlint-tsgolint@0.24.0)(oxlint@1.73.0(oxlint-tsgolint@0.24.0))(typescript@7.0.2)
       '@mdn/browser-compat-data':
-        specifier: 8.0.10
-        version: 8.0.10
+        specifier: 8.0.12
+        version: 8.0.12
       actions-up:
         specifier: ^1.16.0
         version: 1.16.0
       caniuse-db:
-        specifier: 1.0.30001809
-        version: 1.0.30001809
+        specifier: 1.0.30001810
+        version: 1.0.30001810
       eslint-plugin-prefer-let:
         specifier: ^4.2.2
         version: 4.2.2
@@ -86,8 +86,8 @@ packages:
       oxlint-tsgolint: '>=0.18.1'
       typescript: ^6.0.2 || ^7.0.0
 
-  '@mdn/browser-compat-data@8.0.10':
-    resolution: {integrity: sha512-JY21DqjGNZIZKTKSHFZ2M1bC1oWrAqN0uhzFvBe0kkItTbftsOkW/fC0Gwx7286Lsns8IayfIz157SUbQBM71g==}
+  '@mdn/browser-compat-data@8.0.12':
+    resolution: {integrity: sha512-OuNNIGofh8ayCuSC8yqUSMUKqWMfo2Qpn5JU2YVGm5gkUXx05p7zOZ1bfcplEuH/q7E+zILfIqoQsFN/yFie0g==}
 
   '@oxlint-tsgolint/darwin-arm64@0.24.0':
     resolution: {integrity: sha512-C2uMmwK5Bc4ri4ysZ6sA8Rcu+A5zBQTp6ml2u0CLLbRZp4kMFPV3yWk8B5DK9Aw7y9bbjogIm75tUwGLFzlsYQ==}
@@ -374,8 +374,8 @@ packages:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
 
-  caniuse-db@1.0.30001809:
-    resolution: {integrity: sha512-KhbnKGfn5NxLmqvmGQGTYjMEyoT0hlma+U+0A09p3s70YAqLZVSgmFogrZkO8r6SMiZyjzshJzm1iTRb5RLGZA==}
+  caniuse-db@1.0.30001810:
+    resolution: {integrity: sha512-NdnrRgMKFjE7vphcIX2WMn0o7rj3fiaTO8PXyMyghJw+FNzRv49KAIrSZ2ImiFlkM2yJPIeX+8n4Tg6dSAbA0Q==}
 
   dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
@@ -505,7 +505,7 @@ snapshots:
       oxlint-tsgolint: 0.24.0
       typescript: 7.0.2
 
-  '@mdn/browser-compat-data@8.0.10': {}
+  '@mdn/browser-compat-data@8.0.12': {}
 
   '@oxlint-tsgolint/darwin-arm64@0.24.0':
     optional: true
@@ -654,7 +654,7 @@ snapshots:
 
   ansi-regex@5.0.1: {}
 
-  caniuse-db@1.0.30001809: {}
+  caniuse-db@1.0.30001810: {}
 
   dequal@2.0.3: {}
 

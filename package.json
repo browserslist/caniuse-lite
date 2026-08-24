@@ -1,6 +1,6 @@
 {
   "name": "caniuse-lite",
-  "version": "1.0.30001809",
+  "version": "1.0.30001810",
   "description": "A smaller version of caniuse-db, with only the essentials!",
   "keywords": [
     "support"
@@ -42,9 +42,9 @@
     "@babel/generator": "^7.29.7",
     "@babel/types": "^7.29.7",
     "@logux/oxc-configs": "^0.4.1",
-    "@mdn/browser-compat-data": "8.0.10",
+    "@mdn/browser-compat-data": "8.0.12",
     "actions-up": "^1.16.0",
-    "caniuse-db": "1.0.30001809",
+    "caniuse-db": "1.0.30001810",
     "eslint-plugin-prefer-let": "^4.2.2",
     "oxlint": "^1.73.0",
     "oxlint-tsgolint": "^0.24.0",
