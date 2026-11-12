@@ -5,6 +5,7 @@ let fs = require('node:fs').promises
 let browsers = require('../../data/browsers')
 let getContentsFactory = require('../lib/getContents')
 let stringifyObject = require('../lib/stringifyObject')
+let char = require('../lib/tokenChar')
 let fromEntries = require('../util/fromEntries')
 let invertObj = require('../util/invertObj')
 
@@ -30,14 +31,6 @@ const UNIT_SCALE = 1e4
 const USAGE_SCALE = 1e5
 // Lowest usage is expected to be not more than this number of units
 const MAX_UNITS_IN_LOWEST = 12
-
-function char(index) {
-  // Printable ASCII without " and \
-  let code = index + 32
-  if (code >= 34) code++
-  if (code >= 92) code++
-  return String.fromCharCode(code)
-}
 
 function number(value) {
   let result = char(value % LAST_DIGITS)
