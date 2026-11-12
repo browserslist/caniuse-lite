@@ -85,6 +85,8 @@ function relevantKeys(agents, fullAgents) {
   )
 }
 
+/* Our unpackers do not use these keys anymore, but the file is still
+   available for users as dist/unpacker/browserVersions.js */
 function packBrowserVersions(agents) {
   let browserVersions = Object.values(agents)
     .reduce((map, agent) => {
