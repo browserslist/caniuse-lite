@@ -9,38 +9,75 @@ let invertObj = require('../util/invertObj')
 
 let browsers = invertObj(browsersData)
 
-function relevantKeys(agents, versions, fullAgents) {
-  let versionsInverted = invertObj(versions)
+const DAY = 86400
 
+function sameJSON(a, b) {
+  // Unlike deep equal, it also checks the order of keys
+  return JSON.stringify(a) === JSON.stringify(b)
+}
+
+/* Versions list has a lot of empty cells to align browsers on the website.
+   We keep versions between them as strings and the cells as a number. */
+function packVersions(versions) {
+  let packed = []
+  let i = 0
+  while (i < versions.length) {
+    let isCell = versions[i] === null
+    let next = i
+    while (next < versions.length && (versions[next] === null) === isCell) {
+      next++
+    }
+    packed.push(isCell ? next - i : versions.slice(i, next).join(' '))
+    i = next
+  }
+  return packed
+}
+
+/* Usage and release dates have the same versions in the same order
+   as the versions list, so we can keep only values. */
+function packUsage(versions, usage) {
+  let packed = versions.map(version => usage[version])
+  let unpacked = fromEntries(versions.map(version => [version, usage[version]]))
+  return sameJSON(unpacked, usage) ? packed : usage
+}
+
+function packReleaseDate(versions, dates) {
+  let days = 0
+  let packed = versions.map(version => {
+    if (dates[version] === null) return null
+    let diff = dates[version] / DAY - days
+    days += diff
+    return diff
+  })
+  let unpacked = fromEntries(versions.map(version => [version, dates[version]]))
+  let isPackable =
+    sameJSON(unpacked, dates) &&
+    packed.every(diff => diff === null || Number.isInteger(diff))
+  return isPackable ? packed : dates
+}
+
+function relevantKeys(agents, fullAgents) {
   return fromEntries(
     Object.entries(agents).map(([key, agent]) => {
+      let versions = agent.versions.filter(version => version !== null)
       let map = {
-        A: fromEntries(
-          Object.entries(agent.usage_global).map(([k, value]) => [
-            versionsInverted[k],
-            value
-          ])
-        ),
+        A: packUsage(versions, agent.usage_global),
         B: agent.prefix,
-        C: agent.versions.flatMap(version =>
-          version === null ? [''] : versionsInverted[version]
-        ),
+        C: packVersions(agent.versions),
         E: agent.browser,
-        F: fromEntries(
-          fullAgents[key].version_list.map(item => [
-            versionsInverted[item.version],
-            item.release_date
-          ])
+        F: packReleaseDate(
+          versions,
+          fromEntries(
+            fullAgents[key].version_list.map(item => [
+              item.version,
+              item.release_date
+            ])
+          )
         )
       }
 
       if (agent.prefix_exceptions) {
-        map.D = fromEntries(
-          Object.entries(agent.prefix_exceptions).map(([k, value]) => [
-            versionsInverted[k],
-            value
-          ])
-        )
+        map.D = agent.prefix_exceptions
       }
 
       return [browsers[key], map]
@@ -73,7 +110,7 @@ function packBrowserVersions(agents) {
       path.join(__dirname, '..', '..', 'data', 'browserVersions.js'),
       stringifyObject(browserVersions)
     )
-    .then(() => [agents, browserVersions])
+    .then(() => agents)
 }
 
 function getAgents(data) {
@@ -82,7 +119,7 @@ function getAgents(data) {
 
 module.exports = async function packAgents() {
   // We're not requiring the JSON because it nukes the null values
-  let [[agents, browserVersions], fullAgents] = await Promise.all([
+  let [agents, fullAgents] = await Promise.all([
     fs
       .readFile(require.resolve('caniuse-db/data.json'), 'utf8')
       .then(getAgents)
@@ -95,7 +132,7 @@ module.exports = async function packAgents() {
       .then(getAgents)
   ])
 
-  let output = relevantKeys(agents, browserVersions, fullAgents)
+  let output = relevantKeys(agents, fullAgents)
 
   return fs.writeFile(
     path.join(__dirname, '..', '..', 'data', 'agents.js'),

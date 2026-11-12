@@ -1,47 +1,69 @@
 'use strict'
 
 const browsers = require('./browsers').browsers
-const versions = require('./browserVersions').browserVersions
 const agentsData = require('../../data/agents')
 
-function unpackBrowserVersions(versionsData) {
-  return Object.keys(versionsData).reduce((usage, version) => {
-    usage[versions[version]] = versionsData[version]
+const DAY = 86400
+
+function copy(object) {
+  return Object.keys(object).reduce((result, key) => {
+    result[key] = object[key]
+    return result
+  }, {})
+}
+
+function unpackUsage(versions, packed) {
+  // Usage is an object if its versions are different from the agent versions
+  if (!Array.isArray(packed)) return copy(packed)
+  return versions.reduce((usage, version, index) => {
+    usage[version] = packed[index]
     return usage
   }, {})
 }
 
-module.exports.agents = Object.keys(agentsData).reduce((map, key) => {
-  let versionsData = agentsData[key]
-  map[browsers[key]] = Object.keys(versionsData).reduce((data, entry) => {
-    if (entry === 'A') {
-      data.usage_global = unpackBrowserVersions(versionsData[entry])
-    } else if (entry === 'C') {
-      data.versions = versionsData[entry].reduce((list, version) => {
-        if (version === '') {
-          list.push(null)
-        } else {
-          list.push(versions[version])
-        }
-        return list
-      }, [])
-    } else if (entry === 'D') {
-      data.prefix_exceptions = unpackBrowserVersions(versionsData[entry])
-    } else if (entry === 'E') {
-      data.browser = versionsData[entry]
-    } else if (entry === 'F') {
-      data.release_date = Object.keys(versionsData[entry]).reduce(
-        (map2, key2) => {
-          map2[versions[key2]] = versionsData[entry][key2]
-          return map2
-        },
-        {}
-      )
+function unpackReleaseDate(versions, packed) {
+  if (!Array.isArray(packed)) return copy(packed)
+  // Dates are stored as a number of days since the previous release
+  let days = 0
+  return versions.reduce((dates, version, index) => {
+    if (packed[index] === null) {
+      dates[version] = null
     } else {
-      // entry is B
-      data.prefix = versionsData[entry]
+      days += packed[index]
+      dates[version] = days * DAY
     }
-    return data
+    return dates
   }, {})
+}
+
+function unpackAgent(packed) {
+  // Versions are stored as strings of space-separated versions
+  // and numbers of empty cells between them
+  let versions = []
+  let released = []
+  packed.C.forEach(item => {
+    if (typeof item === 'number') {
+      for (let i = 0; i < item; i++) versions.push(null)
+    } else {
+      item.split(' ').forEach(version => {
+        versions.push(version)
+        released.push(version)
+      })
+    }
+  })
+
+  let agent = {
+    usage_global: unpackUsage(released, packed.A),
+    prefix: packed.B,
+    versions: versions,
+    browser: packed.E,
+    release_date: unpackReleaseDate(released, packed.F)
+  }
+  if (packed.D) agent.prefix_exceptions = copy(packed.D)
+  return agent
+}
+
+module.exports.agents = Object.keys(agentsData).reduce((map, key) => {
+  map[browsers[key]] = unpackAgent(agentsData[key])
   return map
 }, {})
