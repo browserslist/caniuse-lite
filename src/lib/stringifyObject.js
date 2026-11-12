@@ -20,7 +20,10 @@ function stringifyRecursive(data) {
   } else if (typeof data === 'boolean') {
     return t.booleanLiteral(data)
   } else if (typeof data === 'number') {
-    return t.numericLiteral(data)
+    // Babel does not accept negative numbers as literals
+    return data < 0
+      ? t.unaryExpression('-', t.numericLiteral(-data))
+      : t.numericLiteral(data)
   } else if (Array.isArray(data)) {
     return t.arrayExpression(data.map(stringifyRecursive))
   } else if (data === Object(data)) {
