@@ -39,8 +39,8 @@
     "test": "pnpm run pack && pnpm run /^test:/"
   },
   "devDependencies": {
-    "@babel/generator": "^7.29.7",
-    "@babel/types": "^7.29.7",
+    "@babel/generator": "^8.1.0",
+    "@babel/types": "^8.1.0",
     "@logux/oxc-configs": "^0.4.1",
     "@mdn/browser-compat-data": "8.1.8",
     "actions-up": "^1.16.0",
