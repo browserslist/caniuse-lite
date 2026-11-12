@@ -141,3 +141,9 @@ module.exports = async function packAgents() {
     stringifyObject(output)
   )
 }
+
+// For tests
+module.exports.packReleaseDate = packReleaseDate
+module.exports.packUsage = packUsage
+module.exports.packVersions = packVersions
+module.exports.relevantKeys = relevantKeys

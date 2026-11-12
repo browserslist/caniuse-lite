@@ -251,3 +251,11 @@ module.exports = async function packRegion() {
     })
   )
 }
+
+// For tests
+module.exports.findCommonLayout = findCommonLayout
+module.exports.getLayout = getLayout
+module.exports.isCompactable = isCompactable
+module.exports.packCompact = packCompact
+module.exports.packExplicit = packExplicit
+module.exports.planUnits = planUnits

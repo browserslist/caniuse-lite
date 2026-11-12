@@ -233,3 +233,14 @@ module.exports = async function packFeature() {
     featureIndex(features)
   )
 }
+
+// For tests
+module.exports.checkFeature = checkFeature
+module.exports.countSupportValues = countSupportValues
+module.exports.getRuns = getRuns
+module.exports.hasAgentVersions = hasAgentVersions
+module.exports.packExplicit = packExplicit
+module.exports.packLength = packLength
+module.exports.packRuns = packRuns
+module.exports.packStats = packStats
+module.exports.packSupport = packSupport
