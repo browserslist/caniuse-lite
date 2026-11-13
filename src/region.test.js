@@ -34,4 +34,11 @@ test('should be 1:1', () => {
   })
 })
 
+test('should unpack regions stored as objects', () => {
+  equal(regions({ C: { '115': 0.5, _: '2 3.6', '3.5': 0 }, H: { all: 0 } }), {
+    firefox: { '2': null, '115': 0.5, '3.6': null, '3.5': 0 },
+    op_mini: { all: 0 }
+  })
+})
+
 test.run()

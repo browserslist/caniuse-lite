@@ -46,4 +46,31 @@ test('should be 1:1', () => {
   })
 })
 
+test('should unpack features with another set of browsers', () => {
+  let packed = require('../data/features/css-autofill.js')
+  equal(typeof packed.A, 'object')
+  equal(
+    Object.keys(features(packed).stats),
+    Object.keys(fulldata['css-autofill'].stats)
+  )
+})
+
+test('should unpack browsers with another set of versions', () => {
+  let unpacked = features({
+    A: { A: { 1: '11 TP', 2: '9', 164: '10' }, H: ' ' },
+    B: 6,
+    C: 'Test',
+    D: true
+  })
+  equal(unpacked, {
+    status: 'other',
+    title: 'Test',
+    shown: true,
+    stats: {
+      ie: { '9': 'n', '10': 'a x #1', '11': 'y', 'TP': 'y' },
+      op_mini: { all: 'y' }
+    }
+  })
+})
+
 test.run()

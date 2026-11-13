@@ -3,14 +3,14 @@ let fs = require('node:fs').promises
 let t = require('@babel/types')
 
 let browsers = require('../../data/browsers')
-let versions = require('../../data/browserVersions')
 let statuses = require('../../dist/lib/statuses')
 let supported = require('../../dist/lib/supported')
-let { encode } = require('../lib/base62.js')
+let { agents } = require('../../dist/unpacker/agents')
 let generateCode = require('../lib/generateCode')
 let getContentsFactory = require('../lib/getContents')
 let moduleExports = require('../lib/moduleExports')
 let stringifyObject = require('../lib/stringifyObject')
+let char = require('../lib/tokenChar')
 let fromEntries = require('../util/fromEntries')
 let invertObj = require('../util/invertObj')
 let parseDecimal = require('../util/parseDecimal')
@@ -18,7 +18,6 @@ let sum = require('../util/sum')
 
 let browsersInverted = invertObj(browsers)
 let statusesInverted = invertObj(statuses)
-let versionsInverted = invertObj(versions)
 
 let base = path.join(
   path.dirname(require.resolve(`caniuse-db/data.json`)),
@@ -26,6 +25,13 @@ let base = path.join(
 )
 
 let getContents = getContentsFactory(base)
+
+// The token alphabet. Keep in sync with dist/unpacker/feature.js
+const TOKENS = 93
+const POPULAR = 35
+const LENGTH = 38
+const LENGTH_BASE = 55
+const MAX_SUPPORT_VALUES = POPULAR + (LENGTH - POPULAR) * TOKENS
 
 let requireCall = moduleName =>
   t.callExpression(t.identifier('require'), [t.stringLiteral(moduleName)])
@@ -51,158 +57,175 @@ function packSupport(supportData) {
   )
 }
 
-const MIN_PAIR = 4
-const MAX_GROUPS = 8000
-const PAIR_RADIX = 0x1000000
-
-function buildGroups(sequences) {
-  let tokenToId = new Map()
-  let literals = [] // id -> literal version-key (or undefined for a rule)
-  let seqs = sequences.map(tokens => tokens.map(token => {
-    let id = tokenToId.get(token)
-    if (id === undefined) {
-      id = literals.length
-      literals.push(token)
-      tokenToId.set(token, id)
+/* Support rarely changes between versions, so for agent versions we keep
+   only the support and the number of versions in a row which have it. */
+function getRuns(versions, support) {
+  let runs = []
+  for (let version of versions) {
+    let last = runs[runs.length - 1]
+    if (last && last.support === support[version]) {
+      last.length++
+    } else {
+      runs.push({ support: support[version], length: 1 })
     }
-    return id
-  }))
-  let groupParts = [] // id -> [left, right]
+  }
+  return runs
+}
 
-  while (groupParts.length < MAX_GROUPS) {
-    // These are pairs of IDs. e.g. [1, 2, 3, 4] represents the pairs (1, 2) and (3, 4).
-    // Their values are the number of times they occur in the sequences.
-    // Map<Pair, Count>
-    let pairs = new Map()
-    let best = -1
-    let bestCount = MIN_PAIR - 1
-    for (let seq of seqs) {
-      for (let i = 0; i + 1 < seq.length; i++) {
-        let pair = seq[i] * PAIR_RADIX + seq[i + 1]
-        let count = (pairs.get(pair) || 0) + 1
-        pairs.set(pair, count)
-        if (count > bestCount || (count === bestCount && pair < best)) {
-          bestCount = count
-          best = pair
-        }
+function hasAgentVersions(browser, support) {
+  if (!agents[browser]) return false
+  let versions = agents[browser].versions.filter(Boolean)
+  // Object.keys() to compare versions in the order used by JS objects
+  let keys = Object.keys(fromEntries(versions.map(version => [version, 1])))
+  return JSON.stringify(Object.keys(support)) === JSON.stringify(keys)
+}
+
+function packLength(length) {
+  let result = ''
+  while (length > 0) {
+    let digit = (length - 1) % LENGTH_BASE
+    result = char(LENGTH + digit) + result
+    length = (length - 1 - digit) / LENGTH_BASE
+  }
+  return result
+}
+
+function packRuns(runs, supportValues) {
+  return runs
+    .map((run, index) => {
+      let position = supportValues.indexOf(run.support)
+      let result
+      if (position < POPULAR) {
+        result = char(position)
+      } else {
+        let rare = position - POPULAR
+        result = char(POPULAR + Math.floor(rare / TOKENS)) + char(rare % TOKENS)
+      }
+      // Last value is used until the last version
+      if (index < runs.length - 1) result += packLength(run.length)
+      return result
+    })
+    .join('')
+}
+
+function packExplicit(support) {
+  return Object.entries(support).reduce((min, [version, value]) => {
+    if (!min[value]) {
+      min[value] = version
+    } else {
+      min[value] += ` ${version}`
+    }
+    return min
+  }, {})
+}
+
+function packStats(stats, supportValues) {
+  let packed = fromEntries(
+    stats.map(({ browser, support, runs }) => {
+      let isPackable =
+        runs &&
+        runs.every(run => {
+          let position = supportValues.indexOf(run.support)
+          return position !== -1 && position < MAX_SUPPORT_VALUES
+        })
+      return [
+        browsersInverted[browser],
+        isPackable ? packRuns(runs, supportValues) : packExplicit(support)
+      ]
+    })
+  )
+  // Most of the features have all browsers, so we can avoid browser keys
+  let values = Object.values(packed)
+  let isAllBrowsers =
+    Object.keys(packed).join() === Object.keys(browsers).join() &&
+    values.every(value => typeof value === 'string')
+  return isAllBrowsers ? values.join('') : packed
+}
+
+function countSupportValues(features) {
+  let counts = new Map()
+  for (let { stats } of features) {
+    for (let { runs } of stats) {
+      for (let run of runs || []) {
+        counts.set(run.support, (counts.get(run.support) || 0) + 1)
       }
     }
-    if (best < 0) break
-
-    let left = Math.floor(best / PAIR_RADIX)
-    let right = best % PAIR_RADIX
-    let id = literals.length
-    literals.push(undefined)
-    groupParts[id] = [left, right]
-
-    // Replace all occurrences of the best pair with the new rule ID.
-    for (let seq of seqs) {
-      let write = 0
-      for (let i = 0; i < seq.length; i++) {
-        if (i + 1 < seq.length && seq[i] === left && seq[i + 1] === right) {
-          seq[write++] = id
-          i++
-        } else {
-          seq[write++] = seq[i]
-        }
-      }
-      // Discard the tail of the sequence that has been overwritten.
-      seq.length = write
-    }
   }
+  // The most popular values will have the shortest token
+  return [...counts.keys()].toSorted(
+    (a, b) => counts.get(b) - counts.get(a) || a - b
+  )
+}
 
-  // Keep only rules that survive in the output (directly or via other rules),
-  // and hand the most-used ones the shortest keys.
-  let usedLiterals = Array.from({ length: literals.length }, () => 0)
-  for (let seq of seqs) {
-    for (let id of seq) {
-      usedLiterals[id]++
-    }
+function checkFeature(name, unpacked, contents) {
+  let isSame =
+    unpacked.status === contents.status &&
+    unpacked.title === contents.title &&
+    unpacked.shown === contents.shown &&
+    JSON.stringify(Object.keys(unpacked.stats)) ===
+      JSON.stringify(Object.keys(contents.stats)) &&
+    Object.entries(contents.stats).every(([browser, support]) => {
+      let versions = Object.keys(support)
+      return (
+        versions.length === Object.keys(unpacked.stats[browser]).length &&
+        versions.every(
+          version =>
+            typeof unpacked.stats[browser][version] === 'string' &&
+            packSupport(unpacked.stats[browser][version]) ===
+              packSupport(support[version])
+        )
+      )
+    })
+  if (!isSame) {
+    throw new Error(`Feature ${name} was packed with a mistake`)
   }
-  for (let id = literals.length - 1; id >= 0; id--) {
-    if (groupParts[id] && usedLiterals[id]) {
-      usedLiterals[groupParts[id][0]]++
-      usedLiterals[groupParts[id][1]]++
-    }
-  }
-  let kept = [...literals.keys()]
-    .filter(id => groupParts[id] && usedLiterals[id])
-    .toSorted((a, b) => usedLiterals[b] - usedLiterals[a] || a - b)
-  let keyOf = Array.from({ length: literals.length })
-  kept.forEach((id, index) => {
-    keyOf[id] = encode(index)
-  })
-
-  let symbol = id => (groupParts[id] ? `_${keyOf[id]}` : literals[id])
-  let groups = {}
-  for (let id of kept) {
-    let [left, right] = groupParts[id]
-    groups[keyOf[id]] = `${symbol(left)} ${symbol(right)}`
-  }
-  let encoded = seqs.map(seq => seq.map(symbol).join(' '))
-  return { groups, encoded }
 }
 
 module.exports = async function packFeature() {
   let features = await fs.readdir(base).then(getContents)
 
-  let cells = []
-  let packedFeatures = features.map(({ name, contents }) => {
-    let packed = {}
+  let parsed = features.map(({ name, contents }) => ({
+    name,
+    contents,
+    stats: Object.entries(contents.stats).map(([browser, browserSupport]) => {
+      let support = fromEntries(
+        Object.entries(browserSupport).map(([version, value]) => [
+          version,
+          packSupport(value)
+        ])
+      )
+      let runs
+      if (hasAgentVersions(browser, support)) {
+        runs = getRuns(agents[browser].versions.filter(Boolean), support)
+      }
+      return { browser, support, runs }
+    })
+  }))
 
-    packed.A = fromEntries(
-      Object.entries(contents.stats).map(([key, browser]) => {
-        let supportData = fromEntries(
-          Object.entries(browser).map(([version, support]) => [
-            versionsInverted[version],
-            packSupport(support)
-          ])
-        )
-
-        let compacted = Object.entries(supportData).reduce(
-          (min, [k, value]) => {
-            if (!min[value]) {
-              min[value] = k
-            } else {
-              min[value] += ` ${k}`
-            }
-            return min
-          },
-          {}
-        )
-
-        for (let support of Object.keys(compacted)) {
-          cells.push({ list: compacted, support })
-        }
-
-        return [browsersInverted[key], compacted]
-      })
-    )
-    packed.B = parseDecimal(statusesInverted[contents.status])
-    packed.C = contents.title
-    packed.D = contents.shown
-    return { name, packed }
-  })
-
-  let { groups, encoded } = buildGroups(
-    cells.map(cell => cell.list[cell.support].split(' '))
+  let supportValues = countSupportValues(parsed)
+  await fs.writeFile(
+    path.join(__dirname, '../../data/featureSupport.js'),
+    stringifyObject(supportValues)
   )
-  cells.forEach((cell, index) => {
-    cell.list[cell.support] = encoded[index]
-  })
+
+  // Unpacker needs the file above
+  let unpackFeature = require('../../dist/unpacker/feature')
 
   await Promise.all(
-    packedFeatures.map(({ name, packed }) =>
-      fs.writeFile(
+    parsed.map(({ name, contents, stats }) => {
+      let packed = {
+        A: packStats(stats, supportValues),
+        B: parseDecimal(statusesInverted[contents.status]),
+        C: contents.title,
+        D: contents.shown
+      }
+      checkFeature(name, unpackFeature(packed), contents)
+
+      return fs.writeFile(
         path.join(__dirname, `../../data/features/${name}.js`),
         stringifyObject(packed)
       )
-    )
-  )
-
-  await fs.writeFile(
-    path.join(__dirname, '../../data/versionGroups.js'),
-    stringifyObject(groups)
+    })
   )
 
   return fs.writeFile(
@@ -210,3 +233,14 @@ module.exports = async function packFeature() {
     featureIndex(features)
   )
 }
+
+// For tests
+module.exports.checkFeature = checkFeature
+module.exports.countSupportValues = countSupportValues
+module.exports.getRuns = getRuns
+module.exports.hasAgentVersions = hasAgentVersions
+module.exports.packExplicit = packExplicit
+module.exports.packLength = packLength
+module.exports.packRuns = packRuns
+module.exports.packStats = packStats
+module.exports.packSupport = packSupport

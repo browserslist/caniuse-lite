@@ -11,10 +11,11 @@ it's not a problem for server side consumption but client side, the less
 JavaScript that we send to the end user the better.
 
 caniuse-lite then, is a smaller dataset that keeps essential parts of the data
-in a compact format. It does this in multiple ways, such as converting `null`
-array entries into empty strings, representing support data as an integer rather
-than a string, and using base62 references instead of longer human-readable
-keys.
+in a compact format. It does this in multiple ways, such as keeping the list of
+browser versions once instead of repeating it in every file, storing support
+and usage data as a string with values for versions in the order of this list,
+merging versions in a row with the same value, and representing support data
+as an integer rather than a string.
 
 This packed data is then reassembled (via functions exposed by this module) into
 a larger format which is mostly compatible with caniuse-db, and so it can be
